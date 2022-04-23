@@ -5,6 +5,10 @@
 ### Description : This project is to build a social network website.
 
 ## Author : [wlz](https://www.github.com/wanglz111), ysm, yzh, xrx
+| Name | Email |
+| ---- | ----- |
+| [wlz](https://www.github.com/wanglz111) | [lucas.wang21@foxmail.com](mailto:lucas.wang21@foxmail.com) |
+
 
 
 ### Date : 2022.04
@@ -13,6 +17,12 @@
 - [SpringBoot](https://spring.io/projects/spring-boot)
 - [MySQL](https://www.mysql.com/)
 - [thymeleaf](https://www.thymeleaf.org/)
+- [mybatis](https://www.mybatis.org/)
+- [junit](https://junit.org/)
+- [git](https://git-scm.com/)
+- [maven](https://maven.apache.org/)
+- [qiniu](https://www.qiniu.com/)
+
 
 ### Mission :
 - [x] Login Web
