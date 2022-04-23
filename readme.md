@@ -4,16 +4,20 @@
 
 ### Description : This project is to build a social network website.
 
-## Author : [wlz](), ysm, yzh, xrx
+## Author : [wlz](https://www.github.com/wanglz111), ysm, yzh, xrx
+
 
 ### Date : 2022.04
 
-### Version : 0.1
+### Technology :
+- [SpringBoot](https://spring.io/projects/spring-boot)
+- [MySQL](https://www.mysql.com/)
+- [thymeleaf](https://www.thymeleaf.org/)
 
+### Mission :
 - [x] Login Web
 > - [x] VerifyCode
 > - [x] Register
-> - [ ] ForgetPassword
 - [x] Register Web
 > - [x] VerifyCode
 > - [x] Validate Arguments
