@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Register</h1>
+<div>
+    <p th:text="${msg}" style="color:red">欢迎注册</p>
+</div>
+<form th:action="@{/upload}" method="post" enctype="multipart/form-data">
+    <div>
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username">
+    </div>
+    <div>
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password">
+    </div>
+    <div>
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" name="confirmPassword" id="confirmPassword">
+    </div>
+    <div>
+        <label for="telephone">Telephone:</label>
+        <input type="text" name="telephone" id="telephone">
+    </div>
+    <div>
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email">
+    </div>
+    <!--avatar-->
+    <div>
+        <label for="avatar">Avatar:</label>
+        <input type="file" name="avatar" id="avatar">
+    </div>
+    <div>
+        <input type="submit" value="Register">
+    </div>
+</form>
+</body>
+</html>

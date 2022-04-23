@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        img{ border:1px solid #000; width:100px}
+    </style>
+</head>
+<body>
+<h1>欢迎光临精装论坛</h1>
+<div>
+    <p>你是第[[${session.loginUser.id}]]个注册成功并登陆的</p>
+    <p>你的用户名是[[${session.loginUser.name}]]</p>
+</div>
+<!--展示头像-->
+<div>
+    <img th:src="${session.loginUser.avatar}" alt="头像">
+    <p>你滴头像</p>
+</div>
+<div class="container">
+    <p>下面是已经成功注册的</p>
+    <table class="user-table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr class="list-inline" th:each="user:${users}">
+            <td>[[${user.name}]]</td>
+            <td>[[${user.phone}]]</td>
+            <td>[[${user.email}]]</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

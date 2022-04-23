@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Slip</title>
+</head>
+<body>
+<h1>Login</h1>
+
+<div class="container">
+    <p style="color:darkred ">[[${msg}]]</p>
+    <form action="login" method="get">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+        </div>
+        <div class="form-group">
+            <label for="verifyCode">VerifyCode</label>
+            <input type="password" class="form-control" id="verifyCode" name="verifyCode" placeholder="VerifyCode">
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+
+    <div>
+        <a href="javascript:void(0);" rel="external nofollow" title="点击更换验证码">
+            <img th:src="@{/getVerifyCode}" onclick="changeCode()" class="verifyCode" alt=""/>
+        </a>
+    </div>
+
+    <button type="button" class="btn btn-primary" onclick="window.location.href='register'">Register</button>
+</div>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+    function changeCode() {
+        // const src = "/getVerifyCode?" + new Date().getTime(); //加时间戳，防止浏览器利用缓存
+        $('.verifyCode');
+    }
+</script>
+</html>
