@@ -4,16 +4,15 @@
 
 ### Description : This project is to build a social network website.
 
-## Author : [wlz](https://www.github.com/wanglz111), ysm, yzh, xrx
+### Author : [wlz](https://www.github.com/wanglz111), ysm, yzh, xrx
 | Name | Email |
 | ---- | ----- |
 | [wlz](https://www.github.com/wanglz111) | [lucas.wang21@foxmail.com](mailto:lucas.wang21@foxmail.com) |
 
 
 
-### Date : 2022.04
 
-### Technology :
+## Technology :
 - [SpringBoot](https://spring.io/projects/spring-boot)
 - [MySQL](https://www.mysql.com/)
 - [thymeleaf](https://www.thymeleaf.org/)
@@ -24,7 +23,7 @@
 - [qiniu](https://www.qiniu.com/)
 
 
-### Mission :
+## Mission :
 - [x] Login Web
 > - [x] VerifyCode
 > - [x] Register
