@@ -1,10 +1,10 @@
 package com.xjtlu.slip;
 
 import com.xjtlu.slip.utils.CreateVerifyCodeImage;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
 import javax.imageio.ImageIO;
-
 
 public class TestCaptcha {
 

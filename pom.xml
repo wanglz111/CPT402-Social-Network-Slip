@@ -103,6 +103,19 @@
             <artifactId>qiniu-java-sdk</artifactId>
             <version>7.9.5</version>
         </dependency>
+        <!--faker data-->
+        <dependency>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>1.2.8</version>
+        </dependency>
+
     </dependencies>
 
     <build>
