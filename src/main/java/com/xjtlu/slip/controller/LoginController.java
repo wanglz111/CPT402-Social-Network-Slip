@@ -3,6 +3,7 @@ package com.xjtlu.slip.controller;
 import com.qiniu.util.StringUtils;
 import com.xjtlu.slip.pojo.User;
 import com.xjtlu.slip.service.UserService;
+import com.xjtlu.slip.utils.GenerateAvatar;
 import com.xjtlu.slip.utils.UploadFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -85,26 +87,28 @@ public class LoginController {
 
 
         //check if the file is empty or suffix is not image format
+        String newFileName;
+        InputStream uploadFile;
+        String newName = UUID.randomUUID().toString().replace("-", "").toLowerCase(Locale.ROOT);
         if (file.isEmpty()) {
-            model.addAttribute("msg", "file is empty");
-            return "register";
+            //generate a default avatar
+            uploadFile = GenerateAvatar.generateOneAvatar();
+            newFileName = newName.concat(".png");
+        } else {
+            //check if the file is image format
+            String suffix = Objects.requireNonNull(file.getOriginalFilename()).substring(file.getOriginalFilename().lastIndexOf("."));
+            if (!".jpg".equals(suffix) && !".png".equals(suffix) && !".jpeg".equals(suffix) && !".gif".equals(suffix) && !".bmp".equals(suffix) && !".ico".equals(suffix) && !".svg".equals(suffix) && !".webp".equals(suffix)) {
+                model.addAttribute("msg", "file suffix is not image format");
+            }
+            //check if the file is too large
+            if (file.getSize() > 1024 * 1024 * 20) {
+                model.addAttribute("msg", "avatar is too large");
+            }
+            newFileName = newName.concat(suffix);
+            uploadFile = file.getInputStream();
         }
-        //check if the file is image format
-        String suffix = Objects.requireNonNull(file.getOriginalFilename()).substring(file.getOriginalFilename().lastIndexOf("."));
-        if (!".jpg".equals(suffix) && !".png".equals(suffix) && !".jpeg".equals(suffix) && !".gif".equals(suffix) && !".bmp".equals(suffix) && !".ico".equals(suffix) && !".svg".equals(suffix) && !".webp".equals(suffix)) {
-            model.addAttribute("msg", "file suffix is not image format");
-        }
-        //check if the file is too large
-        if (file.getSize() > 1024 * 1024 * 20) {
-            model.addAttribute("msg", "avatar is too large");
-        }
-        //save the file to the server
-        String fileName = UUID.randomUUID() + suffix;
         //save the file
-        String uuid = UUID.randomUUID().toString().replace("-","").toLowerCase(Locale.ROOT);
-        int indexSuffix = fileName.lastIndexOf(".");
-        String newFileName = uuid.concat(fileName.substring(indexSuffix));
-        UploadFile.uploadFile(newFileName, file.getInputStream());
+        UploadFile.uploadFile(newFileName, uploadFile);
 
         String prefix = "http://ran6e8ncl.bkt.clouddn.com/";
 
