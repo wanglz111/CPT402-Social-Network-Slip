@@ -1,6 +1,7 @@
 package com.xjtlu.slip.controller;
 
 import com.qiniu.util.StringUtils;
+import com.xjtlu.slip.utils.Constant;
 import com.xjtlu.slip.pojo.User;
 import com.xjtlu.slip.service.UserService;
 import com.xjtlu.slip.utils.GenerateAvatar;
@@ -110,7 +111,7 @@ public class LoginController {
         //save the file
         UploadFile.uploadFile(newFileName, uploadFile);
 
-        String prefix = "http://ran6e8ncl.bkt.clouddn.com/";
+        String prefix = Constant.OSS_WEBSITE_URL;
 
 
         //save the user information

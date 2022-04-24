@@ -3,6 +3,7 @@ package com.xjtlu.slip.utils;
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;
 import com.qiniu.storage.Configuration;
+import com.qiniu.storage.Region;
 import com.qiniu.storage.UploadManager;
 import com.qiniu.util.Auth;
 
@@ -18,14 +19,16 @@ import java.util.Map;
 public class UploadFile {
 
     public static void uploadFile(String fileName, InputStream input) throws QiniuException {
-        String accessKey = "fsflNtY_jkOWRChdbkfcvGNbd1QZVyMJ6r-Wy_21";
-        String secretKey = "DsMkh0FtfwQsnncuXR_J1m4LAVyS1ek0k-ksphXL";
-        String bucketName = "cpt402";
+        String accessKey = Constant.OSS_ACCESS_KEY_ID;
+        String secretKey = Constant.OSS_ACCESS_KEY_SECRET;
+        String bucketName = Constant.OSS_BUCKET_NAME;
+        //Region.region0() is the default region means the bucket is in East China
         Configuration cfg = new Configuration();
         UploadManager uploadManager = new UploadManager(cfg);
         Auth auth = Auth.create(accessKey, secretKey);
         String token = auth.uploadToken(bucketName);
         Response r = uploadManager.put(input, fileName, token,null,null);
+        System.out.println(r.bodyString());
 
     }
 
