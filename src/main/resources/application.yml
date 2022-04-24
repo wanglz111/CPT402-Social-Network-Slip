@@ -26,6 +26,12 @@ spring:
       max-file-size: 100MB
       max-request-size: 100MB
 
+  redis:
+    host: 110.42.150.233
+    port: 6379
+    timeout: 2000
+    database: 0
+
 #  thymeleaf:
 #    mode: HTML5
 #    encoding: UTF-8
@@ -34,5 +40,14 @@ spring:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    default-enum-type-handler: org.apache.ibatis.type.EnumTypeHandler
   mapper-locations: classpath*:/mapper/**/*.xml
   type-aliases-package: com.xjtlu.slip.pojo
+
+# monitoring-configuration
+#management:
+#  endpoints:
+#    enabled-by-default: true
+#    web:
+#      exposure:
+#        include: '*'
