@@ -8,8 +8,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Repository;
 
 @SpringBootApplication
-@MapperScan("com.xjtlu.slip.mapper")
-@ComponentScan(basePackages = {"com.xjtlu.slip.service", "com.xjtlu.slip.controller", "com.xjtlu.slip.pojo"})
+//@MapperScan("com.xjtlu.slip.mapper")
+//@ComponentScan(basePackages = {"com.xjtlu.slip.service", "com.xjtlu.slip.controller", "com.xjtlu.slip.pojo", "com.xjtlu.slip.configs"})
 public class SlipApplication {
 
     public static void main(String[] args) {

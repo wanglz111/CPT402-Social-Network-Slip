@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Topics</title>
+</head>
+<body>
+    <h1>Topics</h1>
+    <div class="cell item" style="">
+        <table>
+            <tbody>
+            <tr th:each="topic:${topics}">
+                <td><img src="" class="avatar"></td>
+                <td></td>
+                <td><span class="item_title"><a class="topic-link">[[${topic.title}]]</a></span>
+                    <div class="sep5"></div>
+                    <span class="topic_info"><div class="votes"></div><a>[[${topic.type}]]</a> <span th:text="${#dates.format(topic.latestCommentUnixTime*1000, 'yyyy-MM-dd HH:mm:ss')}"></span></span>
+                </td>
+                <td>
+                    <a href="" class="count_livid"></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+<script>
+    //timestamp to date
+    function timestampToDate(timestamp) {
+        var date = new Date(timestamp);
+        var Y = date.getFullYear() + '-';
+        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+        var D = date.getDate() + ' ';
+        var h = date.getHours() + ':';
+        var m = date.getMinutes() + ':';
+        var s = date.getSeconds();
+        return Y+M+D+h+m+s;
+    }
+</script>
+</html>
