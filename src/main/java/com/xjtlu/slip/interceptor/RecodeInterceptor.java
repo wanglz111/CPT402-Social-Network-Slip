@@ -21,7 +21,6 @@ public class RecodeInterceptor implements HandlerInterceptor {
     @Autowired
     StringRedisTemplate redisTemplate;
 
-
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         // for every request, we set a record in redis.
