@@ -1,12 +1,16 @@
 package com.xjtlu.slip.controller;
 
 import com.qiniu.util.StringUtils;
+import com.xjtlu.slip.service.RedisService;
 import com.xjtlu.slip.utils.Constant;
 import com.xjtlu.slip.pojo.User;
 import com.xjtlu.slip.service.UserService;
 import com.xjtlu.slip.utils.GenerateAvatar;
+import com.xjtlu.slip.utils.MD5;
 import com.xjtlu.slip.utils.UploadFile;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpCookie;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,10 +24,14 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.UUID;
 
+@Slf4j
 @Controller
 public class LoginController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RedisService redisService;
 
     @GetMapping("/")
     public String welcome() {
@@ -32,6 +40,10 @@ public class LoginController {
 
     @GetMapping("/login")
     public String login(Model model, String username, String password, String verifyCode ,HttpSession session) {
+        //redis中试着找到当前User
+        String userSession = (String) session.getAttribute("_userSession");
+        log.info("userSession: {}", userSession);
+
 
         if (StringUtils.isNullOrEmpty(username)||StringUtils.isNullOrEmpty(password)) {
             model.addAttribute("msg", "username or password is null");
@@ -50,12 +62,25 @@ public class LoginController {
             return "login";
         }
         session.setAttribute("loginUser", user);
-        System.out.println("session : " + session.getAttribute("loginUser"));
+        String _userSession = MD5.encrypt(user.toString());
+//        session.setAttribute("_userSession", _userSession);
+        redisService.set("User:Session:".concat(_userSession), user);
+
         return "redirect:/index";
     }
 
     @GetMapping("/index")
-    public String index(Model model) {
+    public String index(Model model, HttpSession session) {
+        if (model.getAttribute("loginUser") == null) {
+            String userSession = (String) session.getAttribute("_userSession");
+            User user = (User) redisService.get("User:Session:".concat(userSession));
+            if (user == null) {
+                session.setAttribute("msg", "please login first");
+                return "redirect:/login";
+            }
+            model.addAttribute("loginUser", user);
+        }
+
         List<User> users = userService.list();
         model.addAttribute("users", users);
         return "index";

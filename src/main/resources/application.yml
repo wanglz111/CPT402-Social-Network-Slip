@@ -27,9 +27,10 @@ spring:
       max-request-size: 100MB
 
   redis:
-#    host: 110.42.150.233
-    host: 127.0.0.1
+    host: 110.42.150.233
+#    host: 127.0.0.1
     port: 6379
+    password: 123456
     timeout: 2000
     database: 0
     client-type: jedis
@@ -44,10 +45,11 @@ spring:
 #    encoding: UTF-8
 #    cache: false
 #    prefix: classpath:/templates/
+
 mybatis-plus:
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-    default-enum-type-handler: org.apache.ibatis.type.EnumTypeHandler
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#    default-enum-type-handler: org.apache.ibatis.type.EnumTypeHandler
   mapper-locations: classpath*:/mapper/**/*.xml
   type-aliases-package: com.xjtlu.slip.pojo
 
