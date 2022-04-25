@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xjtlu.slip.mapper.TopicMapper">
+
+    <resultMap id="BaseResultMap" type="com.xjtlu.slip.pojo.Topic">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="title" column="title" jdbcType="VARCHAR"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="authorId" column="author_id" jdbcType="BIGINT"/>
+            <result property="author" column="author" jdbcType="VARCHAR"/>
+            <result property="createUnixTime" column="create_unix_time" jdbcType="BIGINT"/>
+            <result property="updateUnixTime" column="update_unix_time" jdbcType="BIGINT"/>
+            <result property="latestCommentUnixTime" column="latest_comment_unix_time" jdbcType="BIGINT"/>
+            <result property="type" column="type" jdbcType="VARCHAR"/>
+            <result property="view" column="view" jdbcType="INTEGER"/>
+            <result property="comment" column="comment" jdbcType="INTEGER"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,title,content,
+        author_id,author,create_unix_time,
+        update_unix_time,latest_comment_unix_time,type,
+        view,comment,is_deleted
+    </sql>
+</mapper>

@@ -1,5 +1,6 @@
-package com.xjtlu.slip.configs;
+package com.xjtlu.slip.config;
 
+import com.xjtlu.slip.interceptor.LoginInterceptor;
 import com.xjtlu.slip.interceptor.RecodeInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +12,9 @@ public class AdminWebConfig implements WebMvcConfigurer {
 
     @Autowired
     private RecodeInterceptor recodeInterceptor;
+
+    @Autowired
+    private LoginInterceptor loginInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

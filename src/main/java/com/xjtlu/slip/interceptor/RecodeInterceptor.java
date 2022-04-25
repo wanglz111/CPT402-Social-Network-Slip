@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 
 @Slf4j
 @Configuration
-@Component
 public class RecodeInterceptor implements HandlerInterceptor {
     // inject the actual template
     @Autowired
@@ -26,8 +25,6 @@ public class RecodeInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         // for every request, we set a record in redis.
-        log.info(request.getRequestURI());
         redisTemplate.opsForValue().increment(request.getRequestURI());
-        log.info("request {} has been completed",request.getRequestURI());
     }
 }

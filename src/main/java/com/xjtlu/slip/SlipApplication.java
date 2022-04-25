@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 @SpringBootApplication
 @EnableCaching
 //@MapperScan("com.xjtlu.slip.mapper")
-//@ComponentScan(basePackages = {"com.xjtlu.slip.service", "com.xjtlu.slip.controller", "com.xjtlu.slip.pojo", "com.xjtlu.slip.configs", "com.xjtlu.slip.interceptor"})
+//@ComponentScan(basePackages = {"com.xjtlu.slip.service", "com.xjtlu.slip.controller", "com.xjtlu.slip.pojo", "com.xjtlu.slip.config", "com.xjtlu.slip.interceptor"})
 public class SlipApplication {
 
     public static void main(String[] args) {
