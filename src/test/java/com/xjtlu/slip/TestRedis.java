@@ -20,7 +20,7 @@ public class TestRedis {
     @Test
     public void test() {
         User user = userService.getById(1);
-        redisTemplate.opsForValue().set("user", "1");
-        System.out.println(redisTemplate.opsForValue().get("user"));
+//        redisTemplate.opsForValue().set("user", "1");
+        System.out.println(redisTemplate.opsForValue().get("/index"));
     }
 }

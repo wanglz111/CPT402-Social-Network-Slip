@@ -12,6 +12,6 @@ public class TestAvatar {
     @Test
     public void testAvatar() throws IOException {
         InputStream inputStream = GenerateAvatar.generateOneAvatar();
-        UploadFile.uploadFile(UUID.randomUUID().toString().concat(".png"), inputStream);
+        UploadFile.uploadFile(UUID.randomUUID().toString().replace("-","").concat(".png"), inputStream);
     }
 }

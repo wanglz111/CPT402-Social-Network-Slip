@@ -31,6 +31,12 @@ spring:
     port: 6379
     timeout: 2000
     database: 0
+    client-type: jedis
+
+  jdbc:
+    template:
+      query-timeout: 3000
+
 
 #  thymeleaf:
 #    mode: HTML5
