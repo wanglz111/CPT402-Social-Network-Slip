@@ -16,6 +16,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,11 +42,8 @@ public class LoginController {
     }
 
     @GetMapping("/login")
-    public String login(Model model, String username, String password, String verifyCode ,HttpSession session) {
+    public String login(Model model, String username, String password, String verifyCode , HttpSession session, HttpServletResponse response) {
         //redis中试着找到当前User
-        String userSession = (String) session.getAttribute("_userSession");
-        log.info("userSession: {}", userSession);
-
 
         if (StringUtils.isNullOrEmpty(username)||StringUtils.isNullOrEmpty(password)) {
             model.addAttribute("msg", "username or password is null");
@@ -63,27 +63,38 @@ public class LoginController {
         }
         session.setAttribute("loginUser", user);
         String _userSession = MD5.encrypt(user.toString());
-//        session.setAttribute("_userSession", _userSession);
         redisService.set("User:Session:".concat(_userSession), user);
+        Cookie cookie = new Cookie("_userSession", _userSession);
+        cookie.setMaxAge(60 * 60 * 24 * 7);
+        cookie.setPath("/");
+        cookie.setPath("/index");
+        cookie.setPath("/logout");
+        response.addCookie(cookie);
 
         return "redirect:/index";
     }
 
     @GetMapping("/index")
-    public String index(Model model, HttpSession session) {
-        if (model.getAttribute("loginUser") == null) {
-            String userSession = (String) session.getAttribute("_userSession");
-            User user = (User) redisService.get("User:Session:".concat(userSession));
-            if (user == null) {
-                session.setAttribute("msg", "please login first");
-                return "redirect:/login";
+    public String index(Model model, HttpServletRequest request, HttpSession session) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("_userSession")) {
+                    String _userSession = cookie.getValue();
+                    User user = (User) redisService.get("User:Session:".concat(_userSession));
+                    if (user != null) {
+                        model.addAttribute("loginUser", user);
+                        session.setAttribute("loginUser", user);
+                        List<User> users = userService.list();
+                        model.addAttribute("users", users);
+                        return "index";
+                    }
+                }
             }
-            model.addAttribute("loginUser", user);
         }
 
-        List<User> users = userService.list();
-        model.addAttribute("users", users);
-        return "index";
+        session.setAttribute("msg", "please login first");
+        return "redirect:/login";
     }
 
     @PostMapping("/upload")
@@ -154,6 +165,23 @@ public class LoginController {
     @GetMapping("/register")
     public String register() {
         return "register";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session, HttpServletRequest request) {
+        //clear the session
+        if (session.getAttribute("loginUser") != null) {
+            session.removeAttribute("loginUser");
+        }
+        //clear the cookie if it exists
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                String cookieName = cookie.getName();
+                redisService.del("User:Session:".concat(cookie.getValue()));
+            }
+        }
+        return "redirect:/";
     }
 
 
