@@ -75,7 +75,7 @@ public class LoginController {
         cookie.setPath("/logout");
         response.addCookie(cookie);
 
-        return "redirect:/index";
+        return "redirect:/topic";
     }
 
     @GetMapping("/index")

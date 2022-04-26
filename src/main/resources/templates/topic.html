@@ -3,11 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <title>Topics</title>
+
+    <style>
+        table {
+            border-collapse: collapse;
+            border: 1px solid black;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 5px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2
+        }
+        .avatar {
+            border: 1px solid #000;
+            width: 100px;
+            horiz-align: right;
+        }
+
+        .fr {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+    </style>
 </head>
 <body>
-    <h1>Topics</h1>
-    <div class="cell item" style="">
-        <table>
+    <h1 style="text-align: center">Topics</h1>
+
+    <div class="fr">
+        <a href="">
+            <img th:src="${session.loginUser.avatar}" class="avatar">
+        </a><br>
+        <a>
+            Welcome, [[${session.loginUser.name}]]
+        </a>
+    </div><br><br><br><br><br>
+
+    <div class="cell item" style="text-align: center;">
+        <table style="align-content: center">
             <tbody>
             <tr th:each="topic:${topics}">
                 <td><img src="" class="avatar"></td>
@@ -28,17 +66,4 @@
     </div>
 
 </body>
-<script>
-    //timestamp to date
-    function timestampToDate(timestamp) {
-        var date = new Date(timestamp);
-        var Y = date.getFullYear() + '-';
-        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-        var D = date.getDate() + ' ';
-        var h = date.getHours() + ':';
-        var m = date.getMinutes() + ':';
-        var s = date.getSeconds();
-        return Y+M+D+h+m+s;
-    }
-</script>
 </html>
