@@ -12,9 +12,12 @@
             <tr th:each="topic:${topics}">
                 <td><img src="" class="avatar"></td>
                 <td></td>
-                <td><span class="item_title"><a class="topic-link">[[${topic.title}]]</a></span>
+                <td><span class="item_title">
+                    <a th:href="@{'/topic/' + ${topic.id}}" class="topic-link">[[${topic.title}]]</a></span>
                     <div class="sep5"></div>
-                    <span class="topic_info"><div class="votes"></div><a>[[${topic.type}]]</a> <span th:text="${#dates.format(topic.latestCommentUnixTime*1000, 'yyyy-MM-dd HH:mm:ss')}"></span></span>
+                    <span class="topic_info"><div class="votes"></div><a>[[${topic.type}]]</a>
+                        <span th:text="${#dates.format(topic.latestCommentUnixTime*1000, 'yyyy-MM-dd HH:mm:ss')}"/>
+                    </span>
                 </td>
                 <td>
                     <a href="" class="count_livid"></a>

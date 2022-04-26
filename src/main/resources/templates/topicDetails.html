@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>[[${topic.title}]]</title>
+    <style>
+        .avatar{ border:1px solid #000; width:100px}
+    </style>
+</head>
+<body>
+<h1>[[${topic.title}]]</h1>
+<div>
+    [[${topic.content}]]
+</div>
+<!--<div>-->
+<!--    <a href="[[${contextPath}]]/topics/[[${topic.id}]]/edit">Edit</a>-->
+<!--</div>-->
+
+<div class="box" style="border-bottom: 0px;">
+    <div class="header">
+        <div class="fr"><a href=""><img th:src="${user.avatar}" class="avatar" ></a></div>
+        <div class="sep10"></div>
+        <h1>[[${topic.title}]]</h1>
+        <a th:href="@{/topic}">Slip</a><span class="chevron">&nbsp;›&nbsp;</span><a th:href="@{'/' + ${topic.type}}">[[${topic.type}]]</a>
+            <small class="gray">
+                <span th:text="${user.name}"/>
+                <span th:text="${#dates.format(topic.createUnixTime*1000, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                <span th:text="${topicClickCount}" class="gray">clicks</span>
+            </small>
+    </div>
+    <div class="cell">
+        <div class="topic_content">
+            <div class="markdown_body"><p>
+                [[${topic.content}]]
+            </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

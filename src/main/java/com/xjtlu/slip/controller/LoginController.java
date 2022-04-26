@@ -184,7 +184,6 @@ public class LoginController {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                log.info("cookie name: " + cookie.getValue());
                 redisService.del("User:Session:".concat(cookie.getValue()));
             }
         }
