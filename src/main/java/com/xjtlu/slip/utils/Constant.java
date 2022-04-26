@@ -12,5 +12,8 @@ public class Constant {
 
     public static final String  REGION_NAME = "cpt402-image";
 
+    public static final long SESSION_TIME = 60 * 60 * 24;
 
+
+    public static final String SALT = "ran6e8ncl";
 }

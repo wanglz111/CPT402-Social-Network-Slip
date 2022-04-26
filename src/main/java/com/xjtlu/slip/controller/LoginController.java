@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -61,12 +62,15 @@ public class LoginController {
             model.addAttribute("msg", "verifyCode is wrong");
             return "login";
         }
+        //remove the verifyCode from session for security
+        session.removeAttribute("verifyCode");
         session.setAttribute("loginUser", user);
-        String _userSession = MD5.encrypt(user.toString());
-        redisService.set("User:Session:".concat(_userSession), user);
+        String _userSession = MD5.encrypt(user + Constant.SALT + LocalTime.now().toString());
+        //store user in redis and set cookie
+        //expire time is 1 day
+        redisService.set("User:Session:".concat(_userSession), user, Constant.SESSION_TIME);
         Cookie cookie = new Cookie("_userSession", _userSession);
-        cookie.setMaxAge(60 * 60 * 24 * 7);
-        cookie.setPath("/");
+        cookie.setMaxAge((int) Constant.SESSION_TIME);
         cookie.setPath("/index");
         cookie.setPath("/logout");
         response.addCookie(cookie);
@@ -77,7 +81,11 @@ public class LoginController {
     @GetMapping("/index")
     public String index(Model model, HttpServletRequest request, HttpSession session) {
         Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
+        if (session.getAttribute("loginUser") != null) {
+            List<User> users = userService.list();
+            model.addAttribute("users", users);
+            return "/index";
+        } else if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("_userSession")) {
                     String _userSession = cookie.getValue();
@@ -87,14 +95,15 @@ public class LoginController {
                         session.setAttribute("loginUser", user);
                         List<User> users = userService.list();
                         model.addAttribute("users", users);
-                        return "index";
+                        return "/index";
                     }
                 }
             }
+        } else {
+            session.setAttribute("msg", "please login first");
+            return "redirect:/";
         }
-
-        session.setAttribute("msg", "please login first");
-        return "redirect:/login";
+        return "redirect:/";
     }
 
     @PostMapping("/upload")
@@ -170,18 +179,17 @@ public class LoginController {
     @GetMapping("/logout")
     public String logout(HttpSession session, HttpServletRequest request) {
         //clear the session
-        if (session.getAttribute("loginUser") != null) {
-            session.removeAttribute("loginUser");
-        }
+        session.invalidate();
         //clear the cookie if it exists
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                String cookieName = cookie.getName();
+                log.info("cookie name: " + cookie.getValue());
                 redisService.del("User:Session:".concat(cookie.getValue()));
             }
         }
-        return "redirect:/";
+
+        return "goodbye";
     }
 
 
