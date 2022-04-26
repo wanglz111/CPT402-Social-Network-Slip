@@ -16,6 +16,8 @@
             right: 0;
         }
     </style>
+
+
 </head>
 <body>
 <!--<div>-->
@@ -30,7 +32,8 @@
             </a><br>
             <a>
                 Welcome, [[${session.loginUser.name}]]
-            </a>
+            </a><br>
+            <a th:href="@{/logout}">Logout</a>
         </div>
         <a th:href="@{/topic}">Slip</a>
         <span class="chevron">&nbsp;›&nbsp;</span>
@@ -52,6 +55,7 @@
         </div>
     </div>
 </div>
+
 
 </body>
 </html>

@@ -16,4 +16,5 @@ public class Constant {
 
 
     public static final String SALT = "ran6e8ncl";
+    public static final int COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
 }

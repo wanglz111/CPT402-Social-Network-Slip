@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.xjtlu.slip"})
 @EnableCaching
 //@MapperScan("com.xjtlu.slip.mapper")
 //@ComponentScan(basePackages = {"com.xjtlu.slip.service", "com.xjtlu.slip.controller", "com.xjtlu.slip.pojo", "com.xjtlu.slip.config", "com.xjtlu.slip.interceptor"})

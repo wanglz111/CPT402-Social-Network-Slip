@@ -2,28 +2,23 @@ package com.xjtlu.slip.controller;
 
 import com.qiniu.util.StringUtils;
 import com.xjtlu.slip.service.RedisService;
-import com.xjtlu.slip.utils.Constant;
+import com.xjtlu.slip.utils.*;
 import com.xjtlu.slip.pojo.User;
 import com.xjtlu.slip.service.UserService;
-import com.xjtlu.slip.utils.GenerateAvatar;
-import com.xjtlu.slip.utils.MD5;
-import com.xjtlu.slip.utils.UploadFile;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpCookie;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.Cookie;
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalTime;
-import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.UUID;
@@ -31,11 +26,15 @@ import java.util.UUID;
 @Slf4j
 @Controller
 public class LoginController {
+
     @Autowired
     private UserService userService;
 
     @Autowired
     private RedisService redisService;
+//cookie controller
+    @Resource
+    private CookieUtil cookieUtil;
 
     @GetMapping("/")
     public String welcome() {
@@ -65,45 +64,32 @@ public class LoginController {
         //remove the verifyCode from session for security
         session.removeAttribute("verifyCode");
         session.setAttribute("loginUser", user);
+        //force cookie different from next time(SALT, TIME)
         String _userSession = MD5.encrypt(user + Constant.SALT + LocalTime.now().toString());
         //store user in redis and set cookie
         //expire time is 1 day
         redisService.set("User:Session:".concat(_userSession), user, Constant.SESSION_TIME);
-        Cookie cookie = new Cookie("_userSession", _userSession);
-        cookie.setMaxAge((int) Constant.SESSION_TIME);
-        cookie.setPath("/index");
-        cookie.setPath("/logout");
-        response.addCookie(cookie);
+        cookieUtil.setCookie("_userSession", _userSession);
 
         return "redirect:/topic";
     }
 
     @GetMapping("/index")
     public String index(Model model, HttpServletRequest request, HttpSession session) {
-        Cookie[] cookies = request.getCookies();
         if (session.getAttribute("loginUser") != null) {
-            List<User> users = userService.list();
-            model.addAttribute("users", users);
-            return "/index";
-        } else if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("_userSession")) {
-                    String _userSession = cookie.getValue();
-                    User user = (User) redisService.get("User:Session:".concat(_userSession));
-                    if (user != null) {
-                        model.addAttribute("loginUser", user);
-                        session.setAttribute("loginUser", user);
-                        List<User> users = userService.list();
-                        model.addAttribute("users", users);
-                        return "/index";
-                    }
-                }
-            }
-        } else {
-            session.setAttribute("msg", "please login first");
-            return "redirect:/";
+            return "redirect:/topic";
         }
+        if (cookieUtil.getCookie("_userSession") != null) {
+            User user = (User) redisService.get("User:Session:".concat(cookieUtil.getCookie("_userSession")));
+            if (user != null) {
+                session.setAttribute("loginUser", user);
+                return "redirect:/topic";
+            }
+        }
+
+        session.setAttribute("msg", "please login first");
         return "redirect:/";
+
     }
 
     @PostMapping("/upload")
@@ -177,17 +163,12 @@ public class LoginController {
     }
 
     @GetMapping("/logout")
-    public String logout(HttpSession session, HttpServletRequest request) {
+    public String logout(HttpSession session) {
         //clear the session
         session.invalidate();
         //clear the cookie if it exists
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                redisService.del("User:Session:".concat(cookie.getValue()));
-            }
-        }
-
+        redisService.del("User:Session:".concat(cookieUtil.getCookie("_userSession")));
+        cookieUtil.clearCookie("_userSession");
         return "goodbye";
     }
 
