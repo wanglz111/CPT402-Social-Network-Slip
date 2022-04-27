@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xjtlu.slip.mapper.CommentMapper">
+
+    <resultMap id="BaseResultMap" type="Comment">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="topicId" column="topic_id" jdbcType="BIGINT"/>
+            <result property="userId" column="user_id" jdbcType="BIGINT"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <resultMap id="CommentAndUser" type="Comment">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="topicId" column="topic_id" jdbcType="BIGINT"/>
+        <result property="userId" column="user_id" jdbcType="BIGINT"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="BIGINT"/>
+        <collection property="user" ofType="com.xjtlu.slip.pojo.User">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+            <result property="phone" column="phone" />
+            <result property="password" column="password" />
+            <result property="email" column="email"/>
+            <result property="avatar" column="avatar"/>
+        </collection>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,topic_id,user_id,
+        content,create_time
+    </sql>
+    <select id="selectCommentAndUserByCommentId" resultMap="CommentAndUser">
+        select comment.id as id, topic_id, user_id, content, create_time, name, phone, password, email, avatar
+        from comment, user
+        where comment.id = #{id}
+          and comment.user_id = user.id
+    </select>
+
+    <select id="selectCommentAndUserByTopicId" resultMap="CommentAndUser">
+        select comment.id as id, topic_id, user_id, content, create_time, name, phone, password, email, avatar
+        from comment, user
+        where topic_id = #{id}
+          and comment.user_id = user.id
+        ORDER BY create_time DESC
+    </select>
+</mapper>

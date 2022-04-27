@@ -107,12 +107,12 @@
             <version>7.9.5</version>
         </dependency>
 
-<!--        &lt;!&ndash;faker data&ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>com.github.javafaker</groupId>-->
-<!--            <artifactId>javafaker</artifactId>-->
-<!--            <version>1.0.2</version>-->
-<!--        </dependency>-->
+        <!--faker data-->
+        <dependency>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+            <version>1.0.2</version>
+        </dependency>
 
         <dependency>
             <groupId>com.alibaba</groupId>

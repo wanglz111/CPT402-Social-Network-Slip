@@ -16,13 +16,8 @@
             right: 0;
         }
     </style>
-
-
 </head>
 <body>
-<!--<div>-->
-<!--    <a href="[[${contextPath}]]/topics/[[${topic.id}]]/edit">Edit</a>-->
-<!--</div>-->
 <div class="box" style="border-bottom: 0;">
     <h1>[[${topic.title}]]</h1>
     <div class="header">
@@ -54,8 +49,30 @@
             </div>
         </div>
     </div>
+
+    <div class="box">
+        <div class="cell">
+            <table>
+                <tbody>
+                <tr th:each="comment:${comments}">
+                    <td><div class="bx">
+                        <strong><div class="badges"></div>
+                            <a th:href="@{'/user/'+${comment.user.id}}">
+                                <img th:src="${comment.user.avatar}" class="avatar"  th:alt="${comment.user.name}">
+                            </a>
+                            <span class="ago" th:text="${#dates.format(comment.createTime*1000, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                            <span class="gray">by</span>
+                            <a th:href="@{'/user/' + ${comment.user.id}}">[[${comment.user.name}]]</a>
+                            <div class="sep5"></div>
+                            <div class="reply_content">[[${comment.content}]]</div>
+                        </strong>
+                    </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
-
-
 </body>
 </html>

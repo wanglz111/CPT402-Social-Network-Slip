@@ -1,8 +1,11 @@
 package com.xjtlu.slip.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.xjtlu.slip.pojo.Comment;
 import com.xjtlu.slip.pojo.Topic;
 import com.xjtlu.slip.pojo.User;
+import com.xjtlu.slip.service.CommentService;
 import com.xjtlu.slip.service.RedisService;
 import com.xjtlu.slip.service.TopicService;
 import com.xjtlu.slip.service.UserService;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -29,13 +33,17 @@ public class TopicController {
 
     @Autowired
     private RedisService redisService;
+    @Autowired
+    private CommentService commentService;
 
     //跳转到帖子主页
     @GetMapping("/topic")
     public String topic(Model model) {
         QueryWrapper<Topic> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("latest_comment_unix_time");
-        List<Topic> topics = topicService.list(queryWrapper);
+        Page<Topic> page = new Page<>(1, 20);
+        List<Topic> topics = topicService.page(page, queryWrapper).getRecords();
+//        List<Topic> topics = topicService.list(queryWrapper);
         model.addAttribute("topics", topics);
         return "topic";
     }
@@ -50,7 +58,10 @@ public class TopicController {
         User user = userService.getById(authorId);
         model.addAttribute("user", user);
         //获取帖子评论
-        //todo:
+        List<Comment> comments = commentService.getListByTopicId(topicId);
+        model.addAttribute("comments", comments);
+
+
 
         //获取帖子点击数
         Integer topicClickCount = (Integer) redisService.get("/topic/".concat(topicId));

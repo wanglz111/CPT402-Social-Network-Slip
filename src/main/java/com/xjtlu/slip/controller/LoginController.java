@@ -7,6 +7,7 @@ import com.xjtlu.slip.pojo.User;
 import com.xjtlu.slip.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -38,19 +39,30 @@ public class LoginController {
 
     @GetMapping("/")
     public String welcome() {
-        return "login";
+        return "redirect:/login";
     }
 
     @GetMapping("/login")
     public String login(Model model, String username, String password, String verifyCode , HttpSession session, HttpServletResponse response) {
-        //redis中试着找到当前User
+        User user;
+        //if cookie exists and useful, redirect to index
+        if (cookieUtil.getCookie("_userSession") != null) {
+            Object rawData = redisService.get("User:Session:".concat(cookieUtil.getCookie("_userSession")));
+            if (rawData != null) {
+                user = (User) rawData;
+                session.setAttribute("loginUser", user);
+                return "redirect:/topic";
+            }
+        }
+
+
 
         if (StringUtils.isNullOrEmpty(username)||StringUtils.isNullOrEmpty(password)) {
             model.addAttribute("msg", "username or password is null");
             return "login";
         }
         //determine if password is correct
-        User user = userService.getByUsernameAndPassword(username, password);
+        user = userService.getByUsernameAndPassword(username, password);
         if (user == null) {
             model.addAttribute("msg", "username or password is wrong");
             return "login";
@@ -74,23 +86,27 @@ public class LoginController {
         return "redirect:/topic";
     }
 
-    @GetMapping("/index")
-    public String index(Model model, HttpServletRequest request, HttpSession session) {
-        if (session.getAttribute("loginUser") != null) {
-            return "redirect:/topic";
-        }
-        if (cookieUtil.getCookie("_userSession") != null) {
-            User user = (User) redisService.get("User:Session:".concat(cookieUtil.getCookie("_userSession")));
-            if (user != null) {
-                session.setAttribute("loginUser", user);
-                return "redirect:/topic";
-            }
-        }
-
-        session.setAttribute("msg", "please login first");
-        return "redirect:/";
-
-    }
+    /**
+     * 本来的 index page 现在index page直接由topic page替代
+     * 这一部分是测试登陆的一部分，具体是否使用后续在看
+     * TODO:
+     */
+//    @GetMapping("/index")
+//    public String index(Model model, HttpServletRequest request, HttpSession session) {
+//        if (session.getAttribute("loginUser") != null) {
+//            return "redirect:/topic";
+//        }
+//        if (cookieUtil.getCookie("_userSession") != null) {
+//            User user = (User) redisService.get("User:Session:".concat(cookieUtil.getCookie("_userSession")));
+//            if (user != null) {
+//                session.setAttribute("loginUser", user);
+//                return "redirect:/topic";
+//            }
+//        }
+//
+//        session.setAttribute("msg", "please login first");
+//        return "redirect:/";
+//    }
 
     @PostMapping("/upload")
     public String register(@RequestParam("username") String username,
@@ -98,7 +114,7 @@ public class LoginController {
                            @RequestParam("confirmPassword") String confirmPassword,
                            @RequestParam("email") String email,
                            @RequestParam("telephone") String telephone,
-                           @RequestPart("avatar") MultipartFile file,
+                           @RequestPart("avatar") @DefaultValue("") MultipartFile file,
                            Model model) throws IOException {
         //check if the username is already registered
         User user = userService.getByUsername(username);
