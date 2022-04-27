@@ -44,6 +44,7 @@
         from comment, user
         where topic_id = #{id}
           and comment.user_id = user.id
-        ORDER BY create_time DESC
+        ORDER BY create_time ASC
     </select>
+
 </mapper>

@@ -57,9 +57,9 @@ mybatis-plus:
   type-aliases-package: com.xjtlu.slip.pojo
 
 # monitoring-configuration
-#management:
-#  endpoints:
-#    enabled-by-default: true
-#    web:
-#      exposure:
-#        include: '*'
+management:
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: '*'
