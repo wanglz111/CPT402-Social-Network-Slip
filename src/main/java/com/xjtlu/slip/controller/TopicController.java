@@ -9,6 +9,7 @@ import com.xjtlu.slip.service.CommentService;
 import com.xjtlu.slip.service.RedisService;
 import com.xjtlu.slip.service.TopicService;
 import com.xjtlu.slip.service.UserService;
+import com.xjtlu.slip.utils.CookieUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.cache.CacheProperties;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,9 +39,22 @@ public class TopicController {
     @Autowired
     private CommentService commentService;
 
+    @Resource
+    private CookieUtil cookieUtil;
+
     //跳转到帖子主页
     @GetMapping("/topic")
-    public String topic(Model model) {
+    public String topic(Model model, HttpSession session) {
+        if (cookieUtil.getCookie("_userSession") != null) {
+            Object rawData = redisService.get("User:Session:".concat(cookieUtil.getCookie("_userSession")));
+            if (rawData != null) {
+                User user = (User) rawData;
+                model.addAttribute("loginUser", user);
+            }
+        } else {
+            session.setAttribute("msg", "Your login has expired, please log in again");
+            return "redirect:/login";
+        }
         QueryWrapper<Topic> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("latest_comment_unix_time");
         Page<Topic> page = new Page<>(1, 20);

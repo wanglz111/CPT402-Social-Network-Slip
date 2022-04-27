@@ -56,7 +56,6 @@ public class LoginController {
         }
 
 
-
         if (StringUtils.isNullOrEmpty(username)||StringUtils.isNullOrEmpty(password)) {
             model.addAttribute("msg", "username or password is null");
             return "login";

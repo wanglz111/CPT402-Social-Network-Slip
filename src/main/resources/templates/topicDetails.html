@@ -21,7 +21,7 @@
 <div class="box" style="border-bottom: 0;">
     <h1>[[${topic.title}]]</h1>
     <div class="header">
-        <div class="fr">
+        <div th:if="${session['loginUser']}" class="fr">
             <a href="">
                 <img th:src="${session.loginUser.avatar}" class="avatar">
             </a><br>
@@ -30,6 +30,11 @@
             </a><br>
             <a th:href="@{/logout}">Logout</a>
         </div>
+        <div th:unless="${session['loginUser']}" class="fr">
+            <a th:href="@{/login}">
+                点此登陆
+            </a>
+        </div><br><br><br><br><br>
         <a th:href="@{/topic}">Slip</a>
         <span class="chevron">&nbsp;›&nbsp;</span>
         <a th:href="@{'/' + ${topic.type}}">[[${topic.type}]]</a><br>

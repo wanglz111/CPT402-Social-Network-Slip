@@ -9,6 +9,7 @@
 
 <div class="container">
     <p style="color:darkred ">[[${msg}]]</p>
+    <p th:if="${session.containsKey('msg')}" style="color:darkred" th:text="${session.msg}"></p>
     <form action="login" method="get">
         <div class="form-group">
             <label for="username">Username</label>

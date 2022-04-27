@@ -34,13 +34,19 @@
 </head>
 <body>
     <h1 style="text-align: center">Topics</h1>
-
-    <div class="fr">
+<!--    th:if="${session.containsKey('loginUser')}"-->
+    <div th:if="${session['loginUser']}" class="fr">
         <a href="">
             <img th:src="${session.loginUser.avatar}" class="avatar">
         </a><br>
         <a>
             Welcome, [[${session.loginUser.name}]]
+        </a><br>
+        <a th:href="@{/logout}">Logout</a>
+    </div>
+    <div th:unless="${session['loginUser']}" class="fr">
+        <a th:href="@{/login}">
+            点次登陆
         </a>
     </div><br><br><br><br><br>
 
