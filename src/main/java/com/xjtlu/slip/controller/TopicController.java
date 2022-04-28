@@ -10,6 +10,7 @@ import com.xjtlu.slip.service.RedisService;
 import com.xjtlu.slip.service.TopicService;
 import com.xjtlu.slip.service.UserService;
 import com.xjtlu.slip.utils.CookieUtil;
+import com.xjtlu.slip.utils.TimeFormat;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.cache.CacheProperties;
@@ -23,6 +24,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.xjtlu.slip.utils.TimeToUnix.getCurrentTime;
 
 @Controller
 @Slf4j
@@ -57,9 +60,17 @@ public class TopicController {
         }
         QueryWrapper<Topic> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("latest_comment_unix_time");
-        Page<Topic> page = new Page<>(1, 20);
+        Page<Topic> page = new Page<>(1, 50);
         List<Topic> topics = topicService.page(page, queryWrapper).getRecords();
-//        List<Topic> topics = topicService.list(queryWrapper);
+        topics.forEach(topic -> {
+            Long latestCommentUnixTime = topic.getLatestCommentUnixTime();
+            //set time format like xx seconds ago/xx minutes ago/xx hours ago/xx days ago
+            if (latestCommentUnixTime != null) {
+                Long now = getCurrentTime();
+                long time = (now - topic.getLatestCommentUnixTime()) * 1000;
+                topic.setLatestCommentTime(TimeFormat.format(time));
+            }
+        });
         model.addAttribute("topics", topics);
         return "topic";
     }
@@ -76,12 +87,9 @@ public class TopicController {
         //获取帖子评论
         List<Comment> comments = commentService.getListByTopicId(topicId);
         model.addAttribute("comments", comments);
-
-
-
         //获取帖子点击数
         Integer topicClickCount = (Integer) redisService.get("/topic/".concat(topicId));
-        model.addAttribute("topicClickCount", topicClickCount==null?0:topicClickCount);
+        model.addAttribute("topicClickCount", topicClickCount==null ? 0:topicClickCount);
         return "topicDetails";
     }
 }

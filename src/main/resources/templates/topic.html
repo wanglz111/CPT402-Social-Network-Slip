@@ -60,7 +60,7 @@
                     <a th:href="@{'/topic/' + ${topic.id}}" class="topic-link">[[${topic.title}]]</a></span>
                     <div class="sep5"></div>
                     <span class="topic_info"><div class="votes"></div><a>[[${topic.type}]]</a>
-                        <span th:text="${#dates.format(topic.latestCommentUnixTime*1000, 'yyyy-MM-dd HH:mm:ss')}"/>
+                        <span th:text="${topic.latestCommentTime}"/>
                     </span>
                 </td>
                 <td>

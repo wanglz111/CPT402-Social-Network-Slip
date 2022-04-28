@@ -1,6 +1,7 @@
 package com.xjtlu.slip;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xjtlu.slip.mapper.CommentMapper;
 import com.xjtlu.slip.mapper.UserMapper;
 import com.xjtlu.slip.pojo.Comment;
@@ -8,11 +9,14 @@ import com.xjtlu.slip.pojo.Topic;
 import com.xjtlu.slip.service.CommentService;
 import com.xjtlu.slip.service.TopicService;
 import com.xjtlu.slip.service.UserService;
+import com.xjtlu.slip.utils.TimeFormat;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import static com.xjtlu.slip.utils.TimeToUnix.getCurrentTime;
 
@@ -58,4 +62,26 @@ public class TestSql {
     public void testSelectCommentAndUser(){
         System.out.println(commentService.getListByTopicId("85"));
     }
+
+    @Test
+    public void testSetCommentTime() {
+        QueryWrapper<Topic> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("latest_comment_unix_time");
+        Page<Topic> page = new Page<>(1, 100);
+        List<Topic> topics = topicService.page(page, queryWrapper).getRecords();
+        topics.forEach(topic -> {
+           Long now = getCurrentTime();
+//           System.out.println(now);
+            System.out.println(now - topic.getLatestCommentUnixTime());
+            long time = (now - topic.getLatestCommentUnixTime()) * 1000;
+            System.out.println(TimeFormat.format(time));
+        });
+    }
+
+    @Test
+    public void testDate(){
+        System.out.println(new Date().getTime());
+    }
+
+
 }
