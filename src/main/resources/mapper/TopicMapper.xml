@@ -64,6 +64,7 @@
         from topic,user
         where topic.author_id = user.id
         and topic.is_deleted = '0'
+            ${ew.customSqlSegment}
     </select>
 
 
