@@ -118,5 +118,5 @@ mybatis-plus:
 #    web:
 #      exposure:
 #        include: '*'
-#server:
-#  port: 9000
+server:
+  port: 80

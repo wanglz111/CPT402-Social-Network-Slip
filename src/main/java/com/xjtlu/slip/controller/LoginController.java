@@ -37,10 +37,10 @@ public class LoginController {
     @Resource
     private CookieUtil cookieUtil;
 
-    @GetMapping("/")
-    public String welcome() {
-        return "redirect:/login";
-    }
+//    @GetMapping("/")
+//    public String welcome() {
+//        return "redirect:/login";
+//    }
 
     @GetMapping("/login")
     public String login(Model model, String username, String password, String verifyCode , HttpSession session, HttpServletResponse response) {

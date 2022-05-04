@@ -95,7 +95,7 @@ public class TopicController {
         return "topicDetails";
     }
 
-    @GetMapping("/index")
+    @GetMapping("/")
     public String index(Model model, HttpSession session) {
         if (cookieUtil.getCookie("_userSession") != null) {
             Object rawData = redisService.get("User:Session:".concat(cookieUtil.getCookie("_userSession")));
