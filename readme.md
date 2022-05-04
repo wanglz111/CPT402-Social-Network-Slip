@@ -1,4 +1,4 @@
-## xjtlu cpt 402 project
+## XJTLU CPT 402 PROJECT
 
 ### Name : Slip (or Other Name)
 
@@ -33,7 +33,7 @@
 > - [x] Upload Avatar
 - [ ] Index Web
 > - [ ] ChangePassword
-- [ ] Topic Web
+- [x] Topic Web
 > - [ ] Create Topic
 > - [ ] Delete Topic
 > - [ ] Update Topic
@@ -61,6 +61,6 @@
 > - [ ] Create Friend Database
 > - [ ] Create Message Database
 > - [x] Create Topic Database
-> - [ ] Create Comment Database
+> - [x] Create Comment Database
 > - [ ] Create Like Database
 > - [ ] Create Emotion Database
