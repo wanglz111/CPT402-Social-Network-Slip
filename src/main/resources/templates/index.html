@@ -1,47 +1,60 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <style>
-        img{ border:1px solid #000; width:100px}
-    </style>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slip</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/index.css}">
 </head>
+
 <body>
-<h1 style="text-align: center">欢迎光临精装论坛</h1>
-<div>
-    <p>你是第[[${session.loginUser.id}]]个注册成功并登陆的</p>
-    <p>你的用户名是[[${session.loginUser.name}]]</p>
+<div class="top">
 </div>
-<!--展示头像-->
-<div>
-    <img th:src="${session.loginUser.avatar}" alt="头像">
-    <p>你滴头像</p>
-</div>
-<div class="container">
-    <p>下面是已经成功注册的</p>
-    <table class="user-table">
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Phone</th>
-            <th>Email</th>
-        </tr>
-        </thead>
-        <tbody>
+<div class="wrapper">
+    <div class="sep20"></div>
+    <div class="left">
+        <div class="inner" id="table">
+            <ul>
+                <li><a href="#">技术</a></li>
+                <li><a href="#">创意</a></li>
+                <li><a href="#">好玩</a></li>
+                <li><a href="#">酷工作</a></li>
+                <li><a href="#">二手交易</a></li>
+                <li><a href="#">学习资料</a></li>
+                <li><a href="#">问答</a></li>
+                <li><a href="#">最热</a></li>
+                <li><a href="#">全部</a></li>
+            </ul>
+        </div>
 
-        <tr class="list-inline" th:each="user:${users}">
-            <td>[[${user.name}]]</td>
-            <td>[[${user.phone}]]</td>
-            <td>[[${user.email}]]</td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-<div>
-    <!--Log out button-->
-    <a th:href="@{/logout}" type="button" class="logout-btn">Logout</a>
-</div>
+        <div class="sep20"></div>
 
+        <div class="content" id="topics">
+            <div class="cell item" th:each="topic:${topics}">
+                <div class="TopicAvatar">
+                    <a href="#">
+                        <img th:src="${topic.user.avatar}" alt="avatar">
+                    </a>
+                </div>
+                <div class="TopicInfo">
+                    <h3><a href="#">[[${topic.title}]]</a></h3>
+                    <p>
+                        <span><a href="#" id="type">问答</a> · </span>
+                        <a href="#" id="author">[[${topic.author}]]</a>
+                        <span> · [[${topic.latestCommentTime}]]</span>
+                        <span> · 最后回复来自 · <a href="#" id="reply_who">lucas</a></span>
+                    </p>
+                </div>
+                <div class="TopicNow">
+                    <p>15</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
+
 </html>

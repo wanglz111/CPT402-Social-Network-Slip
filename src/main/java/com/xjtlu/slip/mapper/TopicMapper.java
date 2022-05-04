@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
 * @author wangluzhi
 * @description 针对表【topic】的数据库操作Mapper
@@ -14,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional
 public interface TopicMapper extends BaseMapper<Topic> {
-
+    List<Topic> getAllTopicsAndUser();
 }
 
 

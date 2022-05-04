@@ -85,4 +85,7 @@ public class Topic implements Serializable {
 
     @TableField(exist = false)
     private String latestCommentTime;
+
+    @TableField(exist = false)
+    private User user;
 }

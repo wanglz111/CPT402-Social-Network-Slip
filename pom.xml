@@ -143,6 +143,12 @@
             <artifactId>github-avatar-generator</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <!--hutool工具集-->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.8.0.M4</version>
+        </dependency>
     </dependencies>
 
     <build>

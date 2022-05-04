@@ -2,8 +2,9 @@ package com.xjtlu.slip.service;
 
 import com.xjtlu.slip.pojo.Topic;
 import com.baomidou.mybatisplus.extension.service.IService;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
 * @author wangluzhi
@@ -12,5 +13,7 @@ import org.springframework.stereotype.Repository;
 */
 @Repository
 public interface TopicService extends IService<Topic> {
+
+    List<Topic> getAllTopicsAndUser();
 
 }

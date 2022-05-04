@@ -30,6 +30,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         queryWrapper.eq("name", username);
         return baseMapper.selectOne(queryWrapper);
     }
+
+
 }
 
 

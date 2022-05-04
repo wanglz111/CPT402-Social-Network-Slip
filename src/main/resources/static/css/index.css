@@ -1,0 +1,163 @@
+body {
+    background-color: #22303f;
+    min-width: 820px;
+    font-family: "JetBrains Mono", "Luxi Sans", "Segoe UI", "Hiragino Sans GB", "Microsoft Yahei", sans-serif, "Apple Logo";
+}
+
+
+/* 标题栏 */
+
+.top {
+    height: 44px;
+    width: 100%;
+    background-color: #18222d;
+}
+
+
+/* 版心在中间 */
+
+.wrapper {
+    width: 1040px;
+    height: auto;
+    background-color: #3e5874;
+    margin: 0 auto;
+}
+
+
+/* 定义一个20px高的间隔空间 */
+
+.sep20 {
+    height: 20px;
+    width: auto;
+    background-color: #3e5874;
+}
+
+
+/* 左侧主体部分 */
+
+.left {
+    float: left;
+    width: 770px;
+    height: auto;
+}
+
+.left #table {
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #18222d;
+    font-size: 18px;
+}
+
+.left #table ul {
+    text-align: center;
+}
+
+.left #table li {
+    display: inline-block;
+    padding: 3px 10px;
+}
+
+.left #table li a {
+    color: #bfbfbf;
+}
+
+.left #table li:hover {
+    background-color: #3f4f5f;
+}
+
+
+/* 帖子展示部分 */
+
+.left .content .item {
+    width: 770px;
+    height: 80px;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: #18222d;
+    border: #393f4e 1px solid;
+}
+
+
+/* 头像部分 */
+
+.left .content .item .TopicAvatar {
+    padding-top: 2px;
+    float: left;
+    width: 50px;
+    height: 50px;
+    border: #000 solid 1px;
+}
+
+.left .content .item .TopicAvatar img {
+    display: inline-block;
+    width: 48px;
+    height: 48px;
+    max-height: 48px;
+    border-radius: 10px;
+}
+
+
+/* 主要信息部分 */
+
+.left .content .item .TopicInfo {
+    float: left;
+    margin-left: 10px;
+    padding-left: 10px;
+    width: 600px;
+    padding: 10px auto;
+    height: 50px;
+    color: aliceblue;
+}
+
+.left .content .item .TopicInfo h3 a {
+    color: aliceblue;
+    font-size: 18px;
+    font-weight: 400;
+    max-height: 1em;
+}
+
+.left .content .item .TopicInfo h3 a:hover {
+    text-decoration: underline;
+}
+
+.left .content .item .TopicInfo #type {
+    padding: 0 10px;
+    font-size: 13px;
+    line-height: 24px;
+    background-color: #393f4e;
+    color: aliceblue;
+    border-radius: 5px;
+}
+
+.left .content .item .TopicInfo #type:hover {
+    background-color: rgb(156, 174, 199);
+}
+
+.left .content .item .TopicInfo p {
+    margin-top: 5px;
+}
+
+.left .content .item .TopicInfo #author,
+#reply_who {
+    display: inline-block;
+    color: #9caec7;
+    font-size: 16px;
+}
+
+.left .content .item .TopicInfo p span {
+    display: inline-block;
+    color: #738292;
+    font-size: 12px;
+    line-height: 200%;
+}
+
+.left .content .item .TopicNow {
+    float: right;
+    margin: 13px 20px 13px 0;
+    padding: 2px 10px;
+    border-radius: 10px;
+    line-height: 24px;
+    font-weight: 700;
+    color: #d1d5d9;
+    background-color: rgb(57, 63, 78);
+}

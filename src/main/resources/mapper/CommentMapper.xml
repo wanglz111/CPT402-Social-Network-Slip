@@ -37,6 +37,7 @@
         from comment, user
         where comment.id = #{id}
           and comment.user_id = user.id
+          and topic.is_deleted = '0'
     </select>
 
     <select id="selectCommentAndUserByTopicId" resultMap="CommentAndUser">

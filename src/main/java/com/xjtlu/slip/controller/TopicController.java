@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,5 +93,47 @@ public class TopicController {
         Integer topicClickCount = (Integer) redisService.get("/topic/".concat(topicId));
         model.addAttribute("topicClickCount", topicClickCount==null ? 0:topicClickCount);
         return "topicDetails";
+    }
+
+    @GetMapping("/index")
+    public String index(Model model, HttpSession session) {
+        if (cookieUtil.getCookie("_userSession") != null) {
+            Object rawData = redisService.get("User:Session:".concat(cookieUtil.getCookie("_userSession")));
+            if (rawData != null) {
+                User user = (User) rawData;
+                model.addAttribute("loginUser", user);
+            }
+        }
+        QueryWrapper<Topic> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("latest_comment_unix_time");
+        Page<Topic> page = new Page<>(1, 30);
+        List<Topic> topics = topicService.page(page, queryWrapper).getRecords();
+        topics.forEach(topic -> {
+            Long authorId = topic.getAuthorId();
+            User user = userService.getById(authorId);
+            topic.setUser(user);
+//            List<Comment> comments = commentService.getListByTopicId(topic.getId().toString());
+//            String latestReply = comments.get(0).getUser().getName();
+            Long latestCommentUnixTime = topic.getLatestCommentUnixTime();
+            //set time format like xx seconds ago/xx minutes ago/xx hours ago/xx days ago
+            if (latestCommentUnixTime != null) {
+                Long now = getCurrentTime();
+                long time = (now - topic.getLatestCommentUnixTime()) * 1000;
+                topic.setLatestCommentTime(TimeFormat.format(time));
+            }
+
+            String topicTitle = topic.getTitle();
+            //判断中文加英文是否大于60字符,如果大于则截取
+            try {
+                String newString = new String(topicTitle.getBytes("GB2312"), StandardCharsets.ISO_8859_1);
+                if (newString.length() > 60) {
+                    topic.setTitle(topicTitle.substring(0, 30).concat("..."));
+                }
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        });
+        model.addAttribute("topics", topics);
+        return "index";
     }
 }

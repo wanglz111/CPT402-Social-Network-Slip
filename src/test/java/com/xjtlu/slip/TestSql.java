@@ -3,6 +3,7 @@ package com.xjtlu.slip;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xjtlu.slip.mapper.CommentMapper;
+import com.xjtlu.slip.mapper.TopicMapper;
 import com.xjtlu.slip.mapper.UserMapper;
 import com.xjtlu.slip.pojo.Comment;
 import com.xjtlu.slip.pojo.Topic;
@@ -27,6 +28,9 @@ public class TestSql {
 
     @Autowired
     private CommentService commentService;
+
+    @Autowired
+    private TopicMapper topicMapper;
 
     @Test
     public void InsertTopics() throws Exception {
@@ -81,6 +85,12 @@ public class TestSql {
     @Test
     public void testDate(){
         System.out.println(new Date().getTime());
+    }
+
+    @Test
+    public void testSelectTopicAndUser() {
+        List<Topic> topics = topicMapper.getAllTopicsAndUser();
+        topics.forEach(System.out::println);
     }
 
 

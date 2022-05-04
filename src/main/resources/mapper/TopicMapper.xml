@@ -19,10 +19,43 @@
             <result property="isDeleted" column="is_deleted" jdbcType="VARCHAR"/>
     </resultMap>
 
+    <resultMap id="TopicAndUser" type="Topic">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="authorId" column="author_id" jdbcType="BIGINT"/>
+        <result property="author" column="author" jdbcType="VARCHAR"/>
+        <result property="createUnixTime" column="create_unix_time" jdbcType="BIGINT"/>
+        <result property="updateUnixTime" column="update_unix_time" jdbcType="BIGINT"/>
+        <result property="latestCommentUnixTime" column="latest_comment_unix_time" jdbcType="BIGINT"/>
+        <result property="type" column="type" jdbcType="VARCHAR"/>
+        <result property="view" column="view" jdbcType="INTEGER"/>
+        <result property="comment" column="comment" jdbcType="INTEGER"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="VARCHAR"/>
+        <collection property="user" ofType="com.xjtlu.slip.pojo.User">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+            <result property="phone" column="phone" />
+            <result property="password" column="password" />
+            <result property="email" column="email"/>
+            <result property="avatar" column="avatar"/>
+        </collection>
+    </resultMap>
+
     <sql id="Base_Column_List">
         id,title,content,
         author_id,author,create_unix_time,
         update_unix_time,latest_comment_unix_time,type,
         view,comment,is_deleted
     </sql>
+    <select id="getAllTopicsAndUser" resultMap="TopicAndUser">
+        select topic.id as id ,title,content,
+        author_id,author,create_unix_time,
+        update_unix_time,latest_comment_unix_time,type, name, phone, password, email, avatar
+        from topic,user
+        where topic.author_id = user.id
+        and topic.is_deleted = '0'
+    </select>
+
+
 </mapper>
