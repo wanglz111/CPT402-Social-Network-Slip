@@ -57,5 +57,14 @@
         and topic.is_deleted = '0'
     </select>
 
+    <select id="getAllTopicsAndUserByPage" resultMap="TopicAndUser">
+        select topic.id as id ,title,content,
+        author_id,author,create_unix_time,
+        update_unix_time,latest_comment_unix_time,type, name, phone, password, email, avatar
+        from topic,user
+        where topic.author_id = user.id
+        and topic.is_deleted = '0'
+    </select>
+
 
 </mapper>

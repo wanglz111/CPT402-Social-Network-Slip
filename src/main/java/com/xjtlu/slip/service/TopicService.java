@@ -1,5 +1,7 @@
 package com.xjtlu.slip.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xjtlu.slip.pojo.Topic;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.stereotype.Repository;
@@ -14,6 +16,6 @@ import java.util.List;
 @Repository
 public interface TopicService extends IService<Topic> {
 
-    List<Topic> getAllTopicsAndUser();
+    Page<Topic> getAllTopicsAndUser(Page<Topic> page, QueryWrapper<Topic> queryWrapper);
 
 }

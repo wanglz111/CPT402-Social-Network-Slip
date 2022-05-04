@@ -26,8 +26,9 @@ public class TopicServiceImpl extends ServiceImpl<TopicMapper, Topic>
     private TopicMapper topicMapper;
 
     @Override
-    public List<Topic> getAllTopicsAndUser() {
-        return topicMapper.getAllTopicsAndUser();
+    public Page<Topic> getAllTopicsAndUser(Page<Topic> page, QueryWrapper<Topic> queryWrapper) {
+
+        return topicMapper.getAllTopicsAndUserByPage(page, queryWrapper);
     }
 }
 

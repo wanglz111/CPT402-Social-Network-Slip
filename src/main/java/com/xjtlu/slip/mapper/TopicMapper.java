@@ -1,5 +1,8 @@
 package com.xjtlu.slip.mapper;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xjtlu.slip.pojo.Topic;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springframework.stereotype.Repository;
@@ -17,6 +20,8 @@ import java.util.List;
 @Transactional
 public interface TopicMapper extends BaseMapper<Topic> {
     List<Topic> getAllTopicsAndUser();
+
+    Page<Topic> getAllTopicsAndUserByPage(IPage<Topic> page, QueryWrapper<Topic> queryWrapper);
 }
 
 

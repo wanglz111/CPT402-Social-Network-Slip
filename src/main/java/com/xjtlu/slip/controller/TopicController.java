@@ -106,14 +106,9 @@ public class TopicController {
         }
         QueryWrapper<Topic> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("latest_comment_unix_time");
-        Page<Topic> page = new Page<>(1, 30);
-        List<Topic> topics = topicService.page(page, queryWrapper).getRecords();
+        Page<Topic> page = new Page<>(2, 30);
+        List<Topic> topics = topicService.getAllTopicsAndUser(page, queryWrapper).getRecords();
         topics.forEach(topic -> {
-            Long authorId = topic.getAuthorId();
-            User user = userService.getById(authorId);
-            topic.setUser(user);
-//            List<Comment> comments = commentService.getListByTopicId(topic.getId().toString());
-//            String latestReply = comments.get(0).getUser().getName();
             Long latestCommentUnixTime = topic.getLatestCommentUnixTime();
             //set time format like xx seconds ago/xx minutes ago/xx hours ago/xx days ago
             if (latestCommentUnixTime != null) {
@@ -121,7 +116,6 @@ public class TopicController {
                 long time = (now - topic.getLatestCommentUnixTime()) * 1000;
                 topic.setLatestCommentTime(TimeFormat.format(time));
             }
-
             String topicTitle = topic.getTitle();
             //判断中文加英文是否大于60字符,如果大于则截取
             try {

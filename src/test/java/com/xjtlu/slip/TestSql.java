@@ -1,6 +1,7 @@
 package com.xjtlu.slip;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xjtlu.slip.mapper.CommentMapper;
 import com.xjtlu.slip.mapper.TopicMapper;
@@ -91,6 +92,17 @@ public class TestSql {
     public void testSelectTopicAndUser() {
         List<Topic> topics = topicMapper.getAllTopicsAndUser();
         topics.forEach(System.out::println);
+    }
+
+    @Test
+    public void select(){
+        // 创建分页参数
+        Page<Topic> page = new Page<>(1,2);
+        IPage<Topic> result = topicMapper.getAllTopicsAndUserByPage(page, null);
+        // 获取数据
+        List<Topic> records = result.getRecords();
+        records.forEach(System.out::println);
+        System.out.println("总页数 = "+ result.getPages());
     }
 
 
