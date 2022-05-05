@@ -42,6 +42,22 @@
         </collection>
     </resultMap>
 
+    <resultMap id="TopicAndComment" type="Topic">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="authorId" column="author_id" jdbcType="BIGINT"/>
+        <result property="author" column="author" jdbcType="VARCHAR"/>
+        <result property="createUnixTime" column="create_unix_time" jdbcType="BIGINT"/>
+        <result property="updateUnixTime" column="update_unix_time" jdbcType="BIGINT"/>
+        <result property="latestCommentUnixTime" column="latest_comment_unix_time" jdbcType="BIGINT"/>
+        <result property="type" column="type" jdbcType="VARCHAR"/>
+        <result property="view" column="view" jdbcType="INTEGER"/>
+        <result property="comment" column="comment" jdbcType="INTEGER"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="VARCHAR"/>
+        <result property="commentCount" column="comment_num" jdbcType="INTEGER"/>
+    </resultMap>
+
     <sql id="Base_Column_List">
         id,title,content,
         author_id,author,create_unix_time,
@@ -59,12 +75,32 @@
 
     <select id="getAllTopicsAndUserByPage" resultMap="TopicAndUser">
         select topic.id as id ,title,content,
-        author_id,author,create_unix_time,
-        update_unix_time,latest_comment_unix_time,type, name, phone, password, email, avatar
-        from topic,user
-        where topic.author_id = user.id
-        and topic.is_deleted = '0'
+               author_id,author,create_unix_time,
+               update_unix_time,latest_comment_unix_time,type, name, phone, password, email, avatar
+        FROM topic
+                 LEFT JOIN user
+                           on topic.author_id=user.id
+                               and topic.is_deleted = '0'
             ${ew.customSqlSegment}
+    </select>
+
+    <select id="getAllTopicsAndAllComments" resultMap="TopicAndComment">
+        select topic.id as id ,title,topic.content,
+               author_id,author,create_unix_time,
+               update_unix_time,latest_comment_unix_time , type , count(comment.topic_id) as comment_num
+        from topic
+                 LEFT JOIN comment
+                           on topic.id=comment.topic_id
+        GROUP BY topic.id
+            ${ew.customSqlSegment}
+    </select>
+
+    <select id="getTopicCommentsCount" resultType="Map">
+        select topic.id as id, count(comment.topic_id) as num
+        from topic
+                 LEFT JOIN comment
+                           on topic.id=comment.topic_id
+        GROUP BY topic.id
     </select>
 
 

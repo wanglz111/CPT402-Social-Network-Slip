@@ -25,7 +25,9 @@ import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.xjtlu.slip.utils.TimeToUnix.getCurrentTime;
 
@@ -108,6 +110,7 @@ public class TopicController {
         queryWrapper.orderByDesc("latest_comment_unix_time");
         Page<Topic> page = new Page<>(2, 30);
         List<Topic> topics = topicService.getAllTopicsAndUser(page, queryWrapper).getRecords();
+        Map<Long, Integer> topicCommentCount = topicService.getCommentCount();
         topics.forEach(topic -> {
             Long latestCommentUnixTime = topic.getLatestCommentUnixTime();
             //set time format like xx seconds ago/xx minutes ago/xx hours ago/xx days ago
@@ -116,6 +119,7 @@ public class TopicController {
                 long time = (now - topic.getLatestCommentUnixTime()) * 1000;
                 topic.setLatestCommentTime(TimeFormat.format(time));
             }
+            topic.setCommentCount(topicCommentCount.get(topic.getId()));
             String topicTitle = topic.getTitle();
             //判断中文加英文是否大于60字符,如果大于则截取
             try {

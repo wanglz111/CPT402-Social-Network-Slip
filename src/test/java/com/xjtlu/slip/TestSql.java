@@ -19,6 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import static com.xjtlu.slip.utils.TimeToUnix.getCurrentTime;
 
@@ -56,15 +57,16 @@ public class TestSql {
 //        topicService.saveOrUpdateBatch(topics);
 
     }
+
     @Test
-    public void testComment(){
+    public void testComment() {
         QueryWrapper<Comment> query = new QueryWrapper<>();
-        query.eq("user_id",1);
+        query.eq("user_id", 1);
         System.out.println(commentService.list(query));
     }
 
     @Test
-    public void testSelectCommentAndUser(){
+    public void testSelectCommentAndUser() {
         System.out.println(commentService.getListByTopicId("85"));
     }
 
@@ -75,7 +77,7 @@ public class TestSql {
         Page<Topic> page = new Page<>(1, 100);
         List<Topic> topics = topicService.page(page, queryWrapper).getRecords();
         topics.forEach(topic -> {
-           Long now = getCurrentTime();
+            Long now = getCurrentTime();
 //           System.out.println(now);
             System.out.println(now - topic.getLatestCommentUnixTime());
             long time = (now - topic.getLatestCommentUnixTime()) * 1000;
@@ -84,7 +86,7 @@ public class TestSql {
     }
 
     @Test
-    public void testDate(){
+    public void testDate() {
         System.out.println(new Date().getTime());
     }
 
@@ -95,15 +97,33 @@ public class TestSql {
     }
 
     @Test
-    public void select(){
+    public void select() {
         // 创建分页参数
-        Page<Topic> page = new Page<>(1,2);
-        IPage<Topic> result = topicMapper.getAllTopicsAndUserByPage(page, null);
+        Page<Topic> page = new Page<>(1, 2);
+        // 创建查询条件
+        QueryWrapper<Topic> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user.id", 1);
+        IPage<Topic> result = topicMapper.getAllTopicsAndUserByPage(page, queryWrapper);
         // 获取数据
-        List<Topic> records = result.getRecords();
-        records.forEach(System.out::println);
-        System.out.println("总页数 = "+ result.getPages());
+//        List<Topic> records = result.getRecords();
+//        records.forEach(System.out::println);
+//        System.out.println("总页数 = "+ result.getPages());
+        System.out.println(result.getRecords().size());
     }
 
+    @Test
+    public void testCommentCount() {
+        QueryWrapper<Topic> queryWrapper = new QueryWrapper<>();
+        Page<Topic> page = new Page<>(1, 2);
+        queryWrapper.orderByDesc("latest_comment_unix_time");
+        IPage<Topic> result = topicMapper.getAllTopicsAndAllComments(page, queryWrapper);
+        List<Topic> records = result.getRecords();
+        records.forEach(System.out::println);
+    }
 
+    @Test
+    public void testCommentCount2() {
+        Map<Long, Integer> topicCommentsCount = topicMapper.getTopicCommentsCount();
+        System.out.println(topicCommentsCount);
+    }
 }

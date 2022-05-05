@@ -3,6 +3,7 @@ package com.xjtlu.slip.pojo;
 import com.baomidou.mybatisplus.annotation.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -88,4 +89,10 @@ public class Topic implements Serializable {
 
     @TableField(exist = false)
     private User user;
+
+    @TableField(exist = false)
+    List<Comment> comments;
+
+    @TableField(exist = false)
+    Integer commentCount;
 }

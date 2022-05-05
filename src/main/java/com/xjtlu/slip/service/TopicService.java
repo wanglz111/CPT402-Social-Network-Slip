@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 /**
 * @author wangluzhi
@@ -18,4 +19,5 @@ public interface TopicService extends IService<Topic> {
 
     Page<Topic> getAllTopicsAndUser(Page<Topic> page, QueryWrapper<Topic> queryWrapper);
 
+    Map<Long, Integer> getCommentCount();
 }

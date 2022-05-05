@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
 * @author wangluzhi
@@ -29,6 +30,11 @@ public class TopicServiceImpl extends ServiceImpl<TopicMapper, Topic>
     public Page<Topic> getAllTopicsAndUser(Page<Topic> page, QueryWrapper<Topic> queryWrapper) {
 
         return topicMapper.getAllTopicsAndUserByPage(page, queryWrapper);
+    }
+
+    @Override
+    public Map<Long, Integer> getCommentCount() {
+       return topicMapper.getTopicCommentsCount();
     }
 }
 
