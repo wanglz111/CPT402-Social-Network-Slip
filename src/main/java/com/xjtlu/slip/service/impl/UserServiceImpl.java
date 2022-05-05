@@ -7,6 +7,10 @@ import com.xjtlu.slip.service.UserService;
 import com.xjtlu.slip.mapper.UserMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
 * @author wangluzhi
 * @description 针对表【user】的数据库操作Service实现
@@ -29,6 +33,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("name", username);
         return baseMapper.selectOne(queryWrapper);
+    }
+
+    @Override
+    public Map<Long, User> getUserMap() {
+        List<User> users = baseMapper.selectList(null);
+        Map<Long, User> userMap = new HashMap<>();
+        for (User user : users) {
+            userMap.put(user.getId(), user);
+        }
+        return userMap;
+
     }
 
 

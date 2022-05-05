@@ -95,4 +95,10 @@ public class Topic implements Serializable {
 
     @TableField(exist = false)
     Integer commentCount;
+
+    @TableField(exist = false)
+    Comment latestComment;
+
+    @TableField(exist = false)
+    String latestCommentUser;
 }

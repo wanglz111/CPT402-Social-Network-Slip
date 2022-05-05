@@ -112,6 +112,9 @@ public class TopicController {
         Page<Topic> page = new Page<>(2, 30);
         List<Topic> topics = topicService.getAllTopicsAndUser(page, queryWrapper).getRecords();
         Map<Long, CommentCount> topicCommentCount = topicService.getCommentCount();
+        Map<Long, Comment> latestCommentInfoEveryTopic = commentService.getLatestCommentInfoEveryTopic();
+        Map<Long, User> userInfo = userService.getUserMap();
+        log.info(userInfo.toString());
         topics.forEach(topic -> {
             Long latestCommentUnixTime = topic.getLatestCommentUnixTime();
             //set time format like xx seconds ago/xx minutes ago/xx hours ago/xx days ago
@@ -120,8 +123,21 @@ public class TopicController {
                 long time = (now - topic.getLatestCommentUnixTime()) * 1000;
                 topic.setLatestCommentTime(TimeFormat.format(time));
             }
+
             Integer commentCount = topicCommentCount.get(topic.getId()).getCommentCount();
             topic.setCommentCount(commentCount);
+            Comment comment = latestCommentInfoEveryTopic.get(topic.getId());
+            topic.setLatestComment(comment);
+            try {
+                User user = userInfo.get(comment.getUserId());
+                log.info(comment.getUserId().toString());
+                topic.setLatestCommentUser(user.getName());
+            } catch (Exception e) {
+                //todo 无评论则设置为空
+                log.error(e.getMessage());
+                topic.setLatestCommentUser("无评论");
+            }
+
             String topicTitle = topic.getTitle();
             //判断中文加英文是否大于60字符,如果大于则截取
             try {

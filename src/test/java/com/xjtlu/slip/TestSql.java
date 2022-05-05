@@ -8,6 +8,7 @@ import com.xjtlu.slip.mapper.TopicMapper;
 import com.xjtlu.slip.mapper.UserMapper;
 import com.xjtlu.slip.pojo.Comment;
 import com.xjtlu.slip.pojo.Topic;
+import com.xjtlu.slip.pojo.User;
 import com.xjtlu.slip.service.CommentService;
 import com.xjtlu.slip.service.TopicService;
 import com.xjtlu.slip.service.UserService;
@@ -34,6 +35,9 @@ public class TestSql {
 
     @Autowired
     private TopicMapper topicMapper;
+
+    @Autowired
+    private CommentMapper commentMapper;
 
     @Test
     public void InsertTopics() throws Exception {
@@ -127,5 +131,22 @@ public class TestSql {
         Map<Long, CommentCount> topicCommentCount = topicMapper.getTopicCommentsCount();
         CommentCount commentCount = topicCommentCount.get(1L);
         System.out.println(commentCount.getCommentCount());
+    }
+
+    @Test
+    public void testLatestCommentInfo() {
+        Map<Long, Comment> topicCommentInfo = commentMapper.selectLatestCommentEveryTopic();
+        topicCommentInfo.forEach((key, value) -> {
+            System.out.println(key + ":" + value.getContent());
+        });
+    }
+
+    @Autowired
+    private UserService userService;
+
+    @Test
+    public void userListTest() {
+        Map<Long, User> users = userService.getUserMap();
+        System.out.println(users.get(100L).getName());
     }
 }

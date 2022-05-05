@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
 * @author wangluzhi
@@ -22,6 +23,11 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
     @Override
     public List<Comment> getListByTopicId(String topicId) {
         return baseMapper.selectCommentAndUserByTopicId(topicId);
+    }
+
+    @Override
+    public Map<Long, Comment> getLatestCommentInfoEveryTopic() {
+        return baseMapper.selectLatestCommentEveryTopic();
     }
 }
 

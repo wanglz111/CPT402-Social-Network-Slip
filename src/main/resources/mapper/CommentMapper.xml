@@ -48,4 +48,13 @@
         ORDER BY create_time ASC
     </select>
 
+    <select id="selectLatestCommentEveryTopic" resultType="Comment">
+        select t1.*
+        from comment t1,
+             (SELECT comment.topic_id as topic_id, max(comment.create_time) as create_time
+              from comment
+              GROUP BY comment.topic_id) t2
+        where t1.topic_id = t2.topic_id and t1.create_time = t2.create_time
+    </select>
+
 </mapper>
