@@ -95,8 +95,8 @@
             ${ew.customSqlSegment}
     </select>
 
-    <select id="getTopicCommentsCount" resultType="Map">
-        select topic.id as id, count(comment.topic_id) as num
+    <select id="getTopicCommentsCount" resultType="com.xjtlu.slip.vo.CommentCount">
+        select topic.id as topic_id, count(comment.topic_id) as comment_count
         from topic
                  LEFT JOIN comment
                            on topic.id=comment.topic_id

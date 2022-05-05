@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xjtlu.slip.pojo.Topic;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.xjtlu.slip.vo.CommentCount;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,5 +20,5 @@ public interface TopicService extends IService<Topic> {
 
     Page<Topic> getAllTopicsAndUser(Page<Topic> page, QueryWrapper<Topic> queryWrapper);
 
-    Map<Long, Integer> getCommentCount();
+    Map<Long, CommentCount> getCommentCount();
 }

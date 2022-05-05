@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xjtlu.slip.pojo.Topic;
 import com.xjtlu.slip.service.TopicService;
 import com.xjtlu.slip.mapper.TopicMapper;
+import com.xjtlu.slip.vo.CommentCount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -33,7 +34,7 @@ public class TopicServiceImpl extends ServiceImpl<TopicMapper, Topic>
     }
 
     @Override
-    public Map<Long, Integer> getCommentCount() {
+    public Map<Long, CommentCount> getCommentCount() {
        return topicMapper.getTopicCommentsCount();
     }
 }

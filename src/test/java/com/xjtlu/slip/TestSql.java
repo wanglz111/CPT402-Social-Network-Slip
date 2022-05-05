@@ -12,6 +12,7 @@ import com.xjtlu.slip.service.CommentService;
 import com.xjtlu.slip.service.TopicService;
 import com.xjtlu.slip.service.UserService;
 import com.xjtlu.slip.utils.TimeFormat;
+import com.xjtlu.slip.vo.CommentCount;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -123,7 +124,8 @@ public class TestSql {
 
     @Test
     public void testCommentCount2() {
-        Map<Long, Integer> topicCommentsCount = topicMapper.getTopicCommentsCount();
-        System.out.println(topicCommentsCount);
+        Map<Long, CommentCount> topicCommentCount = topicMapper.getTopicCommentsCount();
+        CommentCount commentCount = topicCommentCount.get(1L);
+        System.out.println(commentCount.getCommentCount());
     }
 }

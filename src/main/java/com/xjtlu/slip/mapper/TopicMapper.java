@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xjtlu.slip.pojo.Topic;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.xjtlu.slip.vo.CommentCount;
 import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -29,8 +30,8 @@ public interface TopicMapper extends BaseMapper<Topic> {
 
     Page<Topic> getAllTopicsAndAllComments(IPage<Topic> page, @Param(Constants.WRAPPER) QueryWrapper<Topic> queryWrapper);
 
-    @MapKey("id")
-    Map<Long, Integer> getTopicCommentsCount();
+    @MapKey("topicId")
+    Map<Long, CommentCount> getTopicCommentsCount();
 }
 
 

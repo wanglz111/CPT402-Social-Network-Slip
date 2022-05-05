@@ -11,6 +11,7 @@ import com.xjtlu.slip.service.TopicService;
 import com.xjtlu.slip.service.UserService;
 import com.xjtlu.slip.utils.CookieUtil;
 import com.xjtlu.slip.utils.TimeFormat;
+import com.xjtlu.slip.vo.CommentCount;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.cache.CacheProperties;
@@ -110,7 +111,7 @@ public class TopicController {
         queryWrapper.orderByDesc("latest_comment_unix_time");
         Page<Topic> page = new Page<>(2, 30);
         List<Topic> topics = topicService.getAllTopicsAndUser(page, queryWrapper).getRecords();
-        Map<Long, Integer> topicCommentCount = topicService.getCommentCount();
+        Map<Long, CommentCount> topicCommentCount = topicService.getCommentCount();
         topics.forEach(topic -> {
             Long latestCommentUnixTime = topic.getLatestCommentUnixTime();
             //set time format like xx seconds ago/xx minutes ago/xx hours ago/xx days ago
@@ -119,7 +120,8 @@ public class TopicController {
                 long time = (now - topic.getLatestCommentUnixTime()) * 1000;
                 topic.setLatestCommentTime(TimeFormat.format(time));
             }
-            topic.setCommentCount(topicCommentCount.get(topic.getId()));
+            Integer commentCount = topicCommentCount.get(topic.getId()).getCommentCount();
+            topic.setCommentCount(commentCount);
             String topicTitle = topic.getTitle();
             //判断中文加英文是否大于60字符,如果大于则截取
             try {
