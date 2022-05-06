@@ -51,7 +51,7 @@ public class LoginController {
             if (rawData != null) {
                 user = (User) rawData;
                 session.setAttribute("loginUser", user);
-                return "redirect:/topic";
+                return "redirect:/";
             }
         }
 
@@ -82,7 +82,7 @@ public class LoginController {
         redisService.set("User:Session:".concat(_userSession), user, Constant.SESSION_TIME);
         cookieUtil.setCookie("_userSession", _userSession);
 
-        return "redirect:/topic";
+        return "redirect:/";
     }
 
     /**

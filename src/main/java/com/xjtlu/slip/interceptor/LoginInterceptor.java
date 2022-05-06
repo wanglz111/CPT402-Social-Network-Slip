@@ -1,27 +1,44 @@
 package com.xjtlu.slip.interceptor;
 
+import com.xjtlu.slip.pojo.User;
+import com.xjtlu.slip.service.RedisService;
+import com.xjtlu.slip.utils.CookieUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Configuration
 public class LoginInterceptor implements HandlerInterceptor {
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    @Resource
+    private CookieUtil cookieUtil;
 
-        String requestURI = request.getRequestURI();
-        //登录检查逻辑
+    @Resource
+    private RedisService redisService;
+
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
+        //1. 如果session中有用户信息，则放行
+        //2. 如果session中没有用户信息，则判断cookie中是否有用户信息，如果有，则放行
+        //3. 如果cookie中也没有用户信息，放行交由前端处理
         HttpSession session = request.getSession();
         Object loginUser = session.getAttribute("loginUser");
         if(loginUser != null){
             return true;
         }
-        //拦截住。未登录。跳转到登录页
-        request.setAttribute("msg","请先登录");
-//        re.sendRedirect("/");
-        request.getRequestDispatcher("/").forward(request,response);
-        return false;
+        if (cookieUtil.getCookie("_userSession") != null) {
+            Object rawData = redisService.get("User:Session:".concat(cookieUtil.getCookie("_userSession")));
+            if (rawData != null) {
+                User user = (User) rawData;
+                session.setAttribute("loginUser", user);
+            }
+        }
+        return true;
     }
 }

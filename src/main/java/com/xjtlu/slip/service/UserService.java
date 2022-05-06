@@ -14,9 +14,18 @@ import java.util.Map;
 @Repository
 public interface UserService extends IService<User> {
 
+    /**
+     * @description 密码校验
+     */
     User getByUsernameAndPassword(String username, String password);
 
+    /**
+     * @description 根据用户名查询用户信息
+     */
     User getByUsername(String username);
 
+    /**
+     * @description 查询所有用户存入map
+     */
     Map<Long, User> getUserMap();
 }

@@ -18,7 +18,13 @@ import java.util.Map;
 @Repository
 public interface TopicService extends IService<Topic> {
 
-    Page<Topic> getAllTopicsAndUser(Page<Topic> page, QueryWrapper<Topic> queryWrapper);
+    /**
+     * @description 并表查最新
+     */
+    Page<Topic> getAllTopicsAndUser(Integer page, Integer size);
 
+    /**
+     * @description 获取所有的评论数
+     */
     Map<Long, CommentCount> getCommentCount();
 }

@@ -28,8 +28,10 @@ public class TopicServiceImpl extends ServiceImpl<TopicMapper, Topic>
     private TopicMapper topicMapper;
 
     @Override
-    public Page<Topic> getAllTopicsAndUser(Page<Topic> page, QueryWrapper<Topic> queryWrapper) {
-
+    public Page<Topic> getAllTopicsAndUser(Integer currentPage, Integer pageSize) {
+        QueryWrapper<Topic> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("latest_comment_unix_time");
+        Page<Topic> page = new Page<>(currentPage, pageSize);
         return topicMapper.getAllTopicsAndUserByPage(page, queryWrapper);
     }
 
