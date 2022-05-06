@@ -11,10 +11,8 @@
             <result property="authorId" column="author_id" jdbcType="BIGINT"/>
             <result property="author" column="author" jdbcType="VARCHAR"/>
             <result property="createUnixTime" column="create_unix_time" jdbcType="BIGINT"/>
-            <result property="updateUnixTime" column="update_unix_time" jdbcType="BIGINT"/>
             <result property="latestCommentUnixTime" column="latest_comment_unix_time" jdbcType="BIGINT"/>
             <result property="type" column="type" jdbcType="VARCHAR"/>
-            <result property="view" column="view" jdbcType="INTEGER"/>
             <result property="comment" column="comment" jdbcType="INTEGER"/>
             <result property="isDeleted" column="is_deleted" jdbcType="VARCHAR"/>
     </resultMap>
@@ -26,10 +24,8 @@
         <result property="authorId" column="author_id" jdbcType="BIGINT"/>
         <result property="author" column="author" jdbcType="VARCHAR"/>
         <result property="createUnixTime" column="create_unix_time" jdbcType="BIGINT"/>
-        <result property="updateUnixTime" column="update_unix_time" jdbcType="BIGINT"/>
         <result property="latestCommentUnixTime" column="latest_comment_unix_time" jdbcType="BIGINT"/>
         <result property="type" column="type" jdbcType="VARCHAR"/>
-        <result property="view" column="view" jdbcType="INTEGER"/>
         <result property="comment" column="comment" jdbcType="INTEGER"/>
         <result property="isDeleted" column="is_deleted" jdbcType="VARCHAR"/>
         <collection property="user" ofType="com.xjtlu.slip.pojo.User">
@@ -49,10 +45,8 @@
         <result property="authorId" column="author_id" jdbcType="BIGINT"/>
         <result property="author" column="author" jdbcType="VARCHAR"/>
         <result property="createUnixTime" column="create_unix_time" jdbcType="BIGINT"/>
-        <result property="updateUnixTime" column="update_unix_time" jdbcType="BIGINT"/>
         <result property="latestCommentUnixTime" column="latest_comment_unix_time" jdbcType="BIGINT"/>
         <result property="type" column="type" jdbcType="VARCHAR"/>
-        <result property="view" column="view" jdbcType="INTEGER"/>
         <result property="comment" column="comment" jdbcType="INTEGER"/>
         <result property="isDeleted" column="is_deleted" jdbcType="VARCHAR"/>
         <result property="commentCount" column="comment_num" jdbcType="INTEGER"/>
@@ -61,13 +55,13 @@
     <sql id="Base_Column_List">
         id,title,content,
         author_id,author,create_unix_time,
-        update_unix_time,latest_comment_unix_time,type,
-        view,comment,is_deleted
+        latest_comment_unix_time,type,
+        comment,is_deleted
     </sql>
     <select id="getAllTopicsAndUser" resultMap="TopicAndUser">
         select topic.id as id ,title,content,
         author_id,author,create_unix_time,
-        update_unix_time,latest_comment_unix_time,type, name, phone, password, email, avatar
+        latest_comment_unix_time, type, name, phone, password, email, avatar
         from topic,user
         where topic.author_id = user.id
         and topic.is_deleted = '0'
@@ -76,7 +70,7 @@
     <select id="getAllTopicsAndUserByPage" resultMap="TopicAndUser">
         select topic.id as id ,title,content,
                author_id,author,create_unix_time,
-               update_unix_time,latest_comment_unix_time,type, name, phone, password, email, avatar
+               latest_comment_unix_time, type, name, phone, password, email, avatar
         FROM topic
                  LEFT JOIN user
                            on topic.author_id=user.id
@@ -87,7 +81,7 @@
     <select id="getAllTopicsAndAllComments" resultMap="TopicAndComment">
         select topic.id as id ,title,topic.content,
                author_id,author,create_unix_time,
-               update_unix_time,latest_comment_unix_time , type , count(comment.topic_id) as comment_num
+               latest_comment_unix_time , type , count(comment.topic_id) as comment_num
         from topic
                  LEFT JOIN comment
                            on topic.id=comment.topic_id

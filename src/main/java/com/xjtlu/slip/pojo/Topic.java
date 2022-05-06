@@ -53,22 +53,12 @@ public class Topic implements Serializable {
     /**
      *
      */
-    private Long updateUnixTime;
-
-    /**
-     *
-     */
     private Long latestCommentUnixTime;
 
     /**
      * type of topic
      */
     private String type;
-
-    /**
-     *
-     */
-    private Integer view;
 
     /**
      *
