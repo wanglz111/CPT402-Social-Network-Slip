@@ -42,7 +42,7 @@
                 <div class="TopicInfo">
                     <h3><a href="#">[[${topic.title}]]</a></h3>
                     <p>
-                        <span><a href="#" id="type">问答</a> · </span>
+                        <span><a href="#" id="type">[[${topic.type}]]</a> · </span>
                         <a href="#" id="author">[[${topic.author}]]</a>
                         <span> · [[${topic.latestCommentTime}]]</span>
                         <span th:if="${topic.latestReplyUser}!=null"> · 最后回复来自 · <a href="#" id="reply_who" >[[${topic.latestReplyUser.name}]]</a></span>

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.*;
 import java.io.Serializable;
 import java.util.List;
 
+import com.xjtlu.slip.enums.TopicEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -58,7 +59,7 @@ public class Topic implements Serializable {
     /**
      * type of topic
      */
-    private String type;
+    private TopicEnum type;
 
     /**
      *

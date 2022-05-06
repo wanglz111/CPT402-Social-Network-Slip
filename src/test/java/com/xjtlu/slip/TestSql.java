@@ -53,9 +53,7 @@ public class TestSql {
             int number = (int) (Math.random() * (10000 - 3000 + 1) + 3000);
 
             topic.setCreateUnixTime(getCurrentTime() - number);
-            topic.setUpdateUnixTime(getCurrentTime() - number);
             topic.setLatestCommentUnixTime(getCurrentTime() - number);
-            topic.setType("work");
             topics.add(topic);
         }
 
@@ -148,5 +146,10 @@ public class TestSql {
     public void userListTest() {
         Map<Long, User> users = userService.getUserMap();
         System.out.println(users.get(100L).getName());
+    }
+
+    @Test
+    public void testSelectTopic() {
+        System.out.println(topicMapper.selectById(1L));
     }
 }
