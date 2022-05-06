@@ -23,7 +23,7 @@ spring:
       min-evictable-idle-time-millis: 600000
       max-evictable-idle-time-millis: 900000
       # 用来测试连接是否可用的SQL语句,默认值每种数据库都不相同,这是mysql
-      validationQuery: select id from user limit 1
+      validationQuery: select id from user where id = 1
       # 应用向连接池申请连接，并且testOnBorrow为false时，连接池将会判断连接是否处于空闲状态，如果是，则验证这条连接是否可用
       testWhileIdle: true
       # 如果为true，默认是false，应用向连接池申请连接时，连接池会判断这条连接是否是可用的

@@ -100,5 +100,5 @@ public class Topic implements Serializable {
     Comment latestComment;
 
     @TableField(exist = false)
-    String latestCommentUser;
+    User latestReplyUser;
 }
