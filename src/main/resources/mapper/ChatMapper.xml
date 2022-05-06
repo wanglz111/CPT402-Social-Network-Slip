@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xjtlu.slip.mapper.ChatMapper">
+
+    <resultMap id="BaseResultMap" type="com.xjtlu.slip.pojo.Chat">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="senderUserId" column="sender_user_id" jdbcType="BIGINT"/>
+            <result property="receiverUserId" column="receiver_user_id" jdbcType="BIGINT"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="timestamp" column="timestamp" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,sender_user_id,receiver_user_id,
+        content,timestamp
+    </sql>
+</mapper>
