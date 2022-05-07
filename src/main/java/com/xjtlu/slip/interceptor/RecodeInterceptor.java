@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 @Configuration
 public class RecodeInterceptor implements HandlerInterceptor {
     // inject the actual template
-    @Resource
+    @Autowired
     StringRedisTemplate redisTemplate;
 
     @Override

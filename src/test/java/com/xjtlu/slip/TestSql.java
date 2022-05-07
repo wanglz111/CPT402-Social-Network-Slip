@@ -152,4 +152,12 @@ public class TestSql {
     public void testSelectTopic() {
         System.out.println(topicMapper.selectById(1L));
     }
+
+    @Test
+    public void testCommentAndUser() {
+        QueryWrapper<Comment> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("comment.id", 1L);
+        Comment comment = commentMapper.selectOneCommentAndUser(queryWrapper);
+        System.out.println(comment.getUser().getName());
+    }
 }
