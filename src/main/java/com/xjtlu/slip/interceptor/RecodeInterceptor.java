@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 @Configuration
 public class RecodeInterceptor implements HandlerInterceptor {
     // inject the actual template
-    @Autowired
+    @Resource
     StringRedisTemplate redisTemplate;
 
     @Override

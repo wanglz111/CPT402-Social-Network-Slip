@@ -32,12 +32,13 @@
         id,topic_id,user_id,
         content,create_time
     </sql>
-    <select id="selectCommentAndUserByCommentId" resultMap="CommentAndUser">
+
+    <select id="selectOneCommentAndUser" resultMap="CommentAndUser">
         select comment.id as id, topic_id, user_id, content, create_time, name, phone, password, email, avatar
-        from comment, user
-        where comment.id = #{id}
-          and comment.user_id = user.id
-          and topic.is_deleted = '0'
+        from comment
+            left JOIN user
+                   on comment.user_id = user.id
+            ${ew.customSqlSegment}
     </select>
 
     <select id="selectCommentAndUserByTopicId" resultMap="CommentAndUser">
