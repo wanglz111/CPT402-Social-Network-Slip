@@ -1,5 +1,6 @@
 package com.xjtlu.slip.controller;
 
+import cn.hutool.crypto.digest.MD5;
 import com.qiniu.util.StringUtils;
 import com.xjtlu.slip.service.RedisService;
 import com.xjtlu.slip.utils.*;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -76,7 +76,7 @@ public class LoginController {
         session.removeAttribute("verifyCode");
         session.setAttribute("loginUser", user);
         //force cookie different from next time(SALT, TIME)
-        String _userSession = MD5.encrypt(user + Constant.SALT + LocalTime.now().toString());
+        String _userSession = MD5.create().digestHex(user + Constant.SALT + LocalTime.now().toString());
         //store user in redis and set cookie
         //expire time is 1 day
         redisService.set("User:Session:".concat(_userSession), user, Constant.SESSION_TIME);
