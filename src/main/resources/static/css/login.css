@@ -75,6 +75,7 @@ body {
     color: #bfbfbf;
     border-radius: 5px;
 }
+
 .login .login_info .signin{
     margin-left:24% ;
     margin-top: 15px;
@@ -91,6 +92,7 @@ body {
     cursor: pointer;
     color: white;
 }
+
 .login .login_info p{
     text-decoration: underline;
     margin-left:24%;

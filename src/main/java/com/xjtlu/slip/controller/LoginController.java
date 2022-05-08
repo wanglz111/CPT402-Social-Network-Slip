@@ -46,14 +46,6 @@ public class LoginController {
     public String loginCheck(Model model, String username, String password, HttpSession session, HttpServletResponse response) {
         User user;
         //if cookie exists and useful, redirect to index
-        if (cookieUtil.getCookie("_userSession") != null) {
-            Object rawData = redisService.get("User:Session:".concat(cookieUtil.getCookie("_userSession")));
-            if (rawData != null) {
-                user = (User) rawData;
-                session.setAttribute("loginUser", user);
-                return "redirect:/";
-            }
-        }
 
 
         if (StringUtils.isNullOrEmpty(username)||StringUtils.isNullOrEmpty(password)) {
@@ -189,6 +181,14 @@ public class LoginController {
 
     @GetMapping("/login")
     public String login(Model model, String username, String password, HttpSession session, HttpServletResponse response) {
+        if (cookieUtil.getCookie("_userSession") != null) {
+            Object rawData = redisService.get("User:Session:".concat(cookieUtil.getCookie("_userSession")));
+            if (rawData != null) {
+                User user = (User) rawData;
+                session.setAttribute("loginUser", user);
+                return "redirect:/";
+            }
+        }
         return "login";
     }
 
