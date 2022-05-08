@@ -42,8 +42,8 @@ public class LoginController {
 //        return "redirect:/login";
 //    }
 
-    @GetMapping("/login")
-    public String login(Model model, String username, String password, String verifyCode , HttpSession session, HttpServletResponse response) {
+    @GetMapping("/login/check")
+    public String loginCheck(Model model, String username, String password, HttpSession session, HttpServletResponse response) {
         User user;
         //if cookie exists and useful, redirect to index
         if (cookieUtil.getCookie("_userSession") != null) {
@@ -66,12 +66,12 @@ public class LoginController {
             model.addAttribute("msg", "username or password is wrong");
             return "login";
         }
-        //determine if verifyCode is correct
-        String verifyCodeSession = (String) session.getAttribute("verifyCode");
-        if (verifyCodeSession == null || !verifyCodeSession.equalsIgnoreCase(verifyCode)) {
-            model.addAttribute("msg", "verifyCode is wrong");
-            return "login";
-        }
+//        //determine if verifyCode is correct
+//        String verifyCodeSession = (String) session.getAttribute("verifyCode");
+//        if (verifyCodeSession == null || !verifyCodeSession.equalsIgnoreCase(verifyCode)) {
+//            model.addAttribute("msg", "verifyCode is wrong");
+//            return "login";
+//        }
         //remove the verifyCode from session for security
         session.removeAttribute("verifyCode");
         session.setAttribute("loginUser", user);
@@ -185,6 +185,11 @@ public class LoginController {
         redisService.del("User:Session:".concat(cookieUtil.getCookie("_userSession")));
         cookieUtil.clearCookie("_userSession");
         return "goodbye";
+    }
+
+    @GetMapping("/login")
+    public String login(Model model, String username, String password, HttpSession session, HttpServletResponse response) {
+        return "login";
     }
 
 

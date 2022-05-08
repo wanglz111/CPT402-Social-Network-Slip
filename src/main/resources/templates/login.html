@@ -1,45 +1,123 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Slip</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+
 </head>
+
 <body>
-<h1>Login</h1>
+    <div class="login">
+        <div class="title">
+            <h3>Slip - Sign In</h3>
+            <img class = "signin_icon" th:src="@{/images/lock.png}">
+        </div>
 
-<div class="container">
-    <p style="color:darkred ">[[${msg}]]</p>
-    <p th:if="${session.containsKey('msg')}" style="color:darkred" th:text="${session.msg}"></p>
-    <form action="login" method="get">
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" class="form-control" id="username" name="username" placeholder="Username">
-        </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
-        </div>
-        <div class="form-group">
-            <label for="verifyCode">VerifyCode</label>
-            <input type="password" class="form-control" id="verifyCode" name="verifyCode" placeholder="VerifyCode">
-        </div>
-        <button type="submit" class="btn btn-primary">Login</button>
-    </form>
 
-    <div>
-        <a href="javascript:void(0);" rel="external nofollow" title="点击更换验证码">
-            <img th:src="@{getVerifyCode}" onclick="changeCode()" class="verifyCode" id="verifyCodeImage"/>
-        </a>
+        <div class="login_info">
+            <form th:action="@{/login/check}" method="get">
+            <div class="username">
+                <h4>Username: </h4>
+                <input type="text" placeholder="username" class="username_text" id="username_text" name="username">
+            </div>
+            <div class="password">
+                <h4>Password: </h4>
+                <input type="password" placeholder="password" class="password_text" id="password_text" name="password">
+            </div>
+            <div class="verification">
+                <h4>Are you robot? </h4>
+                <canvas id="canvas" width="300px" height="70px"></canvas>
+            </div>
+            <input type="text" placeholder="Enter the code above, click to change" id="code" class="code">
+            <br>
+                <button class="signin" type="submit">Login</button>
+            </form>
+            <a th:href="@{/register}">
+                <button class ="signin" id="register">Register</button>
+            </a>
+            <a href="#">
+               <p>Forgot Password?</p>
+            </a>
+
+            <br>
+            <br>
+        </div>
+
+
     </div>
-    <button type="button" class="btn btn-primary" onclick="window.location.href='register'">Register</button>
-</div>
+
+
+<script>
+     //Generate random number
+    function randomNum(min,max){
+        return Math.floor(Math.random()*(max-min)+min);
+    }
+    //Generate random color RGB component
+    function randomColor(min,max){
+        var _r = randomNum(min,max);
+        var _g = randomNum(min,max);
+        var _b = randomNum(min,max);
+        return "rgb("+_r+","+_g+","+_b+")";
+    }
+    //Block the default clicking behavior on the canvas before executing the drawpic() method
+    document.getElementById("canvas").onclick = function(e){
+        e.preventDefault();
+        drawPic();
+    };
+    function drawPic(){
+        //Get element canvas
+
+        var canvas = document.getElementById("canvas");
+        var _str = "0123456789";// Set random number library
+        var _picTxt = "";// random number
+        var count = 4;// 4 random numbers
+        var _width = canvas.width;
+        var _height = canvas.height;
+        var ctx = canvas.getContext("2d");// Get context object
+        ctx.textBaseline = "bottom";// Text top and bottom alignment -- bottom alignment
+        ctx.fillStyle = randomColor(180,240);// Fill canvas color
+        ctx.fillRect(0,0,_width,_height);// Fill rectangle -- draw
+        for(var i=0; i<count; i++){
+            var x = (_width-10)/count*i+10;
+            var y = randomNum(_height/2,_height);
+            var deg = randomNum(-45,45);
+            var txt = _str[randomNum(0,_str.length)];
+            _picTxt += txt;// Get a random number
+            ctx.fillStyle = randomColor(10,100);// Fill random color
+            ctx.font = randomNum(16,40)+"px SimHei";// Set the random number size with the font simhei
+            ctx.translate(x,y);// Takes the current XY coordinate as the original coordinate
+            ctx.rotate(deg*Math.PI/180);// Rotate random angle
+            ctx.fillText(txt, 0,0);// Draw colored text
+            ctx.rotate(-deg*Math.PI/180);
+            ctx.translate(-x,-y);
+        }
+        for(var i=0; i<count; i++){
+            //Define stroke color
+            ctx.strokeStyle = randomColor(90,180);
+            ctx.beginPath();
+            //Random scribing - 4 paths
+            ctx.moveTo(randomNum(0,_width), randomNum(0,_height));
+            ctx.lineTo(randomNum(0,_width), randomNum(0,_height));
+            ctx.stroke();
+        }
+        for(var i=0; i<count*10; i++){
+            ctx.fillStyle = randomColor(0,255);
+            ctx.beginPath();
+            //Random draw, fill color
+            ctx.arc(randomNum(0,_width),randomNum(0,_height), 1, 0, 2*Math.PI);
+            ctx.fill();
+        }
+        return _picTxt;// Returns a random number string
+    }
+    drawPic();
+</script>
+
 
 </body>
-<!--<script src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>-->
-<script>
-    function changeCode() {
-         //加时间戳，防止浏览器利用缓存
-        document.getElementById("verifyCodeImage").src = "/getVerifyCode?" + new Date().getTime();
-    }
-</script>
+
 </html>
