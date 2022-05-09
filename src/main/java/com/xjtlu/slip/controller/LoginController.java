@@ -37,11 +37,6 @@ public class LoginController {
     @Resource
     private CookieUtil cookieUtil;
 
-//    @GetMapping("/")
-//    public String welcome() {
-//        return "redirect:/login";
-//    }
-
     @GetMapping("/login/check")
     public String loginCheck(Model model, String username, String password, HttpSession session, HttpServletResponse response) {
         User user;
@@ -58,6 +53,7 @@ public class LoginController {
             model.addAttribute("msg", "username or password is wrong");
             return "login";
         }
+        // todo: cause frontend do this, so I comment it
 //        //determine if verifyCode is correct
 //        String verifyCodeSession = (String) session.getAttribute("verifyCode");
 //        if (verifyCodeSession == null || !verifyCodeSession.equalsIgnoreCase(verifyCode)) {
@@ -75,98 +71,6 @@ public class LoginController {
         cookieUtil.setCookie("_userSession", _userSession);
 
         return "redirect:/";
-    }
-
-    /**
-     * 本来的 index page 现在index page直接由topic page替代
-     * 这一部分是测试登陆的一部分，具体是否使用后续在看
-     * TODO:
-     */
-//    @GetMapping("/index")
-//    public String index(Model model, HttpServletRequest request, HttpSession session) {
-//        if (session.getAttribute("loginUser") != null) {
-//            return "redirect:/topic";
-//        }
-//        if (cookieUtil.getCookie("_userSession") != null) {
-//            User user = (User) redisService.get("User:Session:".concat(cookieUtil.getCookie("_userSession")));
-//            if (user != null) {
-//                session.setAttribute("loginUser", user);
-//                return "redirect:/topic";
-//            }
-//        }
-//
-//        session.setAttribute("msg", "please login first");
-//        return "redirect:/";
-//    }
-
-    @PostMapping("/upload")
-    public String register(@RequestParam("username") String username,
-                           @RequestParam("password") String password,
-                           @RequestParam("confirmPassword") String confirmPassword,
-                           @RequestParam("email") String email,
-                           @RequestParam("telephone") String telephone,
-                           @RequestPart("avatar") @DefaultValue("") MultipartFile file,
-                           Model model) throws IOException {
-        //check if the username is already registered
-        User user = userService.getByUsername(username);
-        if (user != null) {
-            model.addAttribute("msg", "username is already registered");
-            return "register";
-        }
-        //check if the password is consistent
-        if (!password.equals(confirmPassword)) {
-            model.addAttribute("msg", "password is inconsistent");
-            return "register";
-        }
-        //validate the telephone
-        if (!telephone.matches("^1[3|4|5|7|8]\\d{9}$")) {
-            model.addAttribute("msg", "telephone is invalid");
-            return "register";
-        }
-
-
-        //check if the file is empty or suffix is not image format
-        String newFileName;
-        InputStream uploadFile;
-        String newName = UUID.randomUUID().toString().replace("-", "").toLowerCase(Locale.ROOT);
-        if (file.isEmpty()) {
-            //generate a default avatar
-            uploadFile = GenerateAvatar.generateOneAvatar();
-            newFileName = newName.concat(".png");
-        } else {
-            //check if the file is image format
-            String suffix = Objects.requireNonNull(file.getOriginalFilename()).substring(file.getOriginalFilename().lastIndexOf("."));
-            if (!".jpg".equals(suffix) && !".png".equals(suffix) && !".jpeg".equals(suffix) && !".gif".equals(suffix) && !".bmp".equals(suffix) && !".ico".equals(suffix) && !".svg".equals(suffix) && !".webp".equals(suffix)) {
-                model.addAttribute("msg", "file suffix is not image format");
-            }
-            //check if the file is too large
-            if (file.getSize() > 1024 * 1024 * 20) {
-                model.addAttribute("msg", "avatar is too large");
-            }
-            newFileName = newName.concat(suffix);
-            uploadFile = file.getInputStream();
-        }
-        //save the file
-        UploadFile.uploadFile(newFileName, uploadFile);
-
-        String prefix = Constant.OSS_WEBSITE_URL;
-
-
-        //save the user information
-        user = new User();
-        user.setName(username);
-        user.setPassword(password);
-        user.setEmail(email);
-        user.setPhone(telephone);
-        user.setAvatar(prefix + newFileName);
-
-        userService.save(user);
-        return "redirect:/";
-    }
-
-    @GetMapping("/register")
-    public String register() {
-        return "register";
     }
 
     @GetMapping("/logout")

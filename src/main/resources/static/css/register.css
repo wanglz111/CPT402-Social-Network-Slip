@@ -1,0 +1,93 @@
+body {
+    background-color: #22303f;
+    min-width: 820px;
+    font-family: "JetBrains Mono", "Luxi Sans", "Segoe UI", "Hiragino Sans GB", "Microsoft Yahei", sans-serif, "Apple Logo";
+}
+
+
+.register {
+    background-color: #18222d;
+    width: 770px;
+    height: auto;
+    margin: 0 auto;
+    border-radius: 5px;
+    
+}
+.register .title {
+    height: 50px;
+    display: inline-block;
+}
+
+.register .title h1{
+    margin-top: 0px;
+    color: #bfbfbf;
+    font-family: 'Times New Roman', Times, serif;
+    display: inline-block;
+ 
+}
+.register .title img{
+    padding-top: 3px;
+    padding-left: 5px;
+    display: inline-block;
+
+  
+}
+.register .register_info {
+    border-top: 1px solid rgba(100, 100, 100, 0.4);
+    background-color: #18222d;
+    width: 770px;
+    height: auto;
+    border-radius: 5px;
+}
+
+.register .register_info label{
+    margin-top: 5%;
+    padding-top: 20px;
+    color: #bfbfbf;
+    font-family: 'Times New Roman', Times, serif;
+    padding-left: 10%;
+    display: inline-block;
+
+
+
+}
+
+.register .register_info input{
+    /*
+    display: block;
+    margin:auto;*/
+    border-radius: 5px;
+    height: 21px;
+    background-color: rgba(156, 174, 199, 0.8);
+}
+
+#username,#telephone{
+    margin-left: 30%;
+}
+.register .register_info #password{
+    margin-left: 30.5%;
+}
+.register .register_info #confirmPassword{
+    margin-left: 23%;
+}
+.register .register_info #email{
+    margin-left: 34%;
+}
+.register .register_info #avatar{
+    margin-left: 15%;
+}
+.register .register_info #submit{
+    display: block;
+    margin:auto;
+    margin-top: 60px;
+    height: 40px;
+    width: 100px;
+    background-color: rgba(156, 174, 199, 0.8);
+    border-radius: 5px;
+    border: 1px solid rgba(156, 174, 199, 0.7);
+}
+.register .register_info #submit:hover {
+    background-color: #22303f;
+    cursor: pointer;
+    color: white;
+}
