@@ -95,16 +95,6 @@ public class TopicController {
                 User user = userInfo.get(comment.getUserId());
                 topic.setLatestReplyUser(user);
             }
-            String topicTitle = topic.getTitle();
-            //判断中文加英文是否大于60字符,如果大于则截取
-            try {
-                String newString = new String(topicTitle.getBytes("GB2312"), StandardCharsets.ISO_8859_1);
-                if (newString.length() > 60) {
-                    topic.setTitle(topicTitle.substring(0, 30).concat("..."));
-                }
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
         });
         //如果session中有用户信息,则获取用户的emotion信息
         if (session.getAttribute("loginUser") != null) {
