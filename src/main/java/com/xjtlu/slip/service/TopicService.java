@@ -1,13 +1,11 @@
 package com.xjtlu.slip.service;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xjtlu.slip.pojo.Topic;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.xjtlu.slip.vo.CommentCount;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,4 +25,6 @@ public interface TopicService extends IService<Topic> {
      * @description 获取所有的评论数
      */
     Map<Long, CommentCount> getCommentCount();
+
+    int getTopicCount(Long id);
 }

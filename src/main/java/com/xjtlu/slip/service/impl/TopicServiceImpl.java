@@ -8,8 +8,6 @@ import com.xjtlu.slip.service.TopicService;
 import com.xjtlu.slip.mapper.TopicMapper;
 import com.xjtlu.slip.vo.CommentCount;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,6 +36,14 @@ public class TopicServiceImpl extends ServiceImpl<TopicMapper, Topic>
     @Override
     public Map<Long, CommentCount> getCommentCount() {
        return topicMapper.getTopicCommentsCount();
+    }
+
+    @Override
+    public int getTopicCount(Long id) {
+        QueryWrapper<Topic> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("author_id", id);
+        List<Topic> topics = topicMapper.selectList(queryWrapper);
+        return topics.size();
     }
 }
 

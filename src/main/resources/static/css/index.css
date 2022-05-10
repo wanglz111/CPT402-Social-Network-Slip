@@ -21,7 +21,7 @@ body {
 }
 
 .top .tools {
-    /*display: float;*/
+    display: float;
     float: right;
     /* background-color: #fff; */
 }
@@ -58,13 +58,12 @@ body {
 .sep20 {
     height: 20px;
     width: auto;
-    background-color: #22303f;
+    background-color: #3e5874;
 }
 
 .sep10 {
     height: 10px;
     width: auto;
-    background-color: #22303f;
 }
 
 
@@ -137,8 +136,9 @@ body {
 .left .content .item .TopicInfo {
     float: left;
     margin-left: 10px;
+    padding-left: 10px;
     width: 600px;
-    padding: 10px;
+    padding: 10px auto;
     height: 50px;
     color: aliceblue;
 }
@@ -219,7 +219,7 @@ body {
     /* border-bottom: rgba(100, 100, 100, 0.4) 1px solid; */
 }
 
-.rightBar .box li {
+.rightBar .box .info-box {
     display: inline-block;
     width: 50px;
     height: 50px;

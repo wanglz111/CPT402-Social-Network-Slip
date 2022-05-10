@@ -3,12 +3,10 @@ package com.xjtlu.slip.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xjtlu.slip.pojo.Comment;
+import com.xjtlu.slip.pojo.Emotion;
 import com.xjtlu.slip.pojo.Topic;
 import com.xjtlu.slip.pojo.User;
-import com.xjtlu.slip.service.CommentService;
-import com.xjtlu.slip.service.RedisService;
-import com.xjtlu.slip.service.TopicService;
-import com.xjtlu.slip.service.UserService;
+import com.xjtlu.slip.service.*;
 import com.xjtlu.slip.utils.CookieUtil;
 import com.xjtlu.slip.utils.TimeFormat;
 import com.xjtlu.slip.vo.CommentCount;
@@ -49,48 +47,8 @@ public class TopicController {
     @Autowired
     private CommentService commentService;
 
-    @Resource
-    private CookieUtil cookieUtil;
-
-    //跳转到帖子主页
-//    @GetMapping("/topic/{page}/{size}")
-//    public String topic(Model model, HttpSession session, @PathVariable Integer page, @PathVariable Integer size) {
-//        Page<Topic> topicPage = topicService.getAllTopicsAndUser(page,size);
-//        List<Topic> topics = topicPage.getRecords();
-//        Map<Long, CommentCount> topicCommentCount = topicService.getCommentCount();
-//        Map<Long, Comment> latestCommentInfoEveryTopic = commentService.getLatestCommentInfoEveryTopic();
-//        Map<Long, User> userInfo = userService.getUserMap();
-//        topics.forEach(topic -> {
-//            Long latestCommentUnixTime = topic.getLatestCommentUnixTime();
-//            //set time format like xx seconds ago/xx minutes ago/xx hours ago/xx days ago
-//            if (latestCommentUnixTime != null) {
-//                Long now = getCurrentTime();
-//                long time = (now - topic.getLatestCommentUnixTime()) * 1000;
-//                topic.setLatestCommentTime(TimeFormat.format(time));
-//            }
-//
-//            Integer commentCount = topicCommentCount.get(topic.getId()).getCommentCount();
-//            topic.setCommentCount(commentCount);
-//            Comment comment = latestCommentInfoEveryTopic.get(topic.getId());
-//            topic.setLatestComment(comment);
-//            if (comment != null){
-//                User user = userInfo.get(comment.getUserId());
-//                topic.setLatestReplyUser(user);
-//            }
-//            String topicTitle = topic.getTitle();
-//            //判断中文加英文是否大于60字符,如果大于则截取
-//            try {
-//                String newString = new String(topicTitle.getBytes("GB2312"), StandardCharsets.ISO_8859_1);
-//                if (newString.length() > 60) {
-//                    topic.setTitle(topicTitle.substring(0, 30).concat("..."));
-//                }
-//            } catch (UnsupportedEncodingException e) {
-//                e.printStackTrace();
-//            }
-//        });
-//        model.addAttribute("topics", topics);
-//        return "index";
-//    }
+    @Autowired
+    private EmotionService emotionService;
 
     @GetMapping("/topic/{topicId}")
     public String topicDetails(Model model, @PathVariable String topicId) {
@@ -111,18 +69,14 @@ public class TopicController {
     }
 
     @GetMapping("/topic/{page}/{size}")
-    public String topic(Model model, @PathVariable Integer page, @PathVariable Integer size) {
-//        if (cookieUtil.getCookie("_userSession") != null) {
-//            Object rawData = redisService.get("User:Session:".concat(cookieUtil.getCookie("_userSession")));
-//            if (rawData != null) {
-//                User user = (User) rawData;
-//                model.addAttribute("loginUser", user);
-//            }
-//        }
+    public String topic(Model model, @PathVariable Integer page, @PathVariable Integer size, HttpSession session) {
         Page<Topic> topicPage = topicService.getAllTopicsAndUser(page,size);
         List<Topic> topics = topicPage.getRecords();
+        //获取每条topic评论数
         Map<Long, CommentCount> topicCommentCount = topicService.getCommentCount();
+        //获取最新评论
         Map<Long, Comment> latestCommentInfoEveryTopic = commentService.getLatestCommentInfoEveryTopic();
+        //获取最新评论用户
         Map<Long, User> userInfo = userService.getUserMap();
         topics.forEach(topic -> {
             Long latestCommentUnixTime = topic.getLatestCommentUnixTime();
@@ -152,6 +106,20 @@ public class TopicController {
                 e.printStackTrace();
             }
         });
+        //如果session中有用户信息,则获取用户的emotion信息
+        if (session.getAttribute("loginUser") != null) {
+            User user = (User) session.getAttribute("loginUser");
+            List<Emotion> emotions = emotionService.getByUserId(user.getId());
+            emotions.forEach(emotion -> {
+                emotion.setTime(TimeFormat.format(emotion.getCreateTime()));
+                    });
+            //获取emotion相关信息
+            model.addAttribute("emotions", emotions);
+            model.addAttribute("emotionCount", emotions.size());
+            Integer topicCount = topicService.getTopicCount(user.getId());
+            model.addAttribute("topicCount", topicCount);
+            //todo 获取用户的聊天好友数
+        }
         model.addAttribute("topics", topics);
         return "index";
     }
