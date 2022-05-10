@@ -50,7 +50,7 @@ public class TopicController {
     @Autowired
     private EmotionService emotionService;
 
-    @GetMapping("/topic/{topicId}")
+    @GetMapping("/topic/d/{topicId}")
     public String topicDetails(Model model, @PathVariable String topicId) {
         //获取帖子详情
         Topic topic = topicService.getById(topicId);
@@ -68,9 +68,9 @@ public class TopicController {
         return "topicDetails";
     }
 
-    @GetMapping("/topic/{page}/{size}")
-    public String topic(Model model, @PathVariable Integer page, @PathVariable Integer size, HttpSession session) {
-        Page<Topic> topicPage = topicService.getAllTopicsAndUser(page,size);
+    @GetMapping("/topic/{page}")
+    public String topic(Model model, @PathVariable Integer page, HttpSession session) {
+        Page<Topic> topicPage = topicService.getAllTopicsAndUser(page,20);
         List<Topic> topics = topicPage.getRecords();
         //获取每条topic评论数
         Map<Long, CommentCount> topicCommentCount = topicService.getCommentCount();
@@ -116,6 +116,6 @@ public class TopicController {
 
     @GetMapping("/")
     public String index() {
-        return "redirect:/topic/1/50";
+        return "redirect:/topic/1";
     }
 }

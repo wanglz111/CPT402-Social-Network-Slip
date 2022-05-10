@@ -21,7 +21,6 @@ body {
 }
 
 .top .tools {
-    display: float;
     float: right;
     /* background-color: #fff; */
 }
@@ -58,12 +57,13 @@ body {
 .sep20 {
     height: 20px;
     width: auto;
-    background-color: #3e5874;
+    background-color: #22303f;
 }
 
 .sep10 {
     height: 10px;
     width: auto;
+    background-color: #22303f;
 }
 
 
@@ -135,7 +135,7 @@ body {
 .left .content .item .TopicInfo {
     margin-left: 60px;
     width: 600px;
-    padding: 10px;
+    padding: 0 10px;
     color: aliceblue;
 }
 
