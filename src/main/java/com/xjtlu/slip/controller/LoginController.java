@@ -1,6 +1,7 @@
 package com.xjtlu.slip.controller;
 
 import cn.hutool.crypto.digest.MD5;
+import com.qiniu.util.Md5;
 import com.qiniu.util.StringUtils;
 import com.xjtlu.slip.service.RedisService;
 import com.xjtlu.slip.utils.*;
@@ -48,7 +49,7 @@ public class LoginController {
             return "login";
         }
         //determine if password is correct
-        user = userService.getByUsernameAndPassword(username, password);
+        user = userService.getByUsernameAndPassword(username, MD5.create().digestHex(password));
         if (user == null) {
             model.addAttribute("msg", "username or password is wrong");
             return "login";

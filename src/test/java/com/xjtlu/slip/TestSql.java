@@ -1,5 +1,6 @@
 package com.xjtlu.slip;
 
+import cn.hutool.crypto.digest.MD5;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -159,5 +160,26 @@ public class TestSql {
         queryWrapper.eq("comment.id", 1L);
         Comment comment = commentMapper.selectOneCommentAndUser(queryWrapper);
         System.out.println(comment.getUser().getName());
+    }
+
+    @Test
+    public void testUpdateUser() {
+        List<User> users = userService.list();
+        users.forEach(user -> {
+            String avatar = user.getAvatar();
+            String replaceAvatar = avatar.replace("http://ran6e8ncl.bkt.clouddn.com/", "http://img.cpt402.fun/");
+            user.setAvatar(replaceAvatar);
+            });
+        userService.updateBatchById(users);
+    }
+
+    @Test
+    public void testUpdateUserPassword() {
+        List<User> users = userService.list();
+        users.forEach(user -> {
+            String password = user.getPassword();
+            user.setPassword(MD5.create().digestHex(password));
+        });
+        userService.updateBatchById(users);
     }
 }

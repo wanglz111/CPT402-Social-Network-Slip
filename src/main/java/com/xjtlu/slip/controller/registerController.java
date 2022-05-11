@@ -1,5 +1,6 @@
 package com.xjtlu.slip.controller;
 
+import cn.hutool.crypto.digest.MD5;
 import com.xjtlu.slip.pojo.User;
 import com.xjtlu.slip.service.UserService;
 import com.xjtlu.slip.utils.Constant;
@@ -87,7 +88,7 @@ public class registerController {
         //save the user information
         user = new User();
         user.setName(username);
-        user.setPassword(password);
+        user.setPassword(MD5.create().digestHex(password));
         user.setEmail(email);
         user.setPhone(telephone);
         user.setAvatar(prefix + newFileName);
