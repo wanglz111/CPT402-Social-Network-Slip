@@ -104,10 +104,22 @@
                 <div class="emotion-title">
                     <h3>emotion</h3>
                 </div>
+                <div class="create-emotion">
+                    <form method="post" th:action="@{/addEmotion}">
+                        <input id="content" name='emotion' placeholder="You Can Write Your Emotion Here!">
+                        <input class="button" value='Submit' type='submit'>
+                    </form>
+                </div>
                 <div class="emotion-content">
                     <ul th:each="emotion:${emotions}">
                         <li class="emotion-item">
-                            <p>[[${emotion.content}]]</p><span>· [[${emotion.time}]]</span></li>
+                        <p>[[${emotion.content}]]</p>
+                            <form method="post" th:action="@{/delEmotion}">
+                                <input type="hidden" name="id" th:value="${emotion.id}">
+                                <input class="button" value='DEL' type='submit'>
+                            </form>
+                        <span>· [[${emotion.time}]]</span>
+                        </li>
                     </ul>
                     <a href="#"><span class="watch-more">查看更多</span></a>
                 </div>

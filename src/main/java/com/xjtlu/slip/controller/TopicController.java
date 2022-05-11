@@ -97,7 +97,7 @@ public class TopicController {
         //如果session中有用户信息,则获取用户的emotion信息
         if (session.getAttribute("loginUser") != null) {
             User user = (User) session.getAttribute("loginUser");
-            List<Emotion> emotions = emotionService.getByUserId(user.getId());
+            List<Emotion> emotions = emotionService.getByUserIdForIndex(user.getId());
             emotions.forEach(emotion -> {
                 emotion.setTime(TimeFormat.format(emotion.getCreateTime()));
                     });

@@ -10,7 +10,7 @@ public class TimeFormat {
     private static final String ONE_SECOND_AGO = " second ago";
     private static final String MORE_SECOND_AGO = " seconds ago";
     private static final String ONE_MINUTE_AGO = " minute ago";
-    private static final String MORE_MINUTE_AGO = " minute ago";
+    private static final String MORE_MINUTE_AGO = " minutes ago";
     private static final String ONE_HOUR_AGO = " hour ago";
     private static final String MORE_HOUR_AGO = " hours ago";
     private static final String ONE_DAY_AGO = " day ago";
@@ -19,19 +19,7 @@ public class TimeFormat {
     private static final String MORE_MONTH_AGO = " months ago";
     private static final String ONE_YEAR_AGO = " year ago";
     private static final String MORE_YEAR_AGO = " years ago";
-    //main方法测试
-       /*public static void main(String[] args) throws ParseException {
-           SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-           Date date = format.parse("2019-03-18 13:25:40");
-           System.out.println(format(date));
-       }*/
-
-
-//    实际调用方法
-//    public String timeCount(Date dateTime) {
-//        return format(dateTime);
-//    }
     //时间转换
     public static String format(long timeMillis) {
         long delta = new Date().getTime() - timeMillis * 1000;

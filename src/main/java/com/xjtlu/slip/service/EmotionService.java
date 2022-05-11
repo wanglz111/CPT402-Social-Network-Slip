@@ -13,4 +13,6 @@ import java.util.List;
 public interface EmotionService extends IService<Emotion> {
 
     List<Emotion> getByUserId(Long id);
+
+    List<Emotion> getByUserIdForIndex(Long id);
 }
