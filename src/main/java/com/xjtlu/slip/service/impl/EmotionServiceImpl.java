@@ -23,6 +23,7 @@ public class EmotionServiceImpl extends ServiceImpl<EmotionMapper, Emotion>
     public List<Emotion> getByUserId(Long id) {
         QueryWrapper<Emotion> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", id);
+        queryWrapper.orderByDesc("create_time");
         return baseMapper.selectList(queryWrapper);
     }
 }

@@ -82,9 +82,7 @@ public class TopicController {
             Long latestCommentUnixTime = topic.getLatestCommentUnixTime();
             //set time format like xx seconds ago/xx minutes ago/xx hours ago/xx days ago
             if (latestCommentUnixTime != null) {
-                Long now = getCurrentTime();
-                long time = (now - topic.getLatestCommentUnixTime()) * 1000;
-                topic.setLatestCommentTime(TimeFormat.format(time));
+                topic.setLatestCommentTime(TimeFormat.format(latestCommentUnixTime));
             }
 
             Integer commentCount = topicCommentCount.get(topic.getId()).getCommentCount();

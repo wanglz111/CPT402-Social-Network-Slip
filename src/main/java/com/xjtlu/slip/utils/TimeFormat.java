@@ -33,8 +33,8 @@ public class TimeFormat {
 //        return format(dateTime);
 //    }
     //时间转换
-    public static String format(long delta) {
-//        long delta = new Date().getTime() - date.getTime();
+    public static String format(long timeMillis) {
+        long delta = new Date().getTime() - timeMillis * 1000;
         if (delta < ONE_MINUTE) {
             long seconds = toSeconds(delta);
             return ((seconds <= 0 ? 1 : seconds) == 1)? 1 + ONE_SECOND_AGO: seconds + MORE_SECOND_AGO;
