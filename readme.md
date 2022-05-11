@@ -31,16 +31,16 @@
 > - [x] VerifyCode
 > - [x] Validate Arguments
 > - [x] Upload Avatar
-- [ ] Index Web
+- [x] Index Web
 > - [ ] ChangePassword
 - [x] Topic Web
 > - [ ] Create Topic
 > - [ ] Delete Topic
 > - [ ] Update Topic
 > - [ ] Comment Topic
-- [ ] Emotion Web
-> - [ ] Add Emotion
-> - [ ] Delete Emotion
+- [x] Emotion Web
+> - [x] Add Emotion
+> - [x] Delete Emotion
 - [ ] Search Web
 > - [ ] Search User
 > - [ ] Search Topic
@@ -59,8 +59,7 @@
 - [ ] Database
 > - [x] Create User Database
 > - [ ] Create Friend Database
-> - [ ] Create Message Database
+> - [x] Create Message Database
 > - [x] Create Topic Database
 > - [x] Create Comment Database
-> - [ ] Create Like Database
-> - [ ] Create Emotion Database
+> - [x] Create Emotion Database
