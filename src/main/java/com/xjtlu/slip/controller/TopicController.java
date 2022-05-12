@@ -1,35 +1,26 @@
 package com.xjtlu.slip.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xjtlu.slip.pojo.Comment;
 import com.xjtlu.slip.pojo.Emotion;
 import com.xjtlu.slip.pojo.Topic;
 import com.xjtlu.slip.pojo.User;
 import com.xjtlu.slip.service.*;
-import com.xjtlu.slip.utils.CookieUtil;
 import com.xjtlu.slip.utils.TimeFormat;
 import com.xjtlu.slip.vo.CommentCount;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.cache.CacheProperties;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
-import static com.xjtlu.slip.utils.TimeToUnix.getCurrentTime;
 
 @Controller
 @Slf4j
@@ -51,9 +42,10 @@ public class TopicController {
     private EmotionService emotionService;
 
     @GetMapping("/topic/d/{topicId}")
-    public String topicDetails(Model model, @PathVariable String topicId) {
+    public String topicDetails(Model model, @PathVariable String topicId, HttpSession session) {
         //获取帖子详情
         Topic topic = topicService.getById(topicId);
+        topic.setLatestCommentTime(TimeFormat.format(topic.getCreateUnixTime()));
         model.addAttribute("topic", topic);
         //获取帖子作者
         Long authorId = topic.getAuthorId();
@@ -61,11 +53,36 @@ public class TopicController {
         model.addAttribute("user", user);
         //获取帖子评论
         List<Comment> comments = commentService.getListByTopicId(topicId);
+        //给帖子设置形如：1小时前，1天前，1月前，1年前的时间格式
+        comments.forEach(comment -> {
+            comment.setTime(TimeFormat.format(comment.getCreateTime()));
+                });
         model.addAttribute("comments", comments);
+        //获取帖子评论数
+        Integer commentCount = comments.size();
+        model.addAttribute("commentCount", commentCount);
         //获取帖子点击数
-        Integer topicClickCount = (Integer) redisService.get("/topic/".concat(topicId));
+        Integer topicClickCount = (Integer) redisService.get("/topic/d/".concat(topicId));
         model.addAttribute("topicClickCount", topicClickCount==null ? 0:topicClickCount);
-        return "topicDetails";
+        //获取当前时间
+        Date dNow = new Date( );
+        SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
+        model.addAttribute("localTime", ft.format(dNow));
+        //获取当前用户相关emotion
+        if (session.getAttribute("loginUser") != null) {
+            User loginUser = (User) session.getAttribute("loginUser");
+            List<Emotion> emotions = emotionService.getByUserIdForIndex(loginUser.getId());
+            emotions.forEach(emotion -> {
+                emotion.setTime(TimeFormat.format(emotion.getCreateTime()));
+            });
+            //获取emotion相关信息
+            model.addAttribute("emotions", emotions);
+            model.addAttribute("emotionCount", emotions.size());
+            Integer topicCount = topicService.getTopicCount(loginUser.getId());
+            model.addAttribute("topicCount", topicCount);
+            //todo 获取用户的聊天好友数
+        }
+        return "details";
     }
 
     @GetMapping("/topic/{page}")

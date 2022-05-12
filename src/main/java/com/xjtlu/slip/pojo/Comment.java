@@ -49,4 +49,7 @@ public class Comment implements Serializable {
 
     @TableField(exist = false)
     private Topic topic;
+
+    @TableField(exist = false)
+    private String time;
 }
