@@ -54,9 +54,7 @@ public class TopicController {
         //获取帖子评论
         List<Comment> comments = commentService.getListByTopicId(topicId);
         //给帖子设置形如：1小时前，1天前，1月前，1年前的时间格式
-        comments.forEach(comment -> {
-            comment.setTime(TimeFormat.format(comment.getCreateTime()));
-                });
+        comments.forEach(comment -> comment.setTime(TimeFormat.format(comment.getCreateTime())));
         model.addAttribute("comments", comments);
         //获取帖子评论数
         Integer commentCount = comments.size();
@@ -72,9 +70,7 @@ public class TopicController {
         if (session.getAttribute("loginUser") != null) {
             User loginUser = (User) session.getAttribute("loginUser");
             List<Emotion> emotions = emotionService.getByUserIdForIndex(loginUser.getId());
-            emotions.forEach(emotion -> {
-                emotion.setTime(TimeFormat.format(emotion.getCreateTime()));
-            });
+            emotions.forEach(emotion -> emotion.setTime(TimeFormat.format(emotion.getCreateTime())));
             //获取emotion相关信息
             model.addAttribute("emotions", emotions);
             model.addAttribute("emotionCount", emotions.size());
@@ -115,9 +111,7 @@ public class TopicController {
         if (session.getAttribute("loginUser") != null) {
             User user = (User) session.getAttribute("loginUser");
             List<Emotion> emotions = emotionService.getByUserIdForIndex(user.getId());
-            emotions.forEach(emotion -> {
-                emotion.setTime(TimeFormat.format(emotion.getCreateTime()));
-                    });
+            emotions.forEach(emotion -> emotion.setTime(TimeFormat.format(emotion.getCreateTime())));
             //获取emotion相关信息
             model.addAttribute("emotions", emotions);
             model.addAttribute("emotionCount", emotions.size());
