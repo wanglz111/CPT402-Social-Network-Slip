@@ -12,6 +12,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @SpringBootTest
@@ -39,6 +40,21 @@ public class TestRedis {
             redisService.set(key, user, 60 * 60 * 24);
             System.out.println(redisService.get(key));
         }
+    }
+
+    @Test
+    public void test3() {
+        String key = "User:userId:";
+        List<User> users = userService.list();
+        users.forEach(user -> {
+            redisService.set(key + user.getId(), user);
+                });
+    }
+
+    @Test
+    public void test4() {
+        Map<Long, User> userInfo = userService.getUserMap();
+        redisService.set("User:AllUserInfo", userInfo);
     }
 
 
