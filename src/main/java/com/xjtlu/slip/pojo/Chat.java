@@ -23,6 +23,11 @@ public class Chat implements Serializable {
     /**
      * 
      */
+    private Long pairId;
+
+    /**
+     * 
+     */
     private Long senderUserId;
 
     /**

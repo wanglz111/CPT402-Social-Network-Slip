@@ -6,6 +6,7 @@
 
     <resultMap id="BaseResultMap" type="com.xjtlu.slip.pojo.Chat">
             <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="pairId" column="pair_id" jdbcType="BIGINT"/>
             <result property="senderUserId" column="sender_user_id" jdbcType="BIGINT"/>
             <result property="receiverUserId" column="receiver_user_id" jdbcType="BIGINT"/>
             <result property="content" column="content" jdbcType="VARCHAR"/>
@@ -13,7 +14,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,sender_user_id,receiver_user_id,
-        content,timestamp
+        id,pair_id,sender_user_id,
+        receiver_user_id,content,timestamp
     </sql>
 </mapper>
