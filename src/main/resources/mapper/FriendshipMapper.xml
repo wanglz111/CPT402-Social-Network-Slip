@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xjtlu.slip.mapper.FriendshipMapper">
+
+    <resultMap id="BaseResultMap" type="com.xjtlu.slip.pojo.Friendship">
+            <id property="pairId" column="pair_id" jdbcType="BIGINT"/>
+            <result property="userId" column="user_id" jdbcType="BIGINT"/>
+            <result property="friendId" column="friend_id" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        pair_id,user_id,friend_id
+    </sql>
+    <select id="getFriendIdsByUserId" resultType="Long">
+        select friend_id from friendship where user_id = #{userId}
+        UNION ALL
+        select user_id as friend_id from friendship where friend_id = #{userId}
+    </select>
+</mapper>
