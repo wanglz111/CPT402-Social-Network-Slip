@@ -57,6 +57,7 @@ public class CommentController {
         long totalPage = topicService.count() / 20;
         for (int pageNo = 1; pageNo <= totalPage; pageNo++){
             redisService.del("index:topicInfo:page:".concat(String.valueOf(pageNo)));
+            redisService.del("index:AllPages:".concat(String.valueOf(pageNo)));
         }
         return "redirect:/topic/d/"+topicId;
     }
