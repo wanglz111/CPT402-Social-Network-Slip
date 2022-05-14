@@ -22,8 +22,6 @@ public class TestRedis {
     @Autowired
     RedisTemplate<String, String> redisTemplate;
     @Autowired
-    RedisTemplate<String, Object> redisTemplate2 = new RedisTemplate<>();
-    @Autowired
     private RedisService redisService;
     @Test
     public void test() {
