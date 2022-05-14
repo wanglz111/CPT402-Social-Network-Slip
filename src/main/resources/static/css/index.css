@@ -457,3 +457,42 @@ body {
 .watch-more:hover {
     color: #cfcccc;
 }
+
+/*页码部分*/
+.page-no ul {
+    display: inline-block;
+}
+
+.page-no ul li {display: inline;}
+
+.page-no ul li a {
+    color: #bfbfbf;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+.page-no ul li a.active {
+    background-color: rgba(9, 58, 150, 0.3);
+    color: white;
+}
+
+.page-no ul li a:hover:not(.active) {background-color: #ddd;}
+
+.page-no ul li a {
+    border: 1px solid #ddd; /* Gray */
+}
+
+.page-no ul li:first-child a {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.page-no ul li:last-child a {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.page-no ul li a {
+    margin: 0 13px; /* 0 对应的是头部与底部，可以修改它看看效果 */
+}

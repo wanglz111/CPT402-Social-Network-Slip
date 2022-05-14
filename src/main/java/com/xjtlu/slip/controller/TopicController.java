@@ -122,16 +122,20 @@ public class TopicController {
     @GetMapping("/topic/{page}")
     public String topic(Model model, @PathVariable Integer page, HttpSession session) {
         List<Topic> topics = null;
+        Page<Topic> topicPage = null;
         if (redisService.get("index:topicInfo:page:".concat(String.valueOf(page))) != null) {
             try {
                 topics = (List<Topic>) redisService.get("index:topicInfo:page:".concat(String.valueOf(page)));
+                topicPage = (Page<Topic>) redisService.get("index:AllPages:".concat(String.valueOf(page)));
             }
             catch (Exception e) {
                 log.error("redis获取topic信息失败，直接从数据库中获取");
             }
         } else {
-            Page<Topic> topicPage = topicService.getAllTopicsAndUser(page,20);
+            topicPage = topicService.getAllTopicsAndUser(page,20);
             topics = topicPage.getRecords();
+            //获取总页数, 为分页部分作准备
+            redisService.set("index:AllPages:".concat(String.valueOf(page)), topicPage);
             //获取每条topic评论数
             Map<Long, CommentCount> topicCommentCount = topicService.getCommentCount();
             //获取最新评论
@@ -208,6 +212,7 @@ public class TopicController {
             model.addAttribute("friendships", friendships==null ? 0:friendships.size());
         }
         model.addAttribute("topics", topics);
+        model.addAttribute("pages", topicPage);
         return "index";
     }
 

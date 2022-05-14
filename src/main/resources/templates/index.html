@@ -71,6 +71,39 @@
                 </div>
             </div>
         </div>
+        <div class="sep20"></div>
+        <div class="page-no">
+            <ul>
+                <!-- 首页 -->
+                <li>
+                    <a th:href="@{/}">首页</a>
+                </li>
+
+                <!-- 上一页 -->
+                <li th:if="${pages.hasPrevious()}">
+                    <a th:href="@{'/topic/' + ${pages.getCurrent()-1}}" th:text="上一页"></a>
+                </li>
+
+                <!-- 中间页 -->
+<!--                T(java.lang.Math).max(pages.getCurrent()-2, 1)-->
+                <li th:each="pageNum:${#numbers.sequence( pages.getCurrent() , T(java.lang.Math).min(pages.getCurrent()+4, pages.getPages()))}">
+                    <a th:href="@{'/topic/' + ${pageNum}}" th:text="${pageNum}" th:if="${pageNum ne pages.getCurrent()}"></a>
+                    <a th:href="@{'/topic/' + ${pageNum}}" th:text="${pageNum}" th:if="${pageNum eq pages.getCurrent()}" class="active"></a>
+                </li>
+
+                <!-- 下一页 -->
+                <li th:if="${pages.hasNext()}">
+                    <a th:href="@{'/topic/' + ${pages.getCurrent()+1}}" th:text="下一页"></a>
+                </li>
+
+                <!-- 尾页 -->
+                <li>
+                    <a th:href="@{'/topic/' + ${pages.getPages()}}">尾页</a>
+                </li>
+
+            </ul>
+        </div>
+        <div class="sep20"></div>
     </div>
     <div class="rightBar">
         <div class="inner" th:if="${session['loginUser']}!=null">
