@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>[[${topic.title}]]</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
@@ -8,6 +9,7 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/details.css}">
 </head>
+
 <body>
 <div class="top">
     <div class="content">
@@ -62,7 +64,7 @@
                 <div class="cell">
                     <div class="reply-avatar">
                         <a th:href="@{'/user/'+${comment.user.id}}">
-                            <img th:src="${comment.user.avatar}"  alt="avatar">
+                            <img th:src="${comment.user.avatar}" alt="avatar">
                         </a>
                     </div>
                     <div class="reply-info">
@@ -74,6 +76,20 @@
                 </div>
             </div>
         </div>
+        <div class="sep20"></div>
+        <div class="create-reply">
+            <form th:action="@{/addComment}" method="post">
+                <div class="sep10"></div>
+                <label for="reply-content">请文明发言</label><textarea name="replyContent" id="reply-content"></textarea>
+                <input type="hidden" name="topicId" th:value="${topic.id}">
+                <input type="hidden" name="userId" th:value="${session.loginUser.id}">
+                <input class="button" value='Submit' type='submit' th:if="${session['loginUser']}">
+            </form>
+        </div>
+        <div class="sep20"></div>
+        <div class="sep20"></div>
+        <div class="sep20"></div>
+        <div class="sep20"></div>
     </div>
     <div class="rightBar">
         <div class="inner" th:if="${session['loginUser']}!=null">
@@ -92,7 +108,7 @@
                         <tr>
                             <td><a href="#"><span>[[${topicCount}]]</span><span>主题</span></a></td>
                             <td><a href="#"><span>[[${emotionCount}]]</span><span>emotion</span></a></td>
-                            <td><a href="#"><span>9</span><span>好友</span></a></td>
+                            <td><a href="#"><span>[[${friendships}]]</span><span>好友</span></a></td>
                         </tr>
                         </tbody>
                     </table>
@@ -130,4 +146,5 @@
     </div>
 </div>
 </body>
+
 </html>

@@ -58,7 +58,7 @@
                     </a>
                 </div>
                 <div class="TopicInfo">
-                    <h3 class="topic-title"><a href="#">[[${topic.title}]]</a></h3>
+                    <h3 class="topic-title"><a th:href="@{'/topic/d/'+${topic.id}}">[[${topic.title}]]</a></h3>
                     <p>
                         <span><a href="#" id="type">[[${topic.type}]]</a> · </span>
                         <a href="#" id="author">[[${topic.author}]]</a>
@@ -90,7 +90,7 @@
                             <td><a href="#"><span>[[${topicCount}]]</span><span>主题</span></a></td>
 <!--                            <td><a href="#"><span>1</span><span>主题</span></a></td>-->
                             <td><a href="#"><span>[[${emotionCount}]]</span><span>emotion</span></a></td>
-                            <td><a href="#"><span>9</span><span>好友</span></a></td>
+                            <td><a href="#"><span>[[${friendships}]]</span><span>好友</span></a></td>
                         </tr>
                         </tbody>
                     </table>
