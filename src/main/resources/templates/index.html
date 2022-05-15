@@ -121,7 +121,6 @@
                         <tbody>
                         <tr>
                             <td><a href="#"><span>[[${topicCount}]]</span><span>主题</span></a></td>
-<!--                            <td><a href="#"><span>1</span><span>主题</span></a></td>-->
                             <td><a href="#"><span>[[${emotionCount}]]</span><span>emotion</span></a></td>
                             <td><a href="#"><span>[[${friendships}]]</span><span>好友</span></a></td>
                         </tr>
@@ -129,7 +128,7 @@
                     </table>
                 </div>
                 <div class="create_topic">
-                    <a href="#">发布新主题</a>
+                    <a th:href="@{/create}">发布新主题</a>
                 </div>
             </div>
             <div class="sep20"></div>

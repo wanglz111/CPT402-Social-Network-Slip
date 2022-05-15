@@ -18,7 +18,11 @@
             <img class = "signin_icon" th:src="@{/images/lock.png}">
         </div>
 
-
+        <div th:if="${session['error']}">
+            <div class="error">
+                <p style="color:red; font-size:20px;">[[${session['error']}]]</p>
+            </div>
+        </div>
         <div class="login_info">
             <form th:action="@{/login/check}" method="get">
             <div class="username">

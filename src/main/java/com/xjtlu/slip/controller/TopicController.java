@@ -141,7 +141,14 @@ public class TopicController {
             //获取最新评论
             Map<Long, Comment> latestCommentInfoEveryTopic = commentService.getLatestCommentInfoEveryTopic();
             //获取最新评论用户
-            Map<Long, User> userInfo = (Map<Long, User>) redisService.get("User:AllUserInfo");
+            Map<Long, User> userInfo = null;
+            if (redisService.get("User:AllUserInfo") == null) {
+                userInfo = userService.getUserMap();
+                redisService.set("User:AllUserInfo", userInfo);
+            } else {
+                userInfo = (Map<Long, User>) redisService.get("User:AllUserInfo");
+            }
+            Map<Long, User> finalUserInfo = userInfo;
             topics.forEach(topic -> {
                 Long latestCommentUnixTime = topic.getLatestCommentUnixTime();
                 //set time format like xx seconds ago/xx minutes ago/xx hours ago/xx days ago
@@ -154,7 +161,7 @@ public class TopicController {
                 Comment comment = latestCommentInfoEveryTopic.get(topic.getId());
                 topic.setLatestComment(comment);
                 if (comment != null){
-                    User user = userInfo.get(comment.getUserId());
+                    User user = finalUserInfo.get(comment.getUserId());
                     topic.setLatestReplyUser(user);
                 }
             });
