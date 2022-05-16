@@ -45,6 +45,15 @@ public class TopicServiceImpl extends ServiceImpl<TopicMapper, Topic>
         List<Topic> topics = topicMapper.selectList(queryWrapper);
         return topics.size();
     }
+
+    @Override
+    public Page<Topic> getAllTopicsAndUserByType(Integer current, Integer size, Long typeId) {
+        QueryWrapper<Topic> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("latest_comment_unix_time");
+        queryWrapper.eq("type", typeId);
+        Page<Topic> page = new Page<>(current, size);
+        return topicMapper.getAllTopicsAndUserByPage(page, queryWrapper);
+    }
 }
 
 

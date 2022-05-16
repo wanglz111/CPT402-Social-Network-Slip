@@ -27,4 +27,6 @@ public interface TopicService extends IService<Topic> {
     Map<Long, CommentCount> getCommentCount();
 
     int getTopicCount(Long id);
+
+    Page<Topic> getAllTopicsAndUserByType(Integer page, Integer size, Long typeId);
 }
