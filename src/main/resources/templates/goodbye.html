@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
+
 <head>
     <meta charset="UTF-8">
     <title>Goodbye</title>
+    <link rel="stylesheet" th:href="@{/css/logout.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
+
 <body>
     <h1>Goodbye</h1>
     <p>
-      You have successfully logged out.
+        You have successfully logged out.
     </p>
     <p>
         <a th:href="@{/login}">Login Again</a>
     </p>
 </body>
+
 </html>

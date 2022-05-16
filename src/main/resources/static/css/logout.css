@@ -1,0 +1,31 @@
+body {
+    background-color: #22303f;
+    min-width: 820px;
+    font-family: "JetBrains Mono", "Luxi Sans", "Segoe UI", "Hiragino Sans GB", "Microsoft Yahei", sans-serif, "Apple Logo";
+}
+
+h1 {
+    display: block;
+    font-size: 2.5em;
+    color: #fff;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 50px 0;
+}
+
+p {
+    font-size: 1.2em;
+    color: #fff;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+a {
+    color: rgb(41, 179, 248);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
