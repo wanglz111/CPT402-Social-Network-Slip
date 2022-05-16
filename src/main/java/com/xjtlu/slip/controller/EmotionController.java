@@ -43,7 +43,7 @@ public class EmotionController {
         emotionService.removeById(id);
         String referer = request.getHeader("Referer");
         String redirectURI = referer.replace(request.getServerName(), "");
-        return "redirect:" + redirectURI;
+        return "redirect:"+referer;
     }
 
     @GetMapping("/emotion/{current}")
@@ -64,6 +64,6 @@ public class EmotionController {
 
     @GetMapping("/emotion")
     public String emotion() {
-        return "redirect:/emotion/1";
+        return "redirect:emotion/1";
     }
 }
