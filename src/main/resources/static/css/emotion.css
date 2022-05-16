@@ -1,0 +1,163 @@
+body {
+    background-color: #22303f;
+    min-width: 820px;
+    font-family: "JetBrains Mono", "Luxi Sans", "Segoe UI", "Hiragino Sans GB", "Microsoft Yahei", sans-serif, "Apple Logo";
+}
+
+.top {
+    height: 44px;
+    width: 100%;
+    background-color: #18222d;
+}
+
+.top .content {
+    height: 44px;
+    width: 1100px;
+    margin: 0 auto;
+    /* background-color: pink; */
+}
+
+.top .tools {
+    float: right;
+    /* background-color: #fff; */
+}
+
+.top .tools ul li {
+    height: 44px;
+    display: inline-block;
+    padding: 0 0 0 20px;
+    line-height: 44px;
+}
+
+.top .tools ul li a {
+    text-align: right;
+    color: #9caec7;
+}
+
+.top .tools ul li a:hover {
+    color: #b6c7de;
+}
+
+
+/* 两个间隔标签 */
+
+.sep20 {
+    height: 20px;
+    width: auto;
+    background-color: #22303f;
+}
+
+.sep10 {
+    height: 10px;
+    width: auto;
+    background-color: #22303f;
+}
+
+
+/* 版心在中间 */
+
+.wrapper {
+    width: 800px;
+    height: auto;
+    background-color: #18222d;
+    margin: 0 auto;
+}
+
+h2 {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.emotion-content {
+    width: 800px;
+    height: auto;
+    border: #bfbfbf solid 1px;
+}
+
+.emotion-content .emotion-item {
+    position: relative;
+    display: block;
+    width: 600px;
+    height: auto;
+    margin: 10px auto;
+    padding: 10px 20px;
+    border-bottom: #9caec7 1px solid;
+}
+
+.emotion-item p {
+    font-size: 19px;
+    color: #a4a4a4;
+}
+
+.emotion-item span {
+    display: inline-block;
+    margin-left: 300px;
+    color: #434343;
+}
+
+.emotion-content .emotion-item .button {
+    position: absolute;
+    right: -50px;
+    bottom: 25%;
+    padding: 3px;
+    background-color: #16446c;
+    border: none;
+    color: #bfbfbf;
+    text-align: center;
+    font-weight: 600;
+    font-size: 18px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+
+/* 分页部分 */
+
+.page-no ul {
+    width: 500px;
+    height: auto;
+    margin: 0 auto;
+}
+
+.page-no ul li {
+    display: inline;
+}
+
+.page-no ul li a {
+    color: #bfbfbf;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+.page-no ul li a.active {
+    background-color: rgba(9, 58, 150, 0.3);
+    color: white;
+}
+
+.page-no ul li a:hover:not(.active) {
+    background-color: #ddd;
+}
+
+.page-no ul li a {
+    border: 1px solid #ddd;
+    /* Gray */
+}
+
+.page-no ul li:first-child a {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.page-no ul li:last-child a {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.page-no ul li a {
+    margin: 0 13px;
+}
