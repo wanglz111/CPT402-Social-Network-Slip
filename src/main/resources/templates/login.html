@@ -15,7 +15,7 @@
     <div class="login">
         <div class="title">
             <h3>Slip - Sign In</h3>
-            <img class = "signin_icon" th:src="@{/images/lock.png}">
+            <img class="signin_icon" th:src="@{/images/lock.png}">
         </div>
 
         <div th:if="${session['error']}">
@@ -25,27 +25,27 @@
         </div>
         <div class="login_info">
             <form th:action="@{/login/check}" method="get">
-            <div class="username">
-                <h4>Username: </h4>
-                <input type="text" placeholder="username" class="username_text" id="username_text" name="username">
-            </div>
-            <div class="password">
-                <h4>Password: </h4>
-                <input type="password" placeholder="password" class="password_text" id="password_text" name="password">
-            </div>
-            <div class="verification">
-                <h4>Are you robot? </h4>
-                <canvas id="canvas" width="300px" height="70px"></canvas>
-            </div>
-            <input type="text" placeholder="Enter the code above, click to change" id="code" class="code">
-            <br>
+                <div class="username">
+                    <h4>Username: </h4>
+                    <input type="text" placeholder="username" class="username_text" id="username_text" name="username">
+                </div>
+                <div class="password">
+                    <h4>Password: </h4>
+                    <input type="password" placeholder="password" class="password_text" id="password_text" name="password">
+                </div>
+                <div class="verification">
+                    <h4>Are you robot? </h4>
+                    <canvas id="canvas" width="300px" height="70px"></canvas>
+                </div>
+                <input type="text" placeholder="Enter the code above, click to change" id="code" class="code">
+                <br>
                 <button class="signin" type="submit">Login</button>
             </form>
             <a th:href="@{/register}">
-                <button class ="signin" id="register">Register</button>
+                <button class="signin" id="register">Register</button>
             </a>
             <a href="#">
-               <p>Forgot Password?</p>
+                <p>Forgot Password?</p>
             </a>
 
             <br>
@@ -56,70 +56,71 @@
     </div>
 
 
-<script>
-     //Generate random number
-    function randomNum(min,max){
-        return Math.floor(Math.random()*(max-min)+min);
-    }
-    //Generate random color RGB component
-    function randomColor(min,max){
-        var _r = randomNum(min,max);
-        var _g = randomNum(min,max);
-        var _b = randomNum(min,max);
-        return "rgb("+_r+","+_g+","+_b+")";
-    }
-    //Block the default clicking behavior on the canvas before executing the drawpic() method
-    document.getElementById("canvas").onclick = function(e){
-        e.preventDefault();
-        drawPic();
-    };
-    function drawPic(){
-        //Get element canvas
+    <script>
+        //Generate random number
+        function randomNum(min, max) {
+            return Math.floor(Math.random() * (max - min) + min);
+        }
+        //Generate random color RGB component
+        function randomColor(min, max) {
+            var _r = randomNum(min, max);
+            var _g = randomNum(min, max);
+            var _b = randomNum(min, max);
+            return "rgb(" + _r + "," + _g + "," + _b + ")";
+        }
+        //Block the default clicking behavior on the canvas before executing the drawpic() method
+        document.getElementById("canvas").onclick = function(e) {
+            e.preventDefault();
+            drawPic();
+        };
 
-        var canvas = document.getElementById("canvas");
-        var _str = "0123456789";// Set random number library
-        var _picTxt = "";// random number
-        var count = 4;// 4 random numbers
-        var _width = canvas.width;
-        var _height = canvas.height;
-        var ctx = canvas.getContext("2d");// Get context object
-        ctx.textBaseline = "bottom";// Text top and bottom alignment -- bottom alignment
-        ctx.fillStyle = randomColor(180,240);// Fill canvas color
-        ctx.fillRect(0,0,_width,_height);// Fill rectangle -- draw
-        for(var i=0; i<count; i++){
-            var x = (_width-10)/count*i+10;
-            var y = randomNum(_height/2,_height);
-            var deg = randomNum(-45,45);
-            var txt = _str[randomNum(0,_str.length)];
-            _picTxt += txt;// Get a random number
-            ctx.fillStyle = randomColor(10,100);// Fill random color
-            ctx.font = randomNum(16,40)+"px SimHei";// Set the random number size with the font simhei
-            ctx.translate(x,y);// Takes the current XY coordinate as the original coordinate
-            ctx.rotate(deg*Math.PI/180);// Rotate random angle
-            ctx.fillText(txt, 0,0);// Draw colored text
-            ctx.rotate(-deg*Math.PI/180);
-            ctx.translate(-x,-y);
+        function drawPic() {
+            //Get element canvas
+
+            var canvas = document.getElementById("canvas");
+            var _str = "0123456789"; // Set random number library
+            var _picTxt = ""; // random number
+            var count = 4; // 4 random numbers
+            var _width = canvas.width;
+            var _height = canvas.height;
+            var ctx = canvas.getContext("2d"); // Get context object
+            ctx.textBaseline = "bottom"; // Text top and bottom alignment -- bottom alignment
+            ctx.fillStyle = randomColor(180, 240); // Fill canvas color
+            ctx.fillRect(0, 0, _width, _height); // Fill rectangle -- draw
+            for (var i = 0; i < count; i++) {
+                var x = (_width - 10) / count * i + 10;
+                var y = randomNum(_height / 2, _height);
+                var deg = randomNum(-45, 45);
+                var txt = _str[randomNum(0, _str.length)];
+                _picTxt += txt; // Get a random number
+                ctx.fillStyle = randomColor(10, 100); // Fill random color
+                ctx.font = randomNum(16, 40) + "px SimHei"; // Set the random number size with the font simhei
+                ctx.translate(x, y); // Takes the current XY coordinate as the original coordinate
+                ctx.rotate(deg * Math.PI / 180); // Rotate random angle
+                ctx.fillText(txt, 0, 0); // Draw colored text
+                ctx.rotate(-deg * Math.PI / 180);
+                ctx.translate(-x, -y);
+            }
+            for (var i = 0; i < count; i++) {
+                //Define stroke color
+                ctx.strokeStyle = randomColor(90, 180);
+                ctx.beginPath();
+                //Random scribing - 4 paths
+                ctx.moveTo(randomNum(0, _width), randomNum(0, _height));
+                ctx.lineTo(randomNum(0, _width), randomNum(0, _height));
+                ctx.stroke();
+            }
+            for (var i = 0; i < count * 10; i++) {
+                ctx.fillStyle = randomColor(0, 255);
+                ctx.beginPath();
+                //Random draw, fill color
+                ctx.arc(randomNum(0, _width), randomNum(0, _height), 1, 0, 2 * Math.PI);
+                ctx.fill();
+            }
+            return _picTxt; // Returns a random number string
         }
-        for(var i=0; i<count; i++){
-            //Define stroke color
-            ctx.strokeStyle = randomColor(90,180);
-            ctx.beginPath();
-            //Random scribing - 4 paths
-            ctx.moveTo(randomNum(0,_width), randomNum(0,_height));
-            ctx.lineTo(randomNum(0,_width), randomNum(0,_height));
-            ctx.stroke();
-        }
-        for(var i=0; i<count*10; i++){
-            ctx.fillStyle = randomColor(0,255);
-            ctx.beginPath();
-            //Random draw, fill color
-            ctx.arc(randomNum(0,_width),randomNum(0,_height), 1, 0, 2*Math.PI);
-            ctx.fill();
-        }
-        return _picTxt;// Returns a random number string
-    }
-    drawPic();
-</script>
+        drawPic();
+    </script>
 
 
 </body>

@@ -11,140 +11,140 @@
 </head>
 
 <body>
-<div class="top">
-    <div class="content">
-        <div class="tools" th:if="${session['loginUser']}!=null">
-            <ul>
-                <li><a href="#">首页</a></li>
-                <li><a href="#">[[${session.loginUser.name}]]</a></li>
-                <li><a href="#">emotion</a></li>
-                <li><a href="#">设置</a></li>
-                <li><a href="#">退出</a></li>
-            </ul>
-        </div>
-        <div class="tools" th:if="${session['loginUser']}==null">
-            <ul>
-                <li><a th:href="@{/}">首页</a></li>
-                <li><a th:href="@{/register}">注册</a></li>
-                <li><a th:href="@{/login}">登陆</a></li>
-            </ul>
+    <div class="top">
+        <div class="content">
+            <div class="tools" th:if="${session['loginUser']}!=null">
+                <ul>
+                    <li><a href="#">首页</a></li>
+                    <li><a href="#">[[${session.loginUser.name}]]</a></li>
+                    <li><a href="#">emotion</a></li>
+                    <li><a href="#">设置</a></li>
+                    <li><a href="#">退出</a></li>
+                </ul>
+            </div>
+            <div class="tools" th:if="${session['loginUser']}==null">
+                <ul>
+                    <li><a th:href="@{/}">首页</a></li>
+                    <li><a th:href="@{/register}">注册</a></li>
+                    <li><a th:href="@{/login}">登陆</a></li>
+                </ul>
+            </div>
         </div>
     </div>
-</div>
-<div class="wrapper">
-    <div class="sep20"></div>
-    <div class="left">
-        <div class="topic-header">
-            <div class="href">
-                <a href="#">SLIP</a>
-                <span>></span>
-                <a href="#">News</a>
-            </div>
-            <div class="topic-title">
-                <h3>[[${topic.title}]]</h3>
-                <span id="author"><a th:href="@{'/user/'+${user.id}}" th:text="${user.name}"></a> · </span>
-                <span id="time">[[${topic.latestCommentTime}]] · </span>
-                <span id="click-count">[[${topicClickCount}]] clicks</span>
-                <div class="avatar"><img th:src="${user.avatar}" alt="avatar"></div>
-            </div>
-        </div>
-        <div class="topic-content">
-            <p>[[${topic.content}]]</p>
-            <span id="click-count">· [[${topicClickCount}]] clicks</span>
-        </div>
+    <div class="wrapper">
         <div class="sep20"></div>
-        <div class="comments">
-            <div class="comment-header">
-                <div class="comment-count">
-                    <span>[[${commentCount}]] comments</span>
-                    <span>· [[${localTime}]] +08:00</span>
+        <div class="left">
+            <div class="topic-header">
+                <div class="href">
+                    <a href="#">SLIP</a>
+                    <span>></span>
+                    <a href="#">News</a>
+                </div>
+                <div class="topic-title">
+                    <h3>[[${topic.title}]]</h3>
+                    <span id="author"><a th:href="@{'/user/'+${user.id}}" th:text="${user.name}"></a> · </span>
+                    <span id="time">[[${topic.latestCommentTime}]] · </span>
+                    <span id="click-count">[[${topicClickCount}]] clicks</span>
+                    <div class="avatar"><img th:src="${user.avatar}" alt="avatar"></div>
                 </div>
             </div>
-            <div th:each="comment,status:${comments}">
-                <div class="cell">
-                    <div class="reply-avatar">
-                        <a th:href="@{'/user/'+${comment.user.id}}">
-                            <img th:src="${comment.user.avatar}" alt="avatar">
-                        </a>
-                    </div>
-                    <div class="reply-info">
-                        <span id="user-name"><a th:href="@{'/user/'+${comment.user.id}}">[[${comment.user.name}]]</a></span>
-                        <span id="time"> · [[${comment.time}]]</span>
-                        <span id="count" th:text="${status.count}"></span>
-                        <p>[[${comment.content}]]</p>
+            <div class="topic-content">
+                <p>[[${topic.content}]]</p>
+                <span id="click-count">· [[${topicClickCount}]] clicks</span>
+            </div>
+            <div class="sep20"></div>
+            <div class="comments">
+                <div class="comment-header">
+                    <div class="comment-count">
+                        <span>[[${commentCount}]] comments</span>
+                        <span>· [[${localTime}]] +08:00</span>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="sep20"></div>
-        <div class="create-reply">
-            <form th:action="@{/addComment}" method="post">
-                <div class="sep10"></div>
-                <label for="reply-content">请文明发言</label><textarea name="replyContent" id="reply-content"></textarea>
-                <input type="hidden" name="topicId" th:value="${topic.id}">
-                <input type="hidden" name="userId" th:value="${session.loginUser.id}">
-                <input class="button" value='Submit' type='submit' th:if="${session['loginUser']}">
-            </form>
-        </div>
-        <div class="sep20"></div>
-        <div class="sep20"></div>
-        <div class="sep20"></div>
-        <div class="sep20"></div>
-    </div>
-    <div class="rightBar">
-        <div class="inner" th:if="${session['loginUser']}!=null">
-            <div class="box">
-                <div class="box-title">
-                    <ul>
-                        <li class="info-box">
-                            <a href="#"><img id="avatar" th:src="${session.loginUser.avatar}" alt="avatar"></a>
-                        </li>
-                        <li class="info-box"><a id="name" href="#">[[${session.loginUser.name}]]</a></li>
-                    </ul>
-                </div>
-                <div class="box-content">
-                    <table>
-                        <tbody>
-                        <tr>
-                            <td><a href="#"><span>[[${topicCount}]]</span><span>主题</span></a></td>
-                            <td><a href="#"><span>[[${emotionCount}]]</span><span>emotion</span></a></td>
-                            <td><a href="#"><span>[[${friendships}]]</span><span>好友</span></a></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="create_topic">
-                    <a href="#">发布新主题</a>
+                <div th:each="comment,status:${comments}">
+                    <div class="cell">
+                        <div class="reply-avatar">
+                            <a th:href="@{'/user/'+${comment.user.id}}">
+                                <img th:src="${comment.user.avatar}" alt="avatar">
+                            </a>
+                        </div>
+                        <div class="reply-info">
+                            <span id="user-name"><a th:href="@{'/user/'+${comment.user.id}}">[[${comment.user.name}]]</a></span>
+                            <span id="time"> · [[${comment.time}]]</span>
+                            <span id="count" th:text="${status.count}"></span>
+                            <p>[[${comment.content}]]</p>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="sep20"></div>
-            <div class="emotion">
-                <div class="emotion-title">
-                    <h3>emotion</h3>
+            <div class="create-reply">
+                <form th:action="@{/addComment}" method="post">
+                    <div class="sep10"></div>
+                    <label for="reply-content">请文明发言</label><textarea name="replyContent" id="reply-content"></textarea>
+                    <input type="hidden" name="topicId" th:value="${topic.id}">
+                    <input type="hidden" name="userId" th:value="${session.loginUser.id}">
+                    <input class="button" value='Submit' type='submit' th:if="${session['loginUser']}">
+                </form>
+            </div>
+            <div class="sep20"></div>
+            <div class="sep20"></div>
+            <div class="sep20"></div>
+            <div class="sep20"></div>
+        </div>
+        <div class="rightBar">
+            <div class="inner" th:if="${session['loginUser']}!=null">
+                <div class="box">
+                    <div class="box-title">
+                        <ul>
+                            <li class="info-box">
+                                <a href="#"><img id="avatar" th:src="${session.loginUser.avatar}" alt="avatar"></a>
+                            </li>
+                            <li class="info-box"><a id="name" href="#">[[${session.loginUser.name}]]</a></li>
+                        </ul>
+                    </div>
+                    <div class="box-content">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td><a href="#"><span>[[${topicCount}]]</span><span>主题</span></a></td>
+                                    <td><a href="#"><span>[[${emotionCount}]]</span><span>emotion</span></a></td>
+                                    <td><a href="#"><span>[[${friendships}]]</span><span>好友</span></a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="create_topic">
+                        <a href="#">发布新主题</a>
+                    </div>
                 </div>
-                <div class="create-emotion">
-                    <form method="post" th:action="@{/addEmotion}">
-                        <input id="content" name='emotion' placeholder="You Can Write Your Emotion Here!">
-                        <input class="button" value='Submit' type='submit'>
-                    </form>
-                </div>
-                <div class="emotion-content">
-                    <ul th:each="emotion:${emotions}">
-                        <li class="emotion-item">
-                            <p>[[${emotion.content}]]</p>
-                            <form method="post" th:action="@{/delEmotion}">
-                                <input type="hidden" name="id" th:value="${emotion.id}">
-                                <input class="button" value='DEL' type='submit'>
-                            </form>
-                            <span>· [[${emotion.time}]]</span>
-                        </li>
-                    </ul>
-                    <a href="#"><span class="watch-more">查看更多</span></a>
+                <div class="sep20"></div>
+                <div class="emotion">
+                    <div class="emotion-title">
+                        <h3>emotion</h3>
+                    </div>
+                    <div class="create-emotion">
+                        <form method="post" th:action="@{/addEmotion}">
+                            <input id="content" name='emotion' placeholder="You Can Write Your Emotion Here!">
+                            <input class="button" value='Submit' type='submit'>
+                        </form>
+                    </div>
+                    <div class="emotion-content">
+                        <ul th:each="emotion:${emotions}">
+                            <li class="emotion-item">
+                                <p>[[${emotion.content}]]</p>
+                                <form method="post" th:action="@{/delEmotion}">
+                                    <input type="hidden" name="id" th:value="${emotion.id}">
+                                    <input class="button" value='DEL' type='submit'>
+                                </form>
+                                <span>· [[${emotion.time}]]</span>
+                            </li>
+                        </ul>
+                        <a href="#"><span class="watch-more">查看更多</span></a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </body>
 
 </html>

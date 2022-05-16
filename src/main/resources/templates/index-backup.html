@@ -11,96 +11,96 @@
 </head>
 
 <body>
-<div class="top">
-    <div class="content">
-        <div class="tools" th:if="${session['loginUser']}!=null">
-            <ul>
-                <li><a href="#">首页</a></li>
-                <li><a href="#">[[${session.loginUser.name}]]</a></li>
-                <li><a href="#">emotion</a></li>
-                <li><a href="#">设置</a></li>
-                <li><a href="#">退出</a></li>
-            </ul>
-        </div>
-        <div class="tools" th:if="${session['loginUser']}==null">
-            <ul>
-                <li><a th:href="@{/}">首页</a></li>
-                <li><a th:href="@{/register}">注册</a></li>
-                <li><a th:href="@{/login}">登陆</a></li>
-            </ul>
+    <div class="top">
+        <div class="content">
+            <div class="tools" th:if="${session['loginUser']}!=null">
+                <ul>
+                    <li><a href="#">首页</a></li>
+                    <li><a href="#">[[${session.loginUser.name}]]</a></li>
+                    <li><a href="#">emotion</a></li>
+                    <li><a href="#">设置</a></li>
+                    <li><a href="#">退出</a></li>
+                </ul>
+            </div>
+            <div class="tools" th:if="${session['loginUser']}==null">
+                <ul>
+                    <li><a th:href="@{/}">首页</a></li>
+                    <li><a th:href="@{/register}">注册</a></li>
+                    <li><a th:href="@{/login}">登陆</a></li>
+                </ul>
+            </div>
         </div>
     </div>
-</div>
-<div class="wrapper">
-    <div class="sep20"></div>
-    <div class="left">
-        <div class="inner" id="table">
-            <ul>
-                <li><a href="#">技术</a></li>
-                <li><a href="#">创意</a></li>
-                <li><a href="#">好玩</a></li>
-                <li><a href="#">酷工作</a></li>
-                <li><a href="#">二手交易</a></li>
-                <li><a href="#">学习资料</a></li>
-                <li><a href="#">问答</a></li>
-                <li><a href="#">最热</a></li>
-                <li><a href="#">全部</a></li>
-            </ul>
-        </div>
-
+    <div class="wrapper">
         <div class="sep20"></div>
+        <div class="left">
+            <div class="inner" id="table">
+                <ul>
+                    <li><a href="#">技术</a></li>
+                    <li><a href="#">创意</a></li>
+                    <li><a href="#">好玩</a></li>
+                    <li><a href="#">酷工作</a></li>
+                    <li><a href="#">二手交易</a></li>
+                    <li><a href="#">学习资料</a></li>
+                    <li><a href="#">问答</a></li>
+                    <li><a href="#">最热</a></li>
+                    <li><a href="#">全部</a></li>
+                </ul>
+            </div>
 
-        <div class="content" id="topics">
-            <div class="cell item" th:each="topic:${topics}">
-                <div class="TopicAvatar">
-                    <a href="#">
-                        <img th:src="${topic.user.avatar}" alt="avatar">
-                    </a>
+            <div class="sep20"></div>
+
+            <div class="content" id="topics">
+                <div class="cell item" th:each="topic:${topics}">
+                    <div class="TopicAvatar">
+                        <a href="#">
+                            <img th:src="${topic.user.avatar}" alt="avatar">
+                        </a>
+                    </div>
+                    <div class="TopicInfo">
+                        <h3><a href="#">[[${topic.title}]]</a></h3>
+                        <p>
+                            <span><a href="#" id="type">[[${topic.type}]]</a> · </span>
+                            <a href="#" id="author">[[${topic.author}]]</a>
+                            <span> · [[${topic.latestCommentTime}]]</span>
+                            <span th:if="${topic.latestReplyUser}!=null"> · 最后回复来自 · <a href="#" id="reply_who" >[[${topic.latestReplyUser.name}]]</a></span>
+                        </p>
+                    </div>
+                    <div class="TopicNow">
+                        <p>[[${topic.commentCount}]]</p>
+                    </div>
                 </div>
-                <div class="TopicInfo">
-                    <h3><a href="#">[[${topic.title}]]</a></h3>
-                    <p>
-                        <span><a href="#" id="type">[[${topic.type}]]</a> · </span>
-                        <a href="#" id="author">[[${topic.author}]]</a>
-                        <span> · [[${topic.latestCommentTime}]]</span>
-                        <span th:if="${topic.latestReplyUser}!=null"> · 最后回复来自 · <a href="#" id="reply_who" >[[${topic.latestReplyUser.name}]]</a></span>
-                    </p>
-                </div>
-                <div class="TopicNow">
-                    <p>[[${topic.commentCount}]]</p>
+            </div>
+        </div>
+        <div class="rightBar">
+            <div class="inner">
+                <div class="box" th:if="${session['loginUser']}!=null">
+                    <div class="box-title">
+                        <ul>
+                            <li>
+                                <a href="#"><img id="avatar" th:src="${session.loginUser.avatar}" alt="avatar"></a>
+                            </li>
+                            <li><a id="name" href="#">lucas</a></li>
+                        </ul>
+                    </div>
+                    <div class="box-content">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td><a href="#"><span>9</span><span>主题</span></a></td>
+                                    <td><a href="#"><span>9</span><span>emotion</span></a></td>
+                                    <td><a href="#"><span>9</span><span>好友</span></a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="create_topic">
+                        <a href="#">发布新主题</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="rightBar">
-        <div class="inner">
-            <div class="box" th:if="${session['loginUser']}!=null">
-                <div class="box-title">
-                    <ul>
-                        <li>
-                            <a href="#"><img id="avatar" th:src="${session.loginUser.avatar}" alt="avatar"></a>
-                        </li>
-                        <li><a id="name" href="#">lucas</a></li>
-                    </ul>
-                </div>
-                <div class="box-content">
-                    <table>
-                        <tbody>
-                        <tr>
-                            <td><a href="#"><span>9</span><span>主题</span></a></td>
-                            <td><a href="#"><span>9</span><span>emotion</span></a></td>
-                            <td><a href="#"><span>9</span><span>好友</span></a></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="create_topic">
-                    <a href="#">发布新主题</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 </body>
 
 </html>

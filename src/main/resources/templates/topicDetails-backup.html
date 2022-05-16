@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>[[${topic.title}]]</title>
@@ -9,7 +10,7 @@
             width: 100px;
             horiz-align: center;
         }
-
+        
         .fr {
             position: absolute;
             top: 0;
@@ -17,51 +18,53 @@
         }
     </style>
 </head>
+
 <body>
-<div class="box" style="border-bottom: 0;">
-    <h1>[[${topic.title}]]</h1>
-    <div class="header">
-        <div th:if="${session['loginUser']}" class="fr">
-            <a href="">
-                <img th:src="${session.loginUser.avatar}" class="avatar">
-            </a><br>
-            <a>
+    <div class="box" style="border-bottom: 0;">
+        <h1>[[${topic.title}]]</h1>
+        <div class="header">
+            <div th:if="${session['loginUser']}" class="fr">
+                <a href="">
+                    <img th:src="${session.loginUser.avatar}" class="avatar">
+                </a><br>
+                <a>
                 Welcome, [[${session.loginUser.name}]]
             </a><br>
-            <a th:href="@{/logout}">Logout</a>
-        </div>
-        <div th:unless="${session['loginUser']}" class="fr">
-            <a th:href="@{/login}">
+                <a th:href="@{/logout}">Logout</a>
+            </div>
+            <div th:unless="${session['loginUser']}" class="fr">
+                <a th:href="@{/login}">
                 点此登陆
             </a>
-        </div><br><br><br><br><br>
-        <a th:href="@{/topic}">Slip</a>
-        <span class="chevron">&nbsp;›&nbsp;</span>
-        <a th:href="@{'/' + ${topic.type}}">[[${topic.type}]]</a><br>
-        <small class="gray">
+            </div><br><br><br><br><br>
+            <a th:href="@{/topic}">Slip</a>
+            <span class="chevron">&nbsp;›&nbsp;</span>
+            <a th:href="@{'/' + ${topic.type}}">[[${topic.type}]]</a><br>
+            <small class="gray">
             <span th:text="${user.name}"/>
             <span th:text="${#dates.format(topic.createUnixTime*1000, 'yyyy-MM-dd HH:mm:ss')}"></span>
             <span th:text="${topicClickCount}" class="gray">clicks</span>
         </small>
-    </div>
-    <div class="cell">
-        <div class="topic_content">
-            <div>
-                <b>正文格式待修改</b>
-            </div><br>
-            <div class="markdown_body">
-                [[${topic.content}]]
+        </div>
+        <div class="cell">
+            <div class="topic_content">
+                <div>
+                    <b>正文格式待修改</b>
+                </div><br>
+                <div class="markdown_body">
+                    [[${topic.content}]]
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="box">
-        <div class="cell">
-            <table>
-                <tbody>
-                <tr th:each="comment:${comments}">
-                    <td><div class="bx">
-                        <strong><div class="badges"></div>
+        <div class="box">
+            <div class="cell">
+                <table>
+                    <tbody>
+                        <tr th:each="comment:${comments}">
+                            <td>
+                                <div class="bx">
+                                    <strong><div class="badges"></div>
                             <a th:href="@{'/user/'+${comment.user.id}}">
                                 <img th:src="${comment.user.avatar}" class="avatar"  th:alt="${comment.user.name}">
                             </a>
@@ -71,13 +74,14 @@
                             <div class="sep5"></div>
                             <div class="reply_content">[[${comment.content}]]</div>
                         </strong>
-                    </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
 </body>
+
 </html>

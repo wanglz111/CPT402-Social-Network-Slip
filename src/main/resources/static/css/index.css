@@ -3,6 +3,8 @@ body {
     min-width: 820px;
     font-family: "JetBrains Mono", "Luxi Sans", "Segoe UI", "Hiragino Sans GB", "Microsoft Yahei", sans-serif, "Apple Logo";
 }
+
+
 /* 标题栏 */
 
 .top {
@@ -38,6 +40,8 @@ body {
 .top .tools ul li a:hover {
     color: #b6c7de;
 }
+
+
 /* 版心在中间 */
 
 .wrapper {
@@ -46,6 +50,8 @@ body {
     background-color: #3e5874;
     margin: 0 auto;
 }
+
+
 /* 定义一个20px高的间隔空间 */
 
 .sep20 {
@@ -59,6 +65,8 @@ body {
     width: auto;
     background-color: #22303f;
 }
+
+
 /* 左侧主体部分 */
 
 .left {
@@ -90,6 +98,8 @@ body {
 .left #table li:hover {
     background-color: #3f4f5f;
 }
+
+
 /* 帖子展示部分 */
 
 .left .content .item {
@@ -101,6 +111,8 @@ body {
     background-color: #18222d;
     border: #393f4e 1px solid;
 }
+
+
 /* 头像部分 */
 
 .left .content .item .TopicAvatar {
@@ -116,6 +128,8 @@ body {
     max-height: 48px;
     border-radius: 10px;
 }
+
+
 /* 主要信息部分 */
 
 .left .content .item .TopicInfo {
@@ -185,6 +199,8 @@ body {
     color: #d1d5d9;
     background-color: rgb(57, 63, 78);
 }
+
+
 /* 右边部分 */
 
 .rightBar {
@@ -458,12 +474,16 @@ body {
     color: #cfcccc;
 }
 
+
 /*页码部分*/
+
 .page-no ul {
     display: inline-block;
 }
 
-.page-no ul li {display: inline;}
+.page-no ul li {
+    display: inline;
+}
 
 .page-no ul li a {
     color: #bfbfbf;
@@ -477,10 +497,13 @@ body {
     color: white;
 }
 
-.page-no ul li a:hover:not(.active) {background-color: #ddd;}
+.page-no ul li a:hover:not(.active) {
+    background-color: #ddd;
+}
 
 .page-no ul li a {
-    border: 1px solid #ddd; /* Gray */
+    border: 1px solid #ddd;
+    /* Gray */
 }
 
 .page-no ul li:first-child a {
@@ -494,5 +517,6 @@ body {
 }
 
 .page-no ul li a {
-    margin: 0 13px; /* 0 对应的是头部与底部，可以修改它看看效果 */
+    margin: 0 13px;
+    /* 0 对应的是头部与底部，可以修改它看看效果 */
 }

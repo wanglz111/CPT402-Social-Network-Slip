@@ -4,60 +4,64 @@ body {
     font-family: "JetBrains Mono", "Luxi Sans", "Segoe UI", "Hiragino Sans GB", "Microsoft Yahei", sans-serif, "Apple Logo";
 }
 
-.login{
+.login {
     background-color: #18222d;
     width: 770px;
     height: auto;
     margin: 0 auto;
     border-radius: 5px;
 }
-.login .title{
+
+.login .title {
     height: 50px;
 }
-.login h3{
-    display:inline-block;
+
+.login h3 {
+    display: inline-block;
     padding-top: 10px;
     color: #bfbfbf;
     font-family: 'Times New Roman', Times, serif;
 }
-.login .signin_icon{
+
+.login .signin_icon {
     width: auto;
     padding-left: 3px;
-
     padding-top: 3px;
 }
-.login .login_info{
+
+.login .login_info {
     border-top: 1px solid rgba(100, 100, 100, 0.4);
     background-color: #18222d;
     width: 770px;
     height: auto;
     border-radius: 5px;
 }
-.login h4{
+
+.login h4 {
     padding-top: 5%;
     color: #bfbfbf;
     font-family: 'Times New Roman', Times, serif;
     padding-left: 10%;
     display: inline-block;
-
 }
-.login .login_info .username .username_text{
+
+.login .login_info .username .username_text {
     margin-left: 30px;
     border-radius: 5px;
     height: 25px;
-    background-color:rgba(156, 174, 199, 0.8) ;
+    background-color: rgba(156, 174, 199, 0.8);
 }
 
-.login .login_info .password .password_text{
+.login .login_info .password .password_text {
     margin-left: 35px;
     border-radius: 5px;
     height: 25px;
-    background-color:rgba(156, 174, 199, 0.8) ;
+    background-color: rgba(156, 174, 199, 0.8);
 }
 
-.login .login_info #canvas{
-    display:inline-block;
-    cursor:pointer;
+.login .login_info #canvas {
+    display: inline-block;
+    cursor: pointer;
     border: 1px solid rgba(156, 174, 199, 0.7);
     border-radius: 5px;
     margin-top: 50px;
@@ -65,7 +69,7 @@ body {
     height: 50px;
 }
 
-.login .login_info .code{
+.login .login_info .code {
     margin-left: 24%;
     margin-top: 10px;
     width: 300px;
@@ -76,26 +80,26 @@ body {
     border-radius: 5px;
 }
 
-.login .login_info .signin{
-    margin-left:24% ;
+.login .login_info .signin {
+    margin-left: 24%;
     margin-top: 15px;
     height: 40px;
     width: 100px;
-    background-color:rgba(156, 174, 199, 0.8) ;
+    background-color: rgba(156, 174, 199, 0.8);
     border-radius: 5px;
-    border: 1px solid rgba(156, 174, 199, 0.7);;
-
+    border: 1px solid rgba(156, 174, 199, 0.7);
+    ;
 }
 
-.login .login_info .signin:hover{
+.login .login_info .signin:hover {
     background-color: #22303f;
     cursor: pointer;
     color: white;
 }
 
-.login .login_info p{
+.login .login_info p {
     text-decoration: underline;
-    margin-left:24%;
+    margin-left: 24%;
     margin-top: 15px;
     color: #fff;
 }
