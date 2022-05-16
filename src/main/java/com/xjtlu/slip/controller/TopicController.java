@@ -49,8 +49,14 @@ public class TopicController {
         model.addAttribute("topic", topic);
         //获取帖子作者
         Long authorId = topic.getAuthorId();
-        User user = (User) redisService.get("User:userId:" + authorId);
-        model.addAttribute("user", user);
+        if (redisService.get("User:userId:" + authorId) != null) {
+            User user = (User) redisService.get("User:userId:" + authorId);
+            model.addAttribute("user", user);
+        } else {
+            User user = userService.getById(authorId);
+            redisService.set("User:userId:" + authorId, user);
+            model.addAttribute("user", user);
+        }
         //获取帖子评论
         List<Comment> comments = commentService.getListByTopicId(topicId);
         //给帖子设置形如：1小时前，1天前，1月前，1年前的时间格式
