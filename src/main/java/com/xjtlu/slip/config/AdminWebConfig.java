@@ -26,6 +26,7 @@ public class AdminWebConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/js/**");
 
         registry.addInterceptor(loginInterceptor)
-                .addPathPatterns("/**");
+                .addPathPatterns("/**")
+                .excludePathPatterns("/logout");
     }
 }
