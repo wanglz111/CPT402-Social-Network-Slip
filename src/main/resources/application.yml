@@ -73,7 +73,7 @@ spring:
         reset-enable: false              # 不允许清空统计数据,重新计算
         login-username: root            # 配置监控页面访问密码
         login-password: 123
-        allow: 127.0.0.1
+        allow: 0.0.0.0
 
 
 
@@ -106,7 +106,7 @@ spring:
 
 mybatis-plus:
   configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     default-enum-type-handler: com.baomidou.mybatisplus.core.handlers.MybatisEnumTypeHandler
   #    default-enum-type-handler: org.apache.ibatis.type.EnumTypeHandler
   mapper-locations: classpath*:/mapper/**/*.xml
