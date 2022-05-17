@@ -36,9 +36,9 @@
         <div class="left">
             <div class="topic-header">
                 <div class="href">
-                    <a href="#">SLIP</a>
+                    <a th:href="@{/}">SLIP</a>
                     <span>></span>
-                    <a href="#">News</a>
+                    <a th:href="@{'/topic/t/' + ${topic.type.getValue()}}" th:text="${topic.type}"></a>
                 </div>
                 <div class="topic-title">
                     <h3>[[${topic.title}]]</h3>

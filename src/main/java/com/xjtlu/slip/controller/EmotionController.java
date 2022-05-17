@@ -42,7 +42,6 @@ public class EmotionController {
     public String addEmotion(@RequestParam("id") Long id, HttpSession session, HttpServletRequest request) {
         emotionService.removeById(id);
         String referer = request.getHeader("Referer");
-        String redirectURI = referer.replace(request.getServerName(), "");
         return "redirect:"+referer;
     }
 

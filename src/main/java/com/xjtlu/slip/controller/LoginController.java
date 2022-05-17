@@ -71,9 +71,7 @@ public class LoginController {
         //expire time is 1 day
         redisService.set("User:Session:".concat(_userSession), user, Constant.SESSION_TIME);
         cookieUtil.setCookie("_userSession", _userSession);
-
-        String contextPath = request.getContextPath();
-        return "redirect:/"+contextPath;
+        return "redirect:/";
     }
 
     @GetMapping("/logout")
