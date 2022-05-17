@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -39,7 +40,7 @@ public class LoginController {
     private CookieUtil cookieUtil;
 
     @GetMapping("/login/check")
-    public String loginCheck(Model model, String username, String password, HttpSession session, HttpServletResponse response) {
+    public String loginCheck(Model model, String username, String password, HttpSession session, HttpServletRequest request) {
         User user;
         //if cookie exists and useful, redirect to index
 
@@ -71,7 +72,8 @@ public class LoginController {
         redisService.set("User:Session:".concat(_userSession), user, Constant.SESSION_TIME);
         cookieUtil.setCookie("_userSession", _userSession);
 
-        return "redirect:/";
+        String contextPath = request.getContextPath();
+        return "redirect:/"+contextPath;
     }
 
     @GetMapping("/logout")

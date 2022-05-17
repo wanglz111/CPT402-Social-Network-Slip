@@ -19,7 +19,7 @@
                     <li><a href="#">[[${session.loginUser.name}]]</a></li>
                     <li><a th:href="@{/emotion}">emotion</a></li>
                     <li><a href="#">设置</a></li>
-                    <li><a th:href="@{logout}">退出</a></li>
+                    <li><a th:href="@{/logout}">logout</a></li>
                 </ul>
             </div>
             <div class="tools" th:if="${session['loginUser']}==null">

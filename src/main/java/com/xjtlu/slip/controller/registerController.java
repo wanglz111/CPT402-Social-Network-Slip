@@ -94,7 +94,7 @@ public class registerController {
         user.setAvatar(prefix + newFileName);
 
         userService.save(user);
-        return "redirect:/";
+        return "redirect:/login";
     }
 
 }
