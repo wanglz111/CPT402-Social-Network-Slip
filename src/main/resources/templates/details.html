@@ -77,7 +77,7 @@
                 </div>
             </div>
             <div class="sep20"></div>
-            <div class="create-reply">
+            <div class="create-reply" th:if="${session['loginUser']}">
                 <form th:action="@{/addComment}" method="post">
                     <div class="sep10"></div>
                     <label for="reply-content">请文明发言</label><textarea name="replyContent" id="reply-content"></textarea>
