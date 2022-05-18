@@ -6,6 +6,7 @@ import com.qiniu.storage.Configuration;
 import com.qiniu.storage.Region;
 import com.qiniu.storage.UploadManager;
 import com.qiniu.util.Auth;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -16,6 +17,7 @@ import java.util.Map;
  * @project: zhxy
  * @description: 上传文件的工具类
  */
+@Slf4j
 public class UploadFile {
 
     public static void uploadFile(String fileName, InputStream input) throws QiniuException {
@@ -28,8 +30,7 @@ public class UploadFile {
         Auth auth = Auth.create(accessKey, secretKey);
         String token = auth.uploadToken(bucketName);
         Response r = uploadManager.put(input, fileName, token,null,null);
-        System.out.println(r.bodyString());
-
+        log.info(r.bodyString());
     }
 
 }

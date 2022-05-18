@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/revise_info.css}">
+</head>
+
+<body>
+    <div class="revise">
+        <div class="title">
+            <h1>Reset</h1>
+            <img th:src="@{/images/reset.png}" alt = "sign-up">
+        </div>
+        <div>
+            <p style="color:red">Welcome to reset information!</p>
+            <p class="username">Dear&nbsp;[[${session.loginUser.name}]]&nbsp;:</p>
+        </div>
+        <div class="revise_info">
+            <form method="post" th:action="@{/resitCheck}" enctype="multipart/form-data">
+                <p style="color:red" th:if="${session['error']}" th:text="${session['error']}"></p>
+                <div>
+                    <label for="password">Old Password:</label>
+                    <input type="text" name="oldPassword" id="old_password">
+                </div>
+
+                <div>
+                    <label for="password">New Password:</label>
+                    <input type="text" name="password" id="password">
+                </div>
+                <div>
+                    <label for="confirmPassword">Confirm New Password:</label>
+                    <input type="text" name="confirmPassword" id="confirmPassword">
+                </div>
+                <div>
+                    <label for="telephone">New Telephone:</label>
+                    <input type="text" name="telephone" id="telephone">
+                </div>
+                <div>
+                    <label for="email">New Email:</label>
+                    <input type="email" name="email" id="email">
+                </div>
+                <!--avatar-->
+                <div>
+                    <label for="avatar">New Avatar:(不上传为默认生成)</label>
+                    <input type="file" name="avatar" id="avatar">
+                </div>
+                <div>
+                    <input type="submit" value="Submit" id="submit">
+                </div>
+            </form>
+        </div>
+    </div>
+    <script th:src="@{/js/main.js}"></script>
+</body>
+
+</html>
