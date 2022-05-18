@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Slip</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/topic-user.css}">
+</head>
+
+<body>
+    <div class="top">
+        <div class="content">
+            <div class="tools" th:if="${session['loginUser']}!=null">
+                <ul>
+                    <li><a th:href="@{/}">Index</a></li>
+                    <li><a href="#">[[${session.loginUser.name}]]</a></li>
+                    <li><a th:href="@{/emotion}">emotion</a></li>
+                    <li><a th:href="@{/resit}">resit</a></li>
+                    <li><a th:href="@{/logout}">logout</a></li>
+                </ul>
+            </div>
+            <div class="tools" th:if="${session['loginUser']}==null">
+                <ul>
+                    <li><a th:href="@{/}">首页</a></li>
+                    <li><a th:href="@{/register}">注册</a></li>
+                    <li><a th:href="@{/login}">登陆</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="wrapper">
+        <div class="sep20"></div>
+        <h2>All Topics</h2>
+        <div class="emotion-content">
+            <ul th:each="topic:${page.records}">
+                <li class="emotion-item">
+                    <a th:href="@{'/topic/d/' + ${topic.id}}"><p>[[${topic.title}]]</p></a>
+                    </p>
+                    <form method="post" th:action="@{/delTopic}">
+                        <input type="hidden" name="id" th:value="${topic.id}">
+                        <input class="button" value='DEL' type='submit'>
+                    </form>
+                    <span>Latest&nbsp;Comment&nbsp;time</span>
+                    <span id="topic-time">·&nbsp;[[${topic.latestCommentTime}]]</span>
+                </li>
+            </ul>
+        </div>
+        <div class="page-no">
+            <ul>
+                <!-- 首页 -->
+                <li>
+                    <a th:href="@{/topic/u/1}">首页</a>
+                </li>
+                <!-- 上一页 -->
+                <li th:if="${page.hasPrevious()}">
+                    <a th:href="@{'/topic/u/' + ${page.getCurrent()-1}}" th:text="上一页"></a>
+                </li>
+                <!-- 中间页 -->
+                <li th:each="pageNum:${#numbers.sequence( page.getCurrent() , T(java.lang.Math).min(page.getCurrent()+4, page.getPages()))}">
+                    <a th:href="@{'/topic/u/' + ${pageNum}}" th:text="${pageNum}" th:if="${pageNum ne page.getCurrent()}"></a>
+                    <a th:href="@{'/topic/u/' + ${pageNum}}" th:text="${pageNum}" th:if="${pageNum eq page.getCurrent()}" class="active"></a>
+                </li>
+                <!-- 下一页 -->
+                <li th:if="${page.hasNext()}">
+                    <a th:href="@{'/topic/u/' + ${page.getCurrent()+1}}" th:text="下一页"></a>
+                </li>
+                <!-- 尾页 -->
+                <li>
+                    <a th:href="@{'/topic/u/' + ${page.getPages()}}">尾页</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>

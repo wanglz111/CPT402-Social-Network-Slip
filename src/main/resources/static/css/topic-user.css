@@ -88,15 +88,29 @@ h2 {
     border-bottom: #9caec7 1px solid;
 }
 
-.emotion-item p {
+.emotion-item a {
     font-size: 19px;
     color: #a4a4a4;
 }
 
+.emotion-item a:hover {
+    text-decoration: underline;
+}
+
+/*.emotion-item p {*/
+/*    font-size: 19px;*/
+/*    color: #a4a4a4;*/
+/*}*/
+
 .emotion-item span {
     display: inline-block;
-    margin-left: 300px;
+    font-size: 14px;
     color: #434343;
+    margin-left: 200px;
+}
+
+.emotion-item #topic-time {
+    margin-left: 50px;
 }
 
 .emotion-content .emotion-item .button {
@@ -122,7 +136,7 @@ h2 {
 /* 分页部分 */
 
 .page-no ul {
-    width: 500px;
+    /*width: 600px;*/
     height: auto;
     margin: 0 auto;
 }
@@ -165,3 +179,4 @@ h2 {
 .page-no ul li a {
     margin: 0 13px;
 }
+
