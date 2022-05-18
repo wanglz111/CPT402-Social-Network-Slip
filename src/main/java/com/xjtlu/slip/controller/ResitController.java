@@ -22,6 +22,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -81,7 +82,7 @@ public class ResitController {
         //更新当前用户到redis
         redisService.set("User:userId:" + loginUser.getId(), userService.getById(loginUser.getId()));
         //更新redis中的UserInfo
-        List<User> users = userService.list();
+        Map<Long, User> users = userService.getUserMap();
         redisService.set("User:AllUserInfo", users);
         return "redirect:/logout";
     }

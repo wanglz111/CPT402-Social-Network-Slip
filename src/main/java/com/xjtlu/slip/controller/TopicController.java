@@ -152,7 +152,14 @@ public class TopicController {
                 userInfo = userService.getUserMap();
                 redisService.set("User:AllUserInfo", userInfo);
             } else {
-                userInfo = (Map<Long, User>) redisService.get("User:AllUserInfo");
+                try {
+                    userInfo = (Map<Long, User>) redisService.get("User:AllUserInfo");
+                }
+                catch (Exception e) {
+                    log.error("redis获取userInfo信息失败，直接从数据库中获取");
+                    userInfo = userService.getUserMap();
+                    redisService.set("User:AllUserInfo", userInfo);
+                }
             }
             Map<Long, User> finalUserInfo = userInfo;
             topics.forEach(topic -> {
