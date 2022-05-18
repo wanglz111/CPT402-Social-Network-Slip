@@ -107,6 +107,7 @@ public class TestSql {
         // 创建查询条件
         QueryWrapper<Topic> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user.id", 1);
+        queryWrapper.eq("is_deleted",0);
         IPage<Topic> result = topicMapper.getAllTopicsAndUserByPage(page, queryWrapper);
         // 获取数据
 //        List<Topic> records = result.getRecords();
