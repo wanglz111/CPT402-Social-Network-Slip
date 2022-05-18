@@ -75,7 +75,6 @@
         FROM topic
                  LEFT JOIN user
                            on topic.author_id=user.id
-                               and topic.is_deleted = '0'
             ${ew.customSqlSegment}
     </select>
 

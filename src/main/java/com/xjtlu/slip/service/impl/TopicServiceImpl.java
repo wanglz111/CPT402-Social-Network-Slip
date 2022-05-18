@@ -29,6 +29,7 @@ public class TopicServiceImpl extends ServiceImpl<TopicMapper, Topic>
     public Page<Topic> getAllTopicsAndUser(Integer currentPage, Integer pageSize) {
         QueryWrapper<Topic> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("latest_comment_unix_time");
+        queryWrapper.eq("is_deleted",0);
         Page<Topic> page = new Page<>(currentPage, pageSize);
         return topicMapper.getAllTopicsAndUserByPage(page, queryWrapper);
     }
@@ -51,6 +52,17 @@ public class TopicServiceImpl extends ServiceImpl<TopicMapper, Topic>
         QueryWrapper<Topic> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("latest_comment_unix_time");
         queryWrapper.eq("type", typeId);
+        queryWrapper.eq("is_deleted",0);
+        Page<Topic> page = new Page<>(current, size);
+        return topicMapper.getAllTopicsAndUserByPage(page, queryWrapper);
+    }
+
+    @Override
+    public Page<Topic> getAllTopicsByUser(Integer current, Integer size, Long userId) {
+        QueryWrapper<Topic> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("latest_comment_unix_time");
+        queryWrapper.eq("author_id", userId);
+        queryWrapper.eq("is_deleted",0);
         Page<Topic> page = new Page<>(current, size);
         return topicMapper.getAllTopicsAndUserByPage(page, queryWrapper);
     }

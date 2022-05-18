@@ -29,4 +29,6 @@ public interface TopicService extends IService<Topic> {
     int getTopicCount(Long id);
 
     Page<Topic> getAllTopicsAndUserByType(Integer page, Integer size, Long typeId);
+
+    Page<Topic> getAllTopicsByUser(Integer page, Integer size, Long userId);
 }

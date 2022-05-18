@@ -7,11 +7,15 @@ import com.xjtlu.slip.utils.TimeFormat;
 import com.xjtlu.slip.vo.CommentCount;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
@@ -126,7 +130,7 @@ public class TopicController {
     }
 
     @GetMapping("/topic/{page}")
-    public String topic(Model model, @PathVariable Integer page, HttpSession session) {
+    public String topic(Model model, @PathVariable @DefaultValue("1") Integer page, HttpSession session) {
         List<Topic> topics = null;
         Page<Topic> topicPage = null;
         if (redisService.get("index:topicInfo:page:".concat(String.valueOf(page))) != null) {
@@ -237,7 +241,7 @@ public class TopicController {
     }
 
     @GetMapping("/topic/t/{typeId}")
-    public String getTopicByType(@PathVariable("typeId") Long typeId, Model model, HttpSession session) {
+    public String getTopicByType(@PathVariable("typeId") @DefaultValue("1") Long typeId, Model model, HttpSession session) {
         List<Topic> topics = null;
         Page<Topic> topicPage = null;
 
@@ -327,6 +331,29 @@ public class TopicController {
         model.addAttribute("pages", topicPage);
         model.addAttribute("isType", true);
         return "index";
+    }
+
+    @GetMapping("/topic/u/{currentPage}")
+    public String getTopicByUserId(@PathVariable("currentPage") @DefaultValue("1") Integer  currentPage, Model model, HttpSession session) {
+        User loginUser = (User) session.getAttribute("loginUser");
+        if (loginUser == null) {
+            session.setAttribute("error", "请先登录");
+            return "redirect:/login";
+        }
+        Page<Topic> page = topicService.getAllTopicsByUser(currentPage, 10, loginUser.getId());
+        page.getRecords().forEach(topic -> topic.setLatestCommentTime(TimeFormat.format(topic.getCreateUnixTime())));
+        model.addAttribute("page", page);
+        return "topic-user";
+    }
+
+    @PostMapping("/delTopic")
+    public String delTopic(@RequestParam("id") Long id, HttpSession session, HttpServletRequest request) {
+        topicService.removeById(id);
+        User user = (User) session.getAttribute("loginUser");
+        String referer = request.getHeader("Referer");
+        redisService.refreshTopicRecord();
+        redisService.del("User:topicCount:user_id:".concat(String.valueOf(user.getId())));
+        return "redirect:"+referer;
     }
 
     @GetMapping("/")
