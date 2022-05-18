@@ -22,6 +22,8 @@ public class TestRedis {
     @Autowired
     RedisTemplate<String, String> redisTemplate;
     @Autowired
+    private RedisTemplate<String, Object> redisTemplate1;
+    @Autowired
     private RedisService redisService;
     @Test
     public void test() {
@@ -54,6 +56,7 @@ public class TestRedis {
         Map<Long, User> userInfo = userService.getUserMap();
         redisService.set("User:AllUserInfo", userInfo);
     }
+
 
 
 }

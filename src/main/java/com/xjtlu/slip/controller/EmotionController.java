@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xjtlu.slip.pojo.Emotion;
 import com.xjtlu.slip.pojo.User;
 import com.xjtlu.slip.service.EmotionService;
+import com.xjtlu.slip.service.RedisService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,9 @@ public class EmotionController {
     @Autowired
     private EmotionService emotionService;
 
+    @Autowired
+    private RedisService redisService;
+
     @PostMapping("/addEmotion")
     public String addEmotion(@RequestParam("emotion") String content, HttpSession session) {
         Emotion emotion = new Emotion();
@@ -41,6 +45,8 @@ public class EmotionController {
     @PostMapping("/delEmotion")
     public String addEmotion(@RequestParam("id") Long id, HttpSession session, HttpServletRequest request) {
         emotionService.removeById(id);
+        User loginUser = (User) session.getAttribute("loginUser");
+        redisService.del("User:emotion:user_id:".concat(loginUser.getId().toString()));
         String referer = request.getHeader("Referer");
         return "redirect:"+referer;
     }

@@ -54,11 +54,7 @@ public class CommentController {
         topicService.saveOrUpdate(topic);
         //更新redis中的数据, 删掉相关redis中的数据, 等下次读取更新
         //todo:考虑使用消息队列来异步更新Redis
-        long totalPage = topicService.count() / 20;
-        for (int pageNo = 1; pageNo <= totalPage; pageNo++){
-            redisService.del("index:topicInfo:page:".concat(String.valueOf(pageNo)));
-            redisService.del("index:AllPages:".concat(String.valueOf(pageNo)));
-        }
+        redisService.refreshTopicRecord();
         return "redirect:/topic/d/"+topicId;
     }
 }
