@@ -18,4 +18,18 @@
         UNION ALL
         select user_id as friend_id from friendship where friend_id = #{userId}
     </select>
+
+    <select id="getFriendEntitiesByUserId" resultType="User">
+        select DISTINCT u.* from friendship f, user u where u.id in
+                                                            (select friend_id from friendship where user_id = #{userId}
+                                                             UNION ALL
+                                                             select user_id as friend_id from friendship where friend_id = #{userId})
+    </select>
+
+    <select id="getFriendsByUserId" resultType="User">
+        select DISTINCT u.* from friendship f, user u where u.id in
+                                                            (select friend_id from friendship where user_id = #{userId}
+                                                             UNION ALL
+                                                             select user_id as friend_id from friendship where friend_id = #{userId})
+    </select>
 </mapper>

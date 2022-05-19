@@ -8,9 +8,11 @@ import com.xjtlu.slip.mapper.CommentMapper;
 import com.xjtlu.slip.mapper.TopicMapper;
 import com.xjtlu.slip.mapper.UserMapper;
 import com.xjtlu.slip.pojo.Comment;
+import com.xjtlu.slip.pojo.Friendship;
 import com.xjtlu.slip.pojo.Topic;
 import com.xjtlu.slip.pojo.User;
 import com.xjtlu.slip.service.CommentService;
+import com.xjtlu.slip.service.FriendshipService;
 import com.xjtlu.slip.service.TopicService;
 import com.xjtlu.slip.service.UserService;
 import com.xjtlu.slip.utils.TimeFormat;
@@ -39,6 +41,9 @@ public class TestSql {
 
     @Autowired
     private CommentMapper commentMapper;
+
+    @Autowired
+    private FriendshipService friendshipService;
 
     @Test
     public void InsertTopics() throws Exception {
@@ -197,4 +202,32 @@ public class TestSql {
             topicMapper.updateById(topic);
         });
     }
+
+    @Test
+    public void testFriendship() {
+        Long id = 1L;
+        Long friendId = 2L;
+        QueryWrapper<Friendship> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", id);
+        queryWrapper.eq("friend_id", friendId);
+        queryWrapper.or().eq("user_id", friendId).eq("friend_id", id);
+        System.out.println(friendshipService.getMap(queryWrapper));
+    }
+
+    @Test
+    public void testFriendshipAndUser() {
+        Long id =1L;
+        friendshipService.getFriendsByUserId(id).forEach(user -> {
+            System.out.println(user.getName());
+        });
+    }
+
+    @Test
+    public void testFriendshipAndUser2() {
+        Long id =1L;
+        friendshipService.getFriendsByUserIdPage(new Page<>(1,10), id).getRecords().forEach(user -> {
+            System.out.println(user.getName());
+        });
+    }
+
 }

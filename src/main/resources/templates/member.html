@@ -51,13 +51,13 @@
                             <td>[[${user.email}]]</td>
                         </tr>
                     </table>
-                    <div class="add-friend" th:if="${user.id}!=${session.loginUser.id}&&${isFriend}!=true">
+                    <div class="add-friend" th:if="${isFriend}!=true">
                         <form th:action="@{/addFriend}" method="post">
                             <input type="hidden" name="id" th:value="${user.id}">
                             <button type="submit">add</button>
                         </form>
                     </div>
-                    <div class="chat-friend" th:if="${user.id}!=${session.loginUser.id}&&${isFriend}==true">
+                    <div class="chat-friend" th:if="${isFriend}==true">
                         <form th:action="@{'/chat/'+${user.id}}" method="get">
                             <button type="submit">chat</button>
                         </form>

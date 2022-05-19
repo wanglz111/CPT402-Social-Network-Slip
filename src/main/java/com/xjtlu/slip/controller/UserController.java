@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
+
+import static com.fasterxml.jackson.databind.type.LogicalType.Map;
 
 @Controller
 @Slf4j
@@ -58,6 +61,17 @@ public class UserController {
             emotion.setTime(TimeFormat.format(emotion.getCreateTime()));
         });
         model.addAttribute("emotionPage", emotionPage);
+        //get user's friends
+        List<Long> friendsId = friendshipService.getFriendIdsByUserId(Long.valueOf(id));
+        model.addAttribute("isFriend", false);
+        if (session.getAttribute("loginUser") != null) {
+            User loginUser = (User) session.getAttribute("loginUser");
+            if (friendsId.contains(loginUser.getId())) {
+                model.addAttribute("isFriend", true);
+            }
+        }
         return "member";
     }
+
+
 }
