@@ -15,47 +15,45 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
 @Controller
 @Slf4j
-public class ResitController {
+public class ResetController {
     @Autowired
     private UserService userService;
 
     @Autowired
     private RedisService redisService;
 
-    @GetMapping("/resit")
-    public String resit(Model model, HttpSession session) {
+    @GetMapping("/reset")
+    public String reset(Model model, HttpSession session) {
         if (session.getAttribute("loginUser") == null) {
             session.setAttribute("error","请先登录");
             return "redirect:/login";
         }
-        return "resit";
+        return "reset";
     }
 
-    @PostMapping("/resitCheck")
-    public String resitCheck(String telephone, String password, String oldPassword, String confirmPassword, String email, @RequestPart("avatar") @DefaultValue("") MultipartFile avatar, Model model, HttpSession session) throws IOException {
+    @PostMapping("/resetCheck")
+    public String resetCheck(String telephone, String password, String oldPassword, String confirmPassword, String email, @RequestPart("avatar") @DefaultValue("") MultipartFile avatar, Model model, HttpSession session) throws IOException {
         User loginUser = (User) session.getAttribute("loginUser");
         User updateUser = new User();
         updateUser.setAvatar(loginUser.getAvatar());
         if (!MD5.create().digestHex(oldPassword).equals(loginUser.getPassword())) {
             session.setAttribute("error","原密码错误");
-            return "redirect:/resit";
+            return "redirect:/reset";
         }
         if (!password.equals(confirmPassword)) {
             session.setAttribute("error","两次密码不一致");
-            return "redirect:/resit";
+            return "redirect:/reset";
         }
         if (!avatar.isEmpty()) {
             String suffix = Objects.requireNonNull(avatar.getOriginalFilename()).substring(avatar.getOriginalFilename().lastIndexOf("."));

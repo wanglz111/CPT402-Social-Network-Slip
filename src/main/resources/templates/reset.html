@@ -18,7 +18,7 @@
             <p class="username">Dear&nbsp;[[${session.loginUser.name}]]&nbsp;:</p>
         </div>
         <div class="revise_info">
-            <form method="post" th:action="@{/resitCheck}" enctype="multipart/form-data">
+            <form method="post" th:action="@{/resetCheck}" enctype="multipart/form-data">
                 <p style="color:red" th:if="${session['error']}" th:text="${session['error']}"></p>
                 <div>
                     <label for="password">Old Password:</label>
