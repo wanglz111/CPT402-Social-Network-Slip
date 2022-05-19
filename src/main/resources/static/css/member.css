@@ -1,0 +1,465 @@
+body {
+    background-color: #22303f;
+    min-width: 820px;
+    font-family: "JetBrains Mono", "Luxi Sans", "Segoe UI", "Hiragino Sans GB", "Microsoft Yahei", sans-serif, "Apple Logo";
+}
+
+.top {
+    height: 44px;
+    width: 100%;
+    background-color: #18222d;
+}
+
+.top .content {
+    height: 44px;
+    width: 1100px;
+    margin: 0 auto;
+    /* background-color: pink; */
+}
+
+.top .tools {
+    float: right;
+    /* background-color: #fff; */
+}
+
+.top .tools ul li {
+    height: 44px;
+    display: inline-block;
+    padding: 0 0 0 20px;
+    line-height: 44px;
+}
+
+.top .tools ul li a {
+    text-align: right;
+    color: #9caec7;
+}
+
+.top .tools ul li a:hover {
+    color: #b6c7de;
+}
+
+
+/* 两个间隔标签 */
+
+.sep20 {
+    height: 20px;
+    width: auto;
+    background-color: #22303f;
+}
+
+.sep10 {
+    height: 10px;
+    width: auto;
+    background-color: #22303f;
+}
+
+
+/* 版心在中间 */
+
+.wrapper {
+    width: 1100px;
+    height: auto;
+    margin: 0 auto;
+}
+
+.left {
+    float: left;
+    width: 770px;
+    height: auto;
+}
+
+.left .user-part {
+    width: 770px;
+    height: auto;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: #18222d;
+}
+
+.left .user-part .avatar {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+}
+
+.left .user-part img {
+    width: 70px;
+    height: 70px;
+    border-radius: 10px;
+}
+
+.left .user-part .user-info {
+    vertical-align: top;
+    display: inline-block;
+    margin-left: 20px;
+    height: 70px;
+    width: 600px;
+}
+
+.left .user-part .user-info h2 {
+    font-size: 20px;
+    color: #fff;
+}
+
+.left .user-part .user-info table {
+    width: 600px;
+    height: 70px;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: 14px;
+    color: #9caec7;
+}
+
+
+/* content title */
+
+.left-title {
+    width: 770px;
+    height: auto;
+    margin: 0 auto;
+    padding: 10px;
+    text-align: center;
+    color: #a4a4a4;
+}
+
+
+/* emotion part */
+
+.left .emotion-part {
+    width: 770px;
+    height: auto;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: #18222d;
+}
+
+.left .emotion-content .emotion-item {
+    position: relative;
+    display: block;
+    width: 600px;
+    height: auto;
+    margin: 10px auto;
+    padding: 10px 20px;
+    border-bottom: #9caec7 1px solid;
+}
+
+.left .emotion-item p {
+    font-size: 19px;
+    color: #a4a4a4;
+}
+
+.left .emotion-item span {
+    display: inline-block;
+    margin-left: 300px;
+    color: #434343;
+}
+
+
+/* topic part */
+
+.topic-part {
+    width: 770px;
+    height: auto;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: #18222d;
+}
+
+.topic-content .topic-item {
+    position: relative;
+    display: block;
+    width: 600px;
+    height: auto;
+    margin: 10px auto;
+    padding: 10px 20px;
+    border-bottom: #9caec7 1px solid;
+}
+
+.topic-item a {
+    font-size: 19px;
+    color: #a4a4a4;
+}
+
+.topic-item a:hover {
+    text-decoration: underline;
+}
+
+.topic-item span {
+    display: inline-block;
+    margin-left: 300px;
+    color: #434343;
+}
+
+
+/* 右边部分 */
+
+.rightBar {
+    float: right;
+    width: 270px;
+    height: auto;
+    background-color: #fff;
+}
+
+.rightBar .box {
+    display: block;
+    width: 270px;
+    height: 170px;
+    background-color: #18222d;
+}
+
+.rightBar .box ul {
+    width: 270px;
+    height: 60px;
+    /* border-bottom: rgba(100, 100, 100, 0.4) 1px solid; */
+}
+
+.rightBar .box .info-box {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+}
+
+.rightBar .box #avatar {
+    max-width: 50px;
+    max-height: 50px;
+    border-radius: 10px;
+}
+
+.rightBar .box li a {
+    display: inline-block;
+    vertical-align: top;
+    line-height: 50px;
+}
+
+.rightBar .box li #name {
+    padding-left: 10px;
+    font-size: 18px;
+    color: #738292;
+}
+
+.rightBar .box .box-content {
+    width: 270px;
+    height: 50px;
+    border-bottom: rgba(100, 100, 100, 0.4) 1px solid;
+}
+
+.rightBar .box .box-content table {
+    width: 100%;
+    height: 50px;
+    border: 0;
+}
+
+.rightBar .box .box-content table tr td {
+    width: 33%;
+    font-size: 16px;
+    text-align: center;
+}
+
+.rightBar .box .box-content table tr td span {
+    display: block;
+    color: #bfbfbf;
+}
+
+.rightBar .box .box-content table td:nth-child(2) {
+    width: 34%;
+    border-left: 1px solid rgba(100, 100, 100, 0.4);
+    border-right: 1px solid rgba(100, 100, 100, 0.4);
+}
+
+.create_topic {
+    width: 270px;
+    height: 50px;
+    background-color: #18222d;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border-bottom: 1px solid rgba(100, 100, 100, 0.4);
+}
+
+.create_topic a {
+    display: inline-block;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    color: #bfbfbf;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.latest_news {
+    margin-top: 100px;
+    float: right;
+    width: 270px;
+    height: auto;
+    background-color: #18222d;
+    border: 1px solid rgba(100, 100, 100, 0.4);
+}
+
+.latest_news .cell .photo {
+    padding-top: 5px;
+    float: left;
+    width: 50px;
+    height: 50px;
+    padding-left: 5px;
+}
+
+.latest_news .cell .photo img {
+    display: inline-block;
+    width: 38px;
+    height: 38px;
+    max-height: 48px;
+    border-radius: 10px;
+}
+
+.news_info {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 400;
+    padding-left: 60px;
+}
+
+.news_info a:hover {
+    text-decoration: underline;
+}
+
+.news_info h3 {
+    padding-top: 12px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: medium;
+}
+
+.news_info h3 a {
+    color: white;
+}
+
+.title {
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    padding-bottom: 5px;
+    opacity: 0.8;
+    color: white;
+    background-color: #3e5874;
+}
+
+.rightBar .emotion {
+    width: 270px;
+    height: auto;
+    background-color: #18222d;
+}
+
+.rightBar .emotion .emotion-title {
+    border: 1px solid rgba(100, 100, 100, 0.4);
+}
+
+.rightBar .emotion h3 {
+    height: 50px;
+    line-height: 50px;
+    font-size: 18px;
+    font-weight: 500;
+    color: #bfbfbf;
+    text-align: center;
+}
+
+.rightBar .emotion .create-emotion form #content {
+    outline-style: none;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 14px 14px;
+    width: 270px;
+    font-size: 14px;
+}
+
+.rightBar .emotion .create-emotion form #content:focus {
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6)
+}
+
+.rightBar .emotion .create-emotion form .button {
+    background-color: #00c403;
+    border: none;
+    color: #f5f5f5;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 3px 10px 3px 190px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.rightBar .emotion .create-emotion form .button:hover {
+    background-color: #09840d;
+    border: none;
+    box-shadow: 0 0 2px #3e5874;
+}
+
+.rightBar .emotion .emotion-content {
+    width: 270px;
+    height: auto;
+}
+
+.rightBar .emotion .emotion-content .emotion-item {
+    position: relative;
+    width: 270px;
+    border: 1px solid rgba(100, 100, 100, 0.4);
+}
+
+.rightBar .emotion .emotion-content .emotion-item p {
+    padding: 5px 10px;
+    width: 270px;
+    height: auto;
+    min-height: 50px;
+    font-size: 14px;
+    font-weight: 500;
+    text-indent: 2em;
+    color: #bfbfbf;
+}
+
+.rightBar .emotion .emotion-content .emotion-item .button {
+    position: absolute;
+    left: 5px;
+    bottom: 3px;
+    padding: 3px;
+    background-color: #16446c;
+    border: none;
+    color: #bfbfbf;
+    text-align: center;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.rightBar .emotion .emotion-content .emotion-item .button:hover {
+    background-color: #033580;
+    border: none;
+}
+
+.rightBar .emotion .emotion-content .emotion-item span {
+    display: block;
+    padding-right: 30px;
+    text-align: right;
+    width: 270px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 10px;
+    text-indent: 2em;
+    color: #bfbfbf;
+}
+
+.watch-more {
+    display: inline-block;
+    padding-right: 20px;
+    width: 268px;
+    height: 20px;
+    line-height: 20px;
+    text-align: right;
+    font-size: 13px;
+    color: #bfbfbf;
+}
+
+.watch-more:hover {
+    color: #cfcccc;
+}
