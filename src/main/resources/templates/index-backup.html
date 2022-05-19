@@ -16,10 +16,10 @@
             <div class="tools" th:if="${session['loginUser']}!=null">
                 <ul>
                     <li><a th:href="@{/}">Index</a></li>
-                    <li><a href="#">[[${session.loginUser.name}]]</a></li>
-                    <li><a href="#">emotion</a></li>
-                    <li><a href="#">设置</a></li>
-                    <li><a href="#">退出</a></li>
+                    <li><a th:href="@{'/user/'+${session.loginUser.id}}">[[${session.loginUser.name}]]</a></li>
+                    <li><a th:href="@{/emotion}">emotion</a></li>
+                    <li><a th:href="@{/resit}">resit</a></li>
+                    <li><a th:href="@{/logout}">logout</a></li>
                 </ul>
             </div>
             <div class="tools" th:if="${session['loginUser']}==null">
