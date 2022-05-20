@@ -39,6 +39,7 @@ public class EmotionController {
         emotion.setUserId(user.getId());
         emotion.setCreateTime((System.currentTimeMillis()/1000));
         emotionService.saveOrUpdate(emotion);
+        redisService.del("User:emotion:user_id:".concat(user.getId().toString()));
         return "redirect:/";
     }
 
