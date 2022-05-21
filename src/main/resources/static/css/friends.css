@@ -72,64 +72,83 @@ h2 {
     color: #fff;
 }
 
-.emotion-content {
+.friends-content {
     width: 800px;
     height: auto;
     border: #bfbfbf solid 1px;
 }
 
-.emotion-content .emotion-item {
+.friends-content .friends-item {
     position: relative;
     display: block;
     width: 600px;
-    height: auto;
-    margin: 10px auto;
-    padding: 10px 20px;
+    height: 70px;
     border-bottom: #9caec7 1px solid;
 }
 
-.emotion-item a {
-    font-size: 19px;
-    color: #a4a4a4;
+.user-part {
+    width: 770px;
+    height: auto;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: #18222d;
 }
 
-.emotion-item a:hover {
-    text-decoration: underline;
+.cell {
+    position: relative;
+    border-bottom: #b6c7de 1px solid;
 }
 
-/*.emotion-item p {*/
-/*    font-size: 19px;*/
-/*    color: #a4a4a4;*/
-/*}*/
-
-.emotion-item span {
+.user-part .avatar {
     display: inline-block;
+    padding: 10px;
+    width: 100px;
+    height: 100px;
+}
+
+.user-part img {
+    width: 70px;
+    height: 70px;
+    border-radius: 10px;
+}
+
+.user-part .user-info {
+    vertical-align: top;
+    display: inline-block;
+    height: 70px;
+    width: 600px;
+}
+
+.user-part .user-info h2 {
+    font-size: 20px;
+    color: #fff;
+}
+
+.user-part .user-info table {
+    width: 600px;
+    height: 70px;
+    border-collapse: collapse;
+    border-spacing: 0;
     font-size: 14px;
-    color: #434343;
-    margin-left: 200px;
+    color: #9caec7;
 }
 
-.emotion-item #topic-time {
-    margin-left: 50px;
-}
-
-.emotion-content .emotion-item .button {
-    position: absolute;
-    right: -50px;
-    bottom: 25%;
-    padding: 3px;
-    background-color: #16446c;
+.user-part .chat-friend button {
     border: none;
-    color: #bfbfbf;
-    text-align: center;
-    font-weight: 600;
-    font-size: 18px;
-    text-decoration: none;
+    position: absolute;
+    right: 40px;
+    top: 50px;
+    width: 30px;
+    height: 20px;
+    background-color: #0ac001;
+    color: #fff;
     border-radius: 5px;
 }
 
-.emotion-content .emotion-item .button:hover {
-    background-color: #7a0d0d;
+.user-part button:hover {
+    background-color: #62bc5d;
+    /* 指针样式 */
+    cursor: pointer;
 }
 
 
@@ -178,4 +197,13 @@ h2 {
 
 .page-no ul li a {
     margin: 0 13px;
+}
+
+
+/*user info*/
+
+.user-avatar img {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
 }

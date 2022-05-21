@@ -1,0 +1,251 @@
+    body {
+        background-color: #22303f;
+        min-width: 820px;
+        font-family: "JetBrains Mono", "Luxi Sans", "Segoe UI", "Hiragino Sans GB", "Microsoft Yahei", sans-serif, "Apple Logo";
+    }
+    /* 标题栏 */
+    .top {
+        height: 44px;
+        width: 100%;
+        background-color: #18222d;
+    }
+
+    .top .content {
+        height: 44px;
+        width: 1100px;
+        margin: 0 auto;
+    }
+
+    .top .tools {
+        float: right;
+    }
+
+    .top .tools ul li {
+        height: 44px;
+        display: inline-block;
+        padding: 0 0 0 20px;
+        line-height: 44px;
+    }
+
+    .top .tools ul li a {
+        text-align: right;
+        color: #9caec7;
+    }
+
+    .top .tools ul li a:hover {
+        color: #b6c7de;
+    }
+
+    /* 版心在中间 */
+
+    .wrapper {
+        width: 1100px;
+        height: auto;
+        background-color: #3e5874;
+        margin: 0 auto;
+    }
+    /* 定义一个20px高的间隔空间 */
+
+    .sep20 {
+        height: 20px;
+        width: auto;
+        background-color: #22303f;
+    }
+
+    .sep10 {
+        height: 10px;
+        width: auto;
+        background-color: #22303f;
+    }
+
+    .sep100 {
+        height: 100px;
+        width: auto;
+        background-color: #22303f;
+    }
+    /* 左侧主体部分 */
+
+    .left {
+        float: left;
+        width: 770px;
+        height: auto;
+    }
+
+    .left .friend-info {
+        height: auto;
+        width: 770px;
+        background-color: #18222d;
+    }
+
+    .left .friend-info .avatar {
+        display: inline-block;
+        width: 100px;
+        height: 100px;
+    }
+
+    .left .friend-info .avatar img {
+        width: 90px;
+        height: 90px;
+        padding: 5px;
+        border-radius: 20px;
+    }
+
+    .left .friend-info .info {
+        vertical-align: top;
+        display: inline-block;
+        width: 600px;
+        height: 100px;
+        padding: 15px;
+    }
+
+    .left .friend-info .info a {
+        cursor: pointer;
+        color: #9caec7;
+    }
+
+    .left .friend-info .info a:hover {
+        text-decoration: underline;
+    }
+
+    .left .friend-info .info .sign {
+        font-size: 14px;
+        color: #fff;
+    }
+
+    .left .chat-content {
+        min-height: 600px;
+        width: 770px;
+        background-color: #18222d;
+    }
+
+    .left .records {
+        min-height: 600px;
+        margin: 0 auto;
+        width: 570px;
+        background-color: rgb(235, 201, 251);
+    }
+
+    .friend-content,
+    .user-content {
+        margin-bottom: 10px;
+    }
+    /* friend left */
+
+    .left .records .friend-content .avatar {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+    }
+
+    .left .records .friend-content .avatar img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .left .records .content {
+        display: inline-block;
+        width: 400px;
+        min-height: 50px;
+        line-height: 30px;
+        padding: 0 10px;
+        vertical-align: top;
+        border-radius: 20px;
+        background-color: rgb(55, 66, 124);
+    }
+
+    .left .records .friend-content .content {
+        margin: 0 10px;
+    }
+
+    .left .records friend-content .content p {
+        color: #9caec7;
+        font-size: 14px;
+        text-indent: 2em;
+    }
+    /* user right */
+
+    .left .records .user-content .avatar {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        padding: auto;
+    }
+
+    .left .records .user-content .avatar img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .left .records .user-content .content {
+        margin: 0px 10px 0px 100px;
+    }
+
+    .left .records .content p {
+        color: #9caec7;
+        font-size: 14px;
+        text-indent: 2em;
+    }
+
+    .left .chat-sender {
+        position: relative;
+        margin: 10px auto;
+        height: 90px;
+        width: 570px;
+        background-color: #18222d;
+    }
+
+    .left .chat-sender .input-text {
+        display: inline-block;
+        height: 90px;
+        width: 450px;
+    }
+
+    .left .chat-sender .input-text textarea {
+        width: 450px;
+        height: 90px;
+        padding: 10px;
+        border: none;
+        resize: none;
+        outline: none;
+        border-radius: 10px;
+        font-size: 14px;
+        color: #9caec7;
+    }
+
+    .left .chat-sender .buttons {
+        display: inline-block;
+        height: 90px;
+        width: 100px;
+    }
+
+    .refresh {
+        position: absolute;
+        top: 7px;
+        right: 20px;
+        border: none;
+        background-color: #02b97c;
+        cursor: pointer;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 14px;
+        color: aqua;
+    }
+
+    .send {
+        position: absolute;
+        top: 47px;
+        right: 20px;
+        border: none;
+        background-color: #02b97c;
+        cursor: pointer;
+        border-radius: 5px;
+        padding: 10px 27px;
+        font-size: 14px;
+        color: aqua;
+    }
+
+    .refresh:hover,
+    .send:hover {
+        background-color: #4e5761;
+        color: #fff;
+    }

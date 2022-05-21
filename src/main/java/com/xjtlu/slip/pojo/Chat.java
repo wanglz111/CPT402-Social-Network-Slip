@@ -8,43 +8,46 @@ import java.io.Serializable;
 import lombok.Data;
 
 /**
- * 
+ *
  * @TableName chat
  */
 @TableName(value ="chat")
 @Data
 public class Chat implements Serializable {
     /**
-     * 
+     *
      */
     @TableId(type = IdType.AUTO)
     private Long id;
 
     /**
-     * 
+     *
      */
     private Long pairId;
 
     /**
-     * 
+     *
      */
     private Long senderUserId;
 
     /**
-     * 
+     *
      */
     private Long receiverUserId;
 
     /**
-     * 
+     *
      */
     private String content;
 
     /**
-     * 
+     *
      */
     private Long timestamp;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
+
+    @TableField(exist = false)
+    private String time;
 }

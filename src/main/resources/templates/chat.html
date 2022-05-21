@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slip</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/chat.css}">
+</head>
+
+<body>
+<div class="top">
+    <div class="content">
+        <div class="tools" th:if="${session['loginUser']}!=null">
+            <ul>
+                <li><a th:href="@{/}">Index</a></li>
+                <li><a th:href="@{'/user/'+${session.loginUser.id}}">[[${session.loginUser.name}]]</a></li>
+                <li><a th:href="@{/emotion}">emotion</a></li>
+                <li><a th:href="@{/reset}">reset</a></li>
+                <li><a th:href="@{/logout}">logout</a></li>
+            </ul>
+        </div>
+        <div class="tools" th:if="${session['loginUser']}==null">
+            <ul>
+                <li><a th:href="@{/}">首页</a></li>
+                <li><a th:href="@{/register}">注册</a></li>
+                <li><a th:href="@{/login}">登陆</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    <div class="wrapper">
+        <div class="sep20"></div>
+        <div class="left">
+            <div class="friend-info">
+                <div class="avatar"><img th:src="${chatUser.avatar}" alt="avatar"></div>
+                <div class="info">
+                    <div class="name"><a th:href="@{'/user/'+${chatUser.id}}" th:text="${chatUser.name}"></a></div>
+                    <div class="sign">
+                        <p th:if="${emotion}==null">这个人很懒，什么都没有留下</p>
+                        <p th:unless="${emotion}==null" th:text="${emotion.content}"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-content">
+                <div class="records">
+                    <div th:each="message:${chats}">
+                        <div class="user-content" th:if="${session.loginUser.id}==${message.getSenderUserId()}">
+                            <div class="content">
+                                <p>[[${message.content}]]</p>
+                            </div>
+                            <div class="avatar">
+                                <img th:src="${session.loginUser.avatar}" alt="avatar">
+                            </div>
+                        </div>
+                        <div class="friend-content" th:if="${session.loginUser.id}==${message.getReceiverUserId()}">
+                            <div class="avatar">
+                                <img th:src="${chatUser.avatar}" alt="avatar">
+                            </div>
+                            <div class="content">
+                                <p>[[${message.content}]]</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-sender">
+                <form th:action="@{/sendMessage}" method="post">
+                    <div class="input-text">
+                        <textarea name="message" id="message" cols="30" rows="10"></textarea>
+                    </div>
+                    <div class="buttons">
+                        <div>
+                            <input class="refresh" type="button" value="refresh" onclick="location.reload();">
+                            <input class="send" type="submit" value="send">
+                            <input type="hidden" name="friendId" th:value="${chatUser.id}">
+                            <input type="hidden" name="pairId" th:value="${pairId}">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="sep100"></div>
+        </div>
+    </div>
+</body>
+</html>

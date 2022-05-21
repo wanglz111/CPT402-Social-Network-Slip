@@ -19,7 +19,7 @@
         <result property="content" column="content" jdbcType="VARCHAR"/>
         <result property="createTime" column="create_time" jdbcType="BIGINT"/>
         <collection property="user" ofType="com.xjtlu.slip.pojo.User">
-            <id property="id" column="id"/>
+            <id property="id" column="user_id"/>
             <result property="name" column="name"/>
             <result property="phone" column="phone" />
             <result property="password" column="password" />
@@ -34,7 +34,7 @@
     </sql>
 
     <select id="selectOneCommentAndUser" resultMap="CommentAndUser">
-        select comment.id as id, topic_id, user_id, content, create_time, name, phone, password, email, avatar
+        select comment.id, topic_id, user_id, content, create_time, name, phone, password, email, avatar
         from comment
             left JOIN user
                    on comment.user_id = user.id
@@ -42,7 +42,7 @@
     </select>
 
     <select id="selectCommentAndUserByTopicId" resultMap="CommentAndUser">
-        select comment.id as id, topic_id, user_id, content, create_time, name, phone, password, email, avatar
+        select comment.id, topic_id, user_id, content, create_time, name, phone, password, email, avatar
         from comment, user
         where topic_id = #{id}
           and comment.user_id = user.id
