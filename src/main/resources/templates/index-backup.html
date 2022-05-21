@@ -53,7 +53,7 @@
             <div class="content" id="topics">
                 <div class="cell item" th:each="topic:${topics}">
                     <div class="TopicAvatar">
-                        <a href="#">
+                        <a th:href="@{'/user/'+${topic.user.id}}">
                             <img th:src="${topic.user.avatar}" alt="avatar">
                         </a>
                     </div>
@@ -61,9 +61,9 @@
                         <h3><a href="#">[[${topic.title}]]</a></h3>
                         <p>
                             <span><a href="#" id="type">[[${topic.type}]]</a> · </span>
-                            <a href="#" id="author">[[${topic.author}]]</a>
+                            <a th:href="@{'/user/'+${topic.author.id}}" id="author">[[${topic.author}]]</a>
                             <span> · [[${topic.latestCommentTime}]]</span>
-                            <span th:if="${topic.latestReplyUser}!=null"> · 最后回复来自 · <a href="#" id="reply_who" >[[${topic.latestReplyUser.name}]]</a></span>
+                            <span th:if="${topic.latestReplyUser}!=null"> · 最后回复来自 · <a th:href="@{'/user/'+${topic.latestReplyUser.id}}" id="reply_who" >[[${topic.latestReplyUser.name}]]</a></span>
                         </p>
                     </div>
                     <div class="TopicNow">
@@ -78,7 +78,7 @@
                     <div class="box-title">
                         <ul>
                             <li>
-                                <a href="#"><img id="avatar" th:src="${session.loginUser.avatar}" alt="avatar"></a>
+                                <a th:href="@{'/user/'+${session.loginUser.id}}"><img id="avatar" th:src="${session.loginUser.avatar}" alt="avatar"></a>
                             </li>
                             <li><a id="name" href="#">lucas</a></li>
                         </ul>
@@ -95,7 +95,7 @@
                         </table>
                     </div>
                     <div class="create_topic">
-                        <a href="#">发布新主题</a>
+                        <a th:href="@{/create}">发布新主题</a>
                     </div>
                 </div>
             </div>

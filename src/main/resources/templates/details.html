@@ -63,12 +63,12 @@
                 <div th:each="comment,status:${comments}">
                     <div class="cell">
                         <div class="reply-avatar">
-                            <a th:href="@{'/user/'+${comment.user.id}}">
+                            <a th:href="@{'/user/'+${comment.user.getId()}}">
                                 <img th:src="${comment.user.avatar}" alt="avatar">
                             </a>
                         </div>
                         <div class="reply-info">
-                            <span id="user-name"><a th:href="@{'/user/'+${comment.user.id}}">[[${comment.user.name}]]</a></span>
+                            <span id="user-name"><a th:href="@{'/user/'+${comment.user.getId()}}">[[${comment.user.name}]]</a></span>
                             <span id="time"> · [[${comment.time}]]</span>
                             <span id="count" th:text="${status.count}"></span>
                             <p>[[${comment.content}]]</p>
@@ -97,24 +97,24 @@
                     <div class="box-title">
                         <ul>
                             <li class="info-box">
-                                <a href="#"><img id="avatar" th:src="${session.loginUser.avatar}" alt="avatar"></a>
+                                <a th:href="@{'/user/'+${session.loginUser.id}}"><img id="avatar" th:src="${session.loginUser.avatar}" alt="avatar"></a>
                             </li>
-                            <li class="info-box"><a id="name" href="#">[[${session.loginUser.name}]]</a></li>
+                            <li class="info-box"><a id="name" th:href="@{'/user/'+${session.loginUser.id}}">[[${session.loginUser.name}]]</a></li>
                         </ul>
                     </div>
                     <div class="box-content">
                         <table>
                             <tbody>
-                                <tr>
-                                    <td><a th:href="@{/topic/u/1}"><span>[[${topicCount}]]</span><span>主题</span></a></td>
-                                    <td><a th:href="@{/emotion}"><span>[[${emotionCount}]]</span><span>emotion</span></a></td>
-                                    <td><a href="#"><span>[[${friendships}]]</span><span>好友</span></a></td>
-                                </tr>
+                            <tr>
+                                <td><a th:href="@{/topic/u/1}"><span>[[${topicCount}]]</span><span>主题</span></a></td>
+                                <td><a th:href="@{/emotion}"><span>[[${emotionCount}]]</span><span>emotion</span></a></td>
+                                <td><a th:href="@{/friends/u/1}"><span>[[${friendships}]]</span><span>好友</span></a></td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="create_topic">
-                        <a href="#">发布新主题</a>
+                        <a th:href="@{/create}">发布新主题</a>
                     </div>
                 </div>
                 <div class="sep20"></div>

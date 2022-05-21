@@ -66,19 +66,19 @@
                     <div class="box-title">
                         <ul>
                             <li class="info-box">
-                                <a href="#"><img id="avatar" th:src="${session.loginUser.avatar}" alt="avatar"></a>
+                                <a th:href="@{'/user/'+${session.loginUser.id}}"><img id="avatar" th:src="${session.loginUser.avatar}" alt="avatar"></a>
                             </li>
-                            <li class="info-box"><a id="name" href="#">[[${session.loginUser.name}]]</a></li>
+                            <li class="info-box"><a id="name" th:href="@{'/user/'+${session.loginUser.id}}">[[${session.loginUser.name}]]</a></li>
                         </ul>
                     </div>
                     <div class="box-content">
                         <table>
                             <tbody>
-                                <tr>
-                                    <td><a th:href="@{/topic/u/1}"><span>[[${topicCount}]]</span><span>主题</span></a></td>
-                                    <td><a th:href="@{/emotion}"><span>[[${emotionCount}]]</span><span>emotion</span></a></td>
-                                    <td><a href="#"><span>[[${friendships}]]</span><span>好友</span></a></td>
-                                </tr>
+                            <tr>
+                                <td><a th:href="@{/topic/u/1}"><span>[[${topicCount}]]</span><span>主题</span></a></td>
+                                <td><a th:href="@{/emotion}"><span>[[${emotionCount}]]</span><span>emotion</span></a></td>
+                                <td><a th:href="@{/friends/u/1}"><span>[[${friendships}]]</span><span>好友</span></a></td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>

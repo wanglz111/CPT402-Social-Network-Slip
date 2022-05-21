@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/style.css}">
-    <link rel="stylesheet" th:href="@{/css/topic-user.css}">
+    <link rel="stylesheet" th:href="@{/css/friends.css}">
 </head>
 
 <body>
@@ -34,20 +34,32 @@
 <div class="wrapper">
     <div class="sep20"></div>
     <h2>All Friends</h2>
-    <div class="emotion-content">
-        <ul th:each="user:${page.getRecords()}">
-            <li class="emotion-item">
-                <!--todo need to fix the css-->
+    <div class="user-part" th:each="user:${page.getRecords()}">
+        <div class="cell">
+            <div class="avatar">
                 <img th:src="${user.avatar}" alt="avatar">
-                <a th:href="@{'/user/' + ${user.id}}"><p>[[${user.name}]]</p></a>
-                </p>
-                <form method="post" th:action="@{/delFriend}">
-                    <input type="hidden" name="id" th:value="${user.id}">
-                    <input class="button" value='DEL' type='submit'>
-                </form>
-            </li>
-        </ul>
+            </div>
+            <div class="user-info">
+                <h2>[[${user.name}]]</h2>
+                <table id="info">
+                    <tr>
+                        <td>Telephone</td>
+                        <td>Email</td>
+                    </tr>
+                    <tr>
+                        <td>[[${user.phone}]]</td>
+                        <td>[[${user.email}]]</td>
+                    </tr>
+                </table>
+                <div class="chat-friend">
+                    <form th:action="@{'/chat/'+${user.id}}" method="get">
+                        <button type="submit">chat</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
+
     <div class="sep10"></div>
     <div class="page-no">
         <ul>

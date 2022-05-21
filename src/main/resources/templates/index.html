@@ -53,17 +53,17 @@
             <div class="content" id="topics">
                 <div class="cell item" th:each="topic:${topics}">
                     <div class="TopicAvatar">
-                        <a href="#">
+                        <a th:href="@{'/user/'+${topic.user.getId()}}">
                             <img th:src="${topic.user.avatar}" alt="avatar">
                         </a>
                     </div>
                     <div class="TopicInfo">
                         <h3 class="topic-title"><a th:href="@{'/topic/d/'+${topic.id}}">[[${topic.title}]]</a></h3>
                         <p>
-                            <span><a href="#" id="type">[[${topic.type}]]</a> · </span>
-                            <a href="#" id="author">[[${topic.author}]]</a>
+                            <span><a th:href="@{'/topic/t/'+${topic.type.getValue()}}" id="type">[[${topic.type}]]</a> · </span>
+                            <a th:href="@{'/user/'+${topic.authorId}}" id="author">[[${topic.author}]]</a>
                             <span> · [[${topic.latestCommentTime}]]</span>
-                            <span th:if="${topic.latestReplyUser}!=null"> · 最后回复来自 · <a href="#" id="reply_who" >[[${topic.latestReplyUser.name}]]</a></span>
+                            <span th:if="${topic.latestReplyUser}!=null"> · 最后回复来自 · <a th:href="@{'/user/'+${topic.latestReplyUser.getId()}}" id="reply_who" >[[${topic.latestReplyUser.name}]]</a></span>
                         </p>
                     </div>
                     <div class="TopicNow">
@@ -111,9 +111,9 @@
                     <div class="box-title">
                         <ul>
                             <li class="info-box">
-                                <a href="#"><img id="avatar" th:src="${session.loginUser.avatar}" alt="avatar"></a>
+                                <a th:href="@{'/user/'+${session.loginUser.id}}"><img id="avatar" th:src="${session.loginUser.avatar}" alt="avatar"></a>
                             </li>
-                            <li class="info-box"><a id="name" href="#">[[${session.loginUser.name}]]</a></li>
+                            <li class="info-box"><a id="name" th:href="@{'/user/'+${session.loginUser.id}}">[[${session.loginUser.name}]]</a></li>
                         </ul>
                     </div>
                     <div class="box-content">
@@ -122,7 +122,7 @@
                                 <tr>
                                     <td><a th:href="@{/topic/u/1}"><span>[[${topicCount}]]</span><span>主题</span></a></td>
                                     <td><a th:href="@{/emotion}"><span>[[${emotionCount}]]</span><span>emotion</span></a></td>
-                                    <td><a href="#"><span>[[${friendships}]]</span><span>好友</span></a></td>
+                                    <td><a th:href="@{/friends/u/1}"><span>[[${friendships}]]</span><span>好友</span></a></td>
                                 </tr>
                             </tbody>
                         </table>
