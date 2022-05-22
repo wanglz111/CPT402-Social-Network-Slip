@@ -113,7 +113,7 @@
                             <li class="info-box">
                                 <a th:href="@{'/user/'+${session.loginUser.id}}"><img id="avatar" th:src="${session.loginUser.avatar}" alt="avatar"></a>
                             </li>
-                            <li class="info-box"><a id="name" th:href="@{'/user/'+${session.loginUser.id}}">[[${session.loginUser.name}]]</a></li>
+                            <li class="info-box"><a id="name" th:href="@{'/user/'+${session.loginUser.id}}"><p style="white-space:nowrap;">[[${session.loginUser.name}]]</p></a></li>
                         </ul>
                     </div>
                     <div class="box-content">
