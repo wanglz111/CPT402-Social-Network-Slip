@@ -15,7 +15,7 @@
         <div class="content">
             <div class="tools" th:if="${session['loginUser']}!=null">
                 <ul>
-                    <li><a th:href="@{/}">Index</a></li>
+                    <li><a th:href="@{/}">Home</a></li>
                     <li><a th:href="@{'/user/'+${session.loginUser.id}}">[[${session.loginUser.name}]]</a></li>
                     <li><a th:href="@{/emotion}">emotion</a></li>
                     <li><a th:href="@{/reset}">reset</a></li>
@@ -24,9 +24,9 @@
             </div>
             <div class="tools" th:if="${session['loginUser']}==null">
                 <ul>
-                    <li><a th:href="@{/}">首页</a></li>
-                    <li><a th:href="@{/register}">注册</a></li>
-                    <li><a th:href="@{/login}">登陆</a></li>
+                    <li><a th:href="@{/}">Home</a></li>
+                    <li><a th:href="@{/register}">Register</a></li>
+                    <li><a th:href="@{/login}">Login</a></li>
                 </ul>
             </div>
         </div>
@@ -36,15 +36,14 @@
         <div class="left">
             <div class="inner" id="table">
                 <ul>
-                    <li><a href="#">技术</a></li>
-                    <li><a href="#">创意</a></li>
-                    <li><a href="#">好玩</a></li>
-                    <li><a href="#">酷工作</a></li>
-                    <li><a href="#">二手交易</a></li>
-                    <li><a href="#">学习资料</a></li>
-                    <li><a href="#">问答</a></li>
-                    <li><a href="#">最热</a></li>
-                    <li><a href="#">全部</a></li>
+                    <li><a th:href="@{/topic/t/1}">News</a></li>
+                    <li><a th:href="@{/topic/t/2}">Work</a></li>
+                    <li><a th:href="@{/topic/t/3}">Interests</a></li>
+                    <li><a th:href="@{/topic/t/4}">Trade</a></li>
+                    <li><a th:href="@{/topic/t/5}">Campus</a></li>
+                    <li><a th:href="@{/topic/t/6}">Q&A</a></li>
+                    <li><a th:href="@{/topic/t/7}">Other</a></li>
+                    <li><a th:href="@{/}">All</a></li>
                 </ul>
             </div>
 
@@ -63,7 +62,7 @@
                             <span><a th:href="@{'/topic/t/'+${topic.type.getValue()}}" id="type">[[${topic.type}]]</a> · </span>
                             <a th:href="@{'/user/'+${topic.authorId}}" id="author">[[${topic.author}]]</a>
                             <span> · [[${topic.latestCommentTime}]]</span>
-                            <span th:if="${topic.latestReplyUser}!=null"> · 最后回复来自 · <a th:href="@{'/user/'+${topic.latestReplyUser.getId()}}" id="reply_who" >[[${topic.latestReplyUser.name}]]</a></span>
+                            <span th:if="${topic.latestReplyUser}!=null"> · Latest reply · <a th:href="@{'/user/'+${topic.latestReplyUser.getId()}}" id="reply_who" >[[${topic.latestReplyUser.name}]]</a></span>
                         </p>
                     </div>
                     <div class="TopicNow">
@@ -74,31 +73,31 @@
             <div class="sep20"></div>
             <div class="page-no" th:if="${isType}!=true">
                 <ul>
-                    <!-- 首页 -->
+                    <!-- Home -->
                     <li>
-                        <a th:href="@{/}">首页</a>
+                        <a th:href="@{/}">First</a>
                     </li>
 
-                    <!-- 上一页 -->
+                    <!-- previous page -->
                     <li th:if="${pages.hasPrevious()}">
-                        <a th:href="@{'/topic/' + ${pages.getCurrent()-1}}" th:text="上一页"></a>
+                        <a th:href="@{'/topic/' + ${pages.getCurrent()-1}}" th:text="Previous"></a>
                     </li>
 
-                    <!-- 中间页 -->
+                    <!-- middle page -->
                     <!--                T(java.lang.Math).max(pages.getCurrent()-2, 1)-->
                     <li th:each="pageNum:${#numbers.sequence( pages.getCurrent() , T(java.lang.Math).min(pages.getCurrent()+4, pages.getPages()))}">
                         <a th:href="@{'/topic/' + ${pageNum}}" th:text="${pageNum}" th:if="${pageNum ne pages.getCurrent()}"></a>
                         <a th:href="@{'/topic/' + ${pageNum}}" th:text="${pageNum}" th:if="${pageNum eq pages.getCurrent()}" class="active"></a>
                     </li>
 
-                    <!-- 下一页 -->
+                    <!-- next page -->
                     <li th:if="${pages.hasNext()}">
-                        <a th:href="@{'/topic/' + ${pages.getCurrent()+1}}" th:text="下一页"></a>
+                        <a th:href="@{'/topic/' + ${pages.getCurrent()+1}}" th:text="Next"></a>
                     </li>
 
-                    <!-- 尾页 -->
+                    <!-- last page -->
                     <li>
-                        <a th:href="@{'/topic/' + ${pages.getPages()}}">尾页</a>
+                        <a th:href="@{'/topic/' + ${pages.getPages()}}">Last</a>
                     </li>
 
                 </ul>
@@ -120,15 +119,15 @@
                         <table>
                             <tbody>
                                 <tr>
-                                    <td><a th:href="@{/topic/u/1}"><span>[[${topicCount}]]</span><span>主题</span></a></td>
-                                    <td><a th:href="@{/emotion}"><span>[[${emotionCount}]]</span><span>emotion</span></a></td>
-                                    <td><a th:href="@{/friends/u/1}"><span>[[${friendships}]]</span><span>好友</span></a></td>
+                                    <td><a th:href="@{/topic/u/1}"><span>[[${topicCount}]]</span><span>Topic(s)</span></a></td>
+                                    <td><a th:href="@{/emotion}"><span>[[${emotionCount}]]</span><span>emotion(s)</span></a></td>
+                                    <td><a th:href="@{/friends/u/1}"><span>[[${friendships}]]</span><span>Friend(s)</span></a></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="create_topic">
-                        <a th:href="@{/create}">发布新主题</a>
+                        <a th:href="@{/create}">Create&nbsp;Topic</a>
                     </div>
                 </div>
                 <div class="sep20"></div>
@@ -153,7 +152,7 @@
                                 <span>· [[${emotion.time}]]</span>
                             </li>
                         </ul>
-                        <a th:href="@{/emotion}"><span class="watch-more">查看更多</span></a>
+                        <a th:href="@{/emotion}"><span class="watch-more">More</span></a>
                     </div>
                 </div>
             </div>

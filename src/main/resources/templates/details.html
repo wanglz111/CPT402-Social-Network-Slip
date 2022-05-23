@@ -105,15 +105,15 @@
                         <table>
                             <tbody>
                             <tr>
-                                <td><a th:href="@{/topic/u/1}"><span>[[${topicCount}]]</span><span>主题</span></a></td>
-                                <td><a th:href="@{/emotion}"><span>[[${emotionCount}]]</span><span>emotion</span></a></td>
-                                <td><a th:href="@{/friends/u/1}"><span>[[${friendships}]]</span><span>好友</span></a></td>
+                                <td><a th:href="@{/topic/u/1}"><span>[[${topicCount}]]</span><span>Topic(s)</span></a></td>
+                                <td><a th:href="@{/emotion}"><span>[[${emotionCount}]]</span><span>emotion(s)</span></a></td>
+                                <td><a th:href="@{/friends/u/1}"><span>[[${friendships}]]</span><span>Friend(s)</span></a></td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="create_topic">
-                        <a th:href="@{/create}">发布新主题</a>
+                        <a th:href="@{/create}">Create&nbsp;Topic</a>
                     </div>
                 </div>
                 <div class="sep20"></div>
@@ -138,7 +138,7 @@
                                 <span>· [[${emotion.time}]]</span>
                             </li>
                         </ul>
-                        <a th:href="@{/emotion}"><span class="watch-more">查看更多</span></a>
+                        <a th:href="@{/emotion}"><span class="watch-more">More</span></a>
                     </div>
                 </div>
             </div>
