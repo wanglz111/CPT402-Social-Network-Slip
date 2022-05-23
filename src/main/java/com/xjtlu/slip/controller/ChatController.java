@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Slf4j
 @Controller
@@ -41,7 +39,7 @@ public class ChatController {
     @GetMapping("/chat/{userId}")
     public String chatIndex(@PathVariable Long userId, HttpSession session, Model model) {
         if (session.getAttribute("loginUser") == null) {
-            session.setAttribute("error", "请先登录");
+            session.setAttribute("error", "please log in first");
             return "redirect:/login";
         }
         User loginUser = (User) session.getAttribute("loginUser");
@@ -60,7 +58,7 @@ public class ChatController {
         QueryWrapper<Chat> queryWrapper1 = new QueryWrapper<>();
         queryWrapper1.eq("pair_id", pairId);
         List<Chat> chats = chatService.list(queryWrapper1);
-        //判断chats长度取最后10条
+        //Judge the length of chats and take the last 10 chats
         if (chats.size() > 10) {
             chats = chats.subList(chats.size() - 10, chats.size());
         } else {
@@ -68,7 +66,7 @@ public class ChatController {
         }
         User chatUser = userService.getById(userId);
         model.addAttribute("chatUser", chatUser);
-        //获取用户最后一条emotion
+        //Get the last emotion of the user
         List<Emotion> usersEmotions = emotionService.getByUserId(userId);
         if (usersEmotions.size() > 0) {
             model.addAttribute("emotion", usersEmotions.get(usersEmotions.size() - 1));

@@ -14,7 +14,7 @@ import java.io.OutputStream;
 
 @Controller
 public class CaptchaController {
-    /* 获取验证码图片*/
+    /* Get the verification code picture*/
 
     @GetMapping("/getVerifyCode")
     public void getVerificationCode(HttpServletResponse response, HttpServletRequest request, HttpSession session) {
@@ -28,10 +28,10 @@ public class CaptchaController {
             request.getSession().setAttribute("verifyCode", code);
             response.setContentType("image/png");
 
-            OutputStream os = response.getOutputStream(); //获取文件输出流
-            ImageIO.write(verifyImg, "png", os);//输出图片流
+            OutputStream os = response.getOutputStream(); //Get file output stream
+            ImageIO.write(verifyImg, "png", os);//output image stream
             os.flush();
-            os.close();//关闭流
+            os.close();//close stream
         } catch (IOException e) {
             e.printStackTrace();
         }

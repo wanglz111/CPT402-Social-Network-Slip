@@ -29,7 +29,7 @@ public class Comment implements Serializable {
     private Long userId;
 
     /**
-     * 评论正文
+     * Comment body
      */
     private String content;
 

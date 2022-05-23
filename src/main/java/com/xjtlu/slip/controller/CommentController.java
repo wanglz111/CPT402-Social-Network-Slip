@@ -38,21 +38,21 @@ public class CommentController {
     @PostMapping("/addComment")
     public String addComment(@RequestParam("topicId") Long topicId, @RequestParam("replyContent") String content, @RequestParam("userId") Long replyUserId, HttpSession session){
         User loginUser = (User) session.getAttribute("loginUser");
-        // 判断用户与评论的用户是否一致，防止post攻击
+        // Determine whether the user is the same as the commented user to prevent post attacks
         assert loginUser.getId().equals(replyUserId);
-        //首先写入comment数据库
+        // First write to the comment database
         Comment comment = new Comment();
         comment.setTopicId(topicId);
         comment.setContent(content);
         comment.setUserId(replyUserId);
         comment.setCreateTime(System.currentTimeMillis()/1000);
         commentService.save(comment);
-        //然后更新父贴的最新评论时间
+        // Then update the latest comment time of the parent post
         Topic topic = topicService.getById(topicId);
         topic.setLatestCommentUnixTime(comment.getCreateTime());
         topic.setComment(topic.getComment()+1);
         topicService.saveOrUpdate(topic);
-        //更新redis中的数据, 删掉相关redis中的数据, 等下次读取更新
+        // Update the data in redis, delete the data in related redis, and wait for the next read update
         //todo:考虑使用消息队列来异步更新Redis
         redisService.refreshTopicRecord();
         return "redirect:/topic/d/"+topicId;

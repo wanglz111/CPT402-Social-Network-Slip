@@ -24,7 +24,7 @@ import java.time.Duration;
 public class RedisConfig extends CachingConfigurerSupport {
 
     /**
-     * redis数据库自定义key
+     * redis database custom key
      */
     public  static final String REDIS_KEY_DATABASE="SLIP";
 
@@ -43,7 +43,7 @@ public class RedisConfig extends CachingConfigurerSupport {
 
     @Bean
     public RedisSerializer<Object> redisSerializer() {
-        //创建JSON序列化器
+        //Create JSON serializer
         Jackson2JsonRedisSerializer<Object> serializer = new Jackson2JsonRedisSerializer<>(Object.class);
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
@@ -52,13 +52,14 @@ public class RedisConfig extends CachingConfigurerSupport {
         return serializer;
     }
 
-    //设置缓存部分
+    //set cache section
     @Bean
     public RedisCacheManager redisCacheManager(RedisConnectionFactory redisConnectionFactory) {
         RedisCacheWriter redisCacheWriter = RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory);
-        //设置Redis缓存有效期为1天
+        //Set Redis cache validity to x day
+        int days = 100;
         RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
-                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(redisSerializer())).entryTtl(Duration.ofDays(100));
+                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(redisSerializer())).entryTtl(Duration.ofDays(days));
         return new RedisCacheManager(redisCacheWriter, redisCacheConfiguration);
     }
 

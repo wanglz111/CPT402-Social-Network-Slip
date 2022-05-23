@@ -53,7 +53,7 @@ public class CreateTopicController {
                     emotions = (List<Emotion>) redisService.get("User:emotion:user_id:".concat(String.valueOf(user.getId())));
                 }
                 catch (Exception e) {
-                    log.error("redis获取emotion信息失败，直接从数据库中获取");
+                    log.error("Redis fails to get emotion information, and gets it directly from the database");
                 }
             } else {
                 emotions = emotionService.getByUserIdForIndex(user.getId());
@@ -62,7 +62,7 @@ public class CreateTopicController {
 
             assert emotions != null;
             emotions.forEach(emotion -> emotion.setTime(TimeFormat.format(emotion.getCreateTime())));
-            //获取emotion相关信息
+            // Get emotion related information
             model.addAttribute("emotions", emotions);
             model.addAttribute("emotionCount", emotions.size());
             if (redisService.get("User:topicCount:user_id:".concat(String.valueOf(user.getId()))) != null) {
@@ -70,7 +70,7 @@ public class CreateTopicController {
                     topicCount = (Integer) redisService.get("User:topicCount:user_id:".concat(String.valueOf(user.getId())));
                 }
                 catch (Exception e) {
-                    log.error("redis获取topicCount信息失败，直接从数据库中获取");
+                    log.error("Redis fails to get topic count, and gets it directly from the database");
                 }
             } else {
                 topicCount = topicService.getTopicCount(user.getId());
@@ -78,13 +78,13 @@ public class CreateTopicController {
             }
 
             model.addAttribute("topicCount", topicCount);
-            //获取用户的聊天好友数
+            // Get the number of chat friends of the user
             if (redisService.get("User:friendship:user_id:".concat(String.valueOf(user.getId()))) != null) {
                 try {
                     friendships = (List<Long>) redisService.get("User:friendship:user_id:".concat(String.valueOf(user.getId())));
                 }
                 catch (Exception e) {
-                    log.error("redis获取friendship信息失败，直接从数据库中获取");
+                    log.error("Redis failed to get friendship information, get it directly from the database");
                 }
             } else {
                 friendships = friendshipService.getFriendIdsByUserId(user.getId());
@@ -102,7 +102,7 @@ public class CreateTopicController {
                               @RequestParam("type") String type,
                               HttpSession session) {
         if (session.getAttribute("loginUser") == null) {
-            session.setAttribute("error", "请先登录");
+            session.setAttribute("error", "please log in first");
             return "redirect:/login";
         }
         TopicEnum topicType = TopicEnum.valueOf(type);
@@ -116,7 +116,7 @@ public class CreateTopicController {
         topic.setCreateUnixTime(System.currentTimeMillis()/1000);
         topic.setComment(0);
         topicService.saveOrUpdate(topic);
-        //删除redis缓存，强制更新
+        // delete redis cache, force update
         redisService.del("User:topicCount:user_id:".concat(String.valueOf(((User) session.getAttribute("loginUser")).getId())));
         long totalPage = topicService.count() / 20;
         for (int pageNo = 1; pageNo <= totalPage; pageNo++){

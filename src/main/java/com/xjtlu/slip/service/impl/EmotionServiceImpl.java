@@ -10,11 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
-* @author wangluzhi
-* @description 针对表【emotion】的数据库操作Service实现
-* @createDate 2022-05-06 22:08:45
-*/
+
 @Service
 public class EmotionServiceImpl extends ServiceImpl<EmotionMapper, Emotion>
     implements EmotionService{

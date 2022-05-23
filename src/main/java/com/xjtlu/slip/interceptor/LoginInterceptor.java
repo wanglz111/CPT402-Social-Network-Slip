@@ -24,9 +24,9 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
-        //1. 如果session中有用户信息，则放行
-        //2. 如果session中没有用户信息，则判断cookie中是否有用户信息，如果有，则放行
-        //3. 如果cookie中也没有用户信息，放行交由前端处理
+        //1. If there is user information in the session, let it go
+        //2. If there is no user information in the session, judge whether there is user information in the cookie, and if so, let it go
+        //3. If there is no user information in the cookie, the release will be handed over to the front-end for processing.
         HttpSession session = request.getSession();
         Object loginUser = session.getAttribute("loginUser");
         if(loginUser != null){

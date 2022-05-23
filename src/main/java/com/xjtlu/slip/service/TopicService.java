@@ -8,21 +8,17 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Map;
 
-/**
-* @author wangluzhi
-* @description 针对表【topic】的数据库操作Service
-* @createDate 2022-04-24 20:29:35
-*/
+
 @Repository
 public interface TopicService extends IService<Topic> {
 
     /**
-     * @description 并表查最新
+     * @description Check the latest by join table
      */
     Page<Topic> getAllTopicsAndUser(Integer page, Integer size);
 
     /**
-     * @description 获取所有的评论数
+     * @description get all comments
      */
     Map<Long, CommentCount> getCommentCount();
 

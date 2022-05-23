@@ -20,7 +20,7 @@ public class TimeFormat {
     private static final String ONE_YEAR_AGO = " year ago";
     private static final String MORE_YEAR_AGO = " years ago";
 
-    //时间转换
+    //time shift
     public static String format(long timeMillis) {
         long delta = new Date().getTime() - timeMillis * 1000;
         if (delta < ONE_MINUTE) {

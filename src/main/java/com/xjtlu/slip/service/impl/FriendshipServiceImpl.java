@@ -12,11 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
-* @author wangluzhi
-* @description 针对表【friendship】的数据库操作Service实现
-* @createDate 2022-05-13 20:22:49
-*/
 @Service
 public class FriendshipServiceImpl extends ServiceImpl<FriendshipMapper, Friendship>
     implements FriendshipService {

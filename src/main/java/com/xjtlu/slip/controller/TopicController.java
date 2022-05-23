@@ -47,11 +47,11 @@ public class TopicController {
 
     @GetMapping("/topic/d/{topicId}")
     public String topicDetails(Model model, @PathVariable String topicId, HttpSession session) {
-        //获取帖子详情
+        // Get topic details
         Topic topic = topicService.getById(topicId);
         topic.setLatestCommentTime(TimeFormat.format(topic.getCreateUnixTime()));
         model.addAttribute("topic", topic);
-        //获取帖子作者
+        // Get topic author
         Long authorId = topic.getAuthorId();
         if (redisService.get("User:userId:" + authorId) != null) {
             User user = (User) redisService.get("User:userId:" + authorId);
@@ -61,22 +61,22 @@ public class TopicController {
             redisService.set("User:userId:" + authorId, user);
             model.addAttribute("user", user);
         }
-        //获取帖子评论
+        // Get topic comments
         List<Comment> comments = commentService.getListByTopicId(topicId);
-        //给帖子设置形如：1小时前，1天前，1月前，1年前的时间格式
+        // Set the time format for the post as: 1 hour ago, 1 day ago, 1 month ago, 1 year ago
         comments.forEach(comment -> comment.setTime(TimeFormat.format(comment.getCreateTime())));
         model.addAttribute("comments", comments);
-        //获取帖子评论数
+        // Get the number of comments on a post
         Integer commentCount = comments.size();
         model.addAttribute("commentCount", commentCount);
-        //获取帖子点击数
+        // Get post clicks
         Integer topicClickCount = (Integer) redisService.get("/topic/d/".concat(topicId));
         model.addAttribute("topicClickCount", topicClickCount==null ? 0:topicClickCount);
-        //获取当前时间
+        // get current time
         Date dNow = new Date( );
         SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
         model.addAttribute("localTime", ft.format(dNow));
-        //获取当前用户相关emotion
+        // Get current user related emotions
         if (session.getAttribute("loginUser") != null) {
             User loginUser = (User) session.getAttribute("loginUser");
             List<Emotion> emotions = null;
@@ -87,7 +87,7 @@ public class TopicController {
                     emotions = (List<Emotion>) redisService.get("User:emotion:user_id:".concat(String.valueOf(loginUser.getId())));
                 }
                 catch (Exception e) {
-                    log.error("redis获取emotion信息失败，直接从数据库中获取");
+                    log.error("Redis fails to get emotion information, and gets it directly from the database");
                 }
             } else {
                 emotions = emotionService.getByUserIdForIndex(loginUser.getId());
@@ -96,7 +96,7 @@ public class TopicController {
 
             assert emotions != null;
             emotions.forEach(emotion -> emotion.setTime(TimeFormat.format(emotion.getCreateTime())));
-            //获取emotion相关信息
+            // Get emotion related information
             model.addAttribute("emotions", emotions);
             model.addAttribute("emotionCount", emotions.size());
             if (redisService.get("User:topicCount:user_id:".concat(String.valueOf(loginUser.getId()))) != null) {
@@ -104,7 +104,7 @@ public class TopicController {
                     topicCount = (Integer) redisService.get("User:topicCount:user_id:".concat(String.valueOf(loginUser.getId())));
                 }
                 catch (Exception e) {
-                    log.error("redis获取topicCount信息失败，直接从数据库中获取");
+                    log.error("Redis fails to obtain topic Count information, and it is obtained directly from the database");
                 }
             } else {
                 topicCount = topicService.getTopicCount(loginUser.getId());
@@ -112,13 +112,13 @@ public class TopicController {
             }
 
             model.addAttribute("topicCount", topicCount);
-            //获取用户的聊天好友数
+            //Get the number of chat friends of the user
             if (redisService.get("User:friendship:user_id:".concat(String.valueOf(loginUser.getId()))) != null) {
                 try {
                     friendships = (List<Long>) redisService.get("User:friendship:user_id:".concat(String.valueOf(loginUser.getId())));
                 }
                 catch (Exception e) {
-                    log.error("redis获取friendship信息失败，直接从数据库中获取");
+                    log.error("Redis failed to get friendship information, get it directly from the database");
                 }
             } else {
                 friendships = friendshipService.getFriendIdsByUserId(loginUser.getId());
@@ -139,18 +139,18 @@ public class TopicController {
                 topicPage = (Page<Topic>) redisService.get("index:AllPages:".concat(String.valueOf(page)));
             }
             catch (Exception e) {
-                log.error("redis获取topic信息失败，直接从数据库中获取");
+                log.error("Redis failed to obtain topic information, directly obtained from the database");
             }
         } else {
             topicPage = topicService.getAllTopicsAndUser(page,20);
             topics = topicPage.getRecords();
-            //获取总页数, 为分页部分作准备
+            // Get the total number of pages, prepare for the pagination section
             redisService.set("index:AllPages:".concat(String.valueOf(page)), topicPage);
-            //获取每条topic评论数
+            // Get the number of comments per topic
             Map<Long, CommentCount> topicCommentCount = topicService.getCommentCount();
-            //获取最新评论
+            // Get the latest reviews
             Map<Long, Comment> latestCommentInfoEveryTopic = commentService.getLatestCommentInfoEveryTopic();
-            //获取最新评论用户
+            // Get latest comments from users
             Map<Long, User> userInfo = null;
             if (redisService.get("User:AllUserInfo") == null) {
                 userInfo = userService.getUserMap();
@@ -160,7 +160,7 @@ public class TopicController {
                     userInfo = (Map<Long, User>) redisService.get("User:AllUserInfo");
                 }
                 catch (Exception e) {
-                    log.error("redis获取userInfo信息失败，直接从数据库中获取");
+                    log.error("Redis failed to get user Info information, get it directly from the database");
                     userInfo = userService.getUserMap();
                     redisService.set("User:AllUserInfo", userInfo);
                 }
@@ -185,7 +185,7 @@ public class TopicController {
             redisService.set("index:topicInfo:page:".concat(String.valueOf(page)), topics);
         }
 
-        //如果session中有用户信息,则获取用户的emotion信息
+        // If there is user information in the session, get the user's emotion information
         if (session.getAttribute("loginUser") != null) {
             User user = (User) session.getAttribute("loginUser");
             List<Emotion> emotions = null;
@@ -196,7 +196,7 @@ public class TopicController {
                     emotions = (List<Emotion>) redisService.get("User:emotion:user_id:".concat(String.valueOf(user.getId())));
                 }
                 catch (Exception e) {
-                    log.error("redis获取emotion信息失败，直接从数据库中获取");
+                    log.error("Redis fails to get emotion information, and gets it directly from the database");
                 }
             } else {
                 emotions = emotionService.getByUserIdForIndex(user.getId());
@@ -205,7 +205,7 @@ public class TopicController {
 
             assert emotions != null;
             emotions.forEach(emotion -> emotion.setTime(TimeFormat.format(emotion.getCreateTime())));
-            //获取emotion相关信息
+            // Get emotion related information
             model.addAttribute("emotions", emotions);
             model.addAttribute("emotionCount", emotions.size());
             if (redisService.get("User:topicCount:user_id:".concat(String.valueOf(user.getId()))) != null) {
@@ -213,7 +213,7 @@ public class TopicController {
                     topicCount = (Integer) redisService.get("User:topicCount:user_id:".concat(String.valueOf(user.getId())));
                 }
                 catch (Exception e) {
-                    log.error("redis获取topicCount信息失败，直接从数据库中获取");
+                    log.error("Redis fails to obtain topic Count information, and it is obtained directly from the database");
                 }
             } else {
                 topicCount = topicService.getTopicCount(user.getId());
@@ -221,13 +221,13 @@ public class TopicController {
             }
 
             model.addAttribute("topicCount", topicCount);
-            //获取用户的聊天好友数
+            //Get the number of chat friends of the user
             if (redisService.get("User:friendship:user_id:".concat(String.valueOf(user.getId()))) != null) {
                 try {
                     friendships = (List<Long>) redisService.get("User:friendship:user_id:".concat(String.valueOf(user.getId())));
                 }
                 catch (Exception e) {
-                    log.error("redis获取friendship信息失败，直接从数据库中获取");
+                    log.error("Redis failed to get friendship information, get it directly from the database");
                 }
             } else {
                 friendships = friendshipService.getFriendIdsByUserId(user.getId());
@@ -247,11 +247,11 @@ public class TopicController {
 
         topicPage = topicService.getAllTopicsAndUserByType(1,20, typeId);
         topics = topicPage.getRecords();
-        //获取每条topic评论数
+        // Get the number of comments per topic
         Map<Long, CommentCount> topicCommentCount = topicService.getCommentCount();
-        //获取最新评论
+        // Get the latest reviews
         Map<Long, Comment> latestCommentInfoEveryTopic = commentService.getLatestCommentInfoEveryTopic();
-        //获取最新评论用户
+        // Get latest comments from users
         Map<Long, User> userInfo = null;
         if (redisService.get("User:AllUserInfo") == null) {
             userInfo = userService.getUserMap();
@@ -277,7 +277,7 @@ public class TopicController {
             }
         });
 
-        //如果session中有用户信息,则获取用户的emotion信息
+        // If there is user information in the session, get the user's emotion information
         if (session.getAttribute("loginUser") != null) {
             User user = (User) session.getAttribute("loginUser");
             List<Emotion> emotions = null;
@@ -337,7 +337,7 @@ public class TopicController {
     public String getTopicByUserId(@PathVariable("currentPage") @DefaultValue("1") Integer  currentPage, Model model, HttpSession session) {
         User loginUser = (User) session.getAttribute("loginUser");
         if (loginUser == null) {
-            session.setAttribute("error", "请先登录");
+            session.setAttribute("error", "please log in first");
             return "redirect:/login";
         }
         Page<Topic> page = topicService.getAllTopicsByUser(currentPage, 10, loginUser.getId());

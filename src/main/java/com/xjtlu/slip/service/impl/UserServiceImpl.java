@@ -11,11 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
-* @author wangluzhi
-* @description 针对表【user】的数据库操作Service实现
-* @createDate 2022-04-22 18:54:37
-*/
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     implements UserService{

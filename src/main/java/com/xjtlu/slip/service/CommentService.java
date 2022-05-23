@@ -6,11 +6,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import java.util.List;
 import java.util.Map;
 
-/**
-* @author wangluzhi
-* @description 针对表【comment】的数据库操作Service
-* @createDate 2022-04-27 15:58:58
-*/
 public interface CommentService extends IService<Comment> {
 
     List<Comment> getListByTopicId(String topicId);

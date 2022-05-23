@@ -36,7 +36,7 @@ public class ResetController {
     @GetMapping("/reset")
     public String reset(Model model, HttpSession session) {
         if (session.getAttribute("loginUser") == null) {
-            session.setAttribute("error","请先登录");
+            session.setAttribute("error","please log in first");
             return "redirect:/login";
         }
         return "reset";
@@ -48,11 +48,11 @@ public class ResetController {
         User updateUser = new User();
         updateUser.setAvatar(loginUser.getAvatar());
         if (!MD5.create().digestHex(oldPassword).equals(loginUser.getPassword())) {
-            session.setAttribute("error","原密码错误");
+            session.setAttribute("error","The original password is wrong");
             return "redirect:/reset";
         }
         if (!password.equals(confirmPassword)) {
-            session.setAttribute("error","两次密码不一致");
+            session.setAttribute("error","The two passwords do not match");
             return "redirect:/reset";
         }
         if (!avatar.isEmpty()) {
@@ -77,9 +77,9 @@ public class ResetController {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("id", loginUser.getId());
         userService.update(updateUser, queryWrapper);
-        //更新当前用户到redis
+        // Update current user to redis
         redisService.set("User:userId:" + loginUser.getId(), userService.getById(loginUser.getId()));
-        //更新redis中的UserInfo
+        // Update User Info in redis
         Map<Long, User> users = userService.getUserMap();
         redisService.set("User:AllUserInfo", users);
         return "redirect:/logout";

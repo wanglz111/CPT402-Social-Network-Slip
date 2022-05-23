@@ -3,13 +3,12 @@ package com.xjtlu.slip.utils;
 import com.mysql.cj.util.StringUtils;
 import io.jsonwebtoken.*;
 
-
 import java.util.Date;
 
 public class JwtHelper {
     private static final String tokenSignKey = "123456";
 
-    //生成token字符串
+    //Generate token string
     public static String createToken(Long userId, Integer userType) {
         long tokenExpiration = 24 * 60 * 60 * 1000;
         String token = Jwts.builder()
@@ -28,7 +27,7 @@ public class JwtHelper {
         return token;
     }
 
-    //从token字符串获取userid
+    //get userid from token string
     public static Long getUserId(String token) {
         if(StringUtils.isNullOrEmpty(token)) return null;
         Jws<Claims> claimsJws = Jwts.parser().setSigningKey(tokenSignKey).parseClaimsJws(token);
@@ -37,7 +36,7 @@ public class JwtHelper {
         return userId.longValue();
     }
 
-    //从token字符串获取userType
+    //Get user Type from token string
     public static Integer getUserType(String token) {
         if(StringUtils.isNullOrEmpty(token)) return null;
         Jws<Claims> claimsJws
@@ -46,7 +45,7 @@ public class JwtHelper {
         return (Integer)(claims.get("userType"));
     }
 
-    //从token字符串获取userName
+    //Get user Name from token string
     public static String getUserName(String token) {
         if(StringUtils.isNullOrEmpty(token)) return "";
         Jws<Claims> claimsJws
@@ -55,7 +54,7 @@ public class JwtHelper {
         return (String)claims.get("userName");
     }
 
-    //判断token是否有效
+    //Determine whether the token is valid
     public static boolean isExpiration(String token){
         try {
             boolean isExpire = Jwts.parser()
@@ -63,20 +62,15 @@ public class JwtHelper {
                     .parseClaimsJws(token)
                     .getBody()
                     .getExpiration().before(new Date());
-            //没有过期，有效，返回false
+            //Not expired, valid, return false
             return isExpire;
         }catch(Exception e) {
-            //过期出现异常，返回true
+            //Expiration exception occurs, return true
             return true;
         }
     }
 
 
-    /**
-     * 刷新Token
-     * @param token
-     * @return
-     */
     public String refreshToken(String token) {
         String refreshedToken;
         try {

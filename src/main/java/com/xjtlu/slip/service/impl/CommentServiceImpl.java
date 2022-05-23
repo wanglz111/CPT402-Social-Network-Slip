@@ -11,11 +11,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 
-/**
-* @author wangluzhi
-* @description 针对表【comment】的数据库操作Service实现
-* @createDate 2022-04-27 15:58:58
-*/
 @Service
 public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
     implements CommentService{

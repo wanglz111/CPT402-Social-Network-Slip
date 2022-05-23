@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @Controller
 public class FriendshipController {
@@ -30,7 +29,7 @@ public class FriendshipController {
     @PostMapping("/addFriend")
     public String addFriend(@RequestParam("id") String id, HttpSession session, HttpServletRequest request){
         if (session.getAttribute("loginUser") == null) {
-            session.setAttribute("error", "请先登录");
+            session.setAttribute("error", "please log in first");
             return "redirect:/login";
         }
         Friendship friendship = new Friendship();
@@ -39,7 +38,7 @@ public class FriendshipController {
         friendship.setFriendId(Long.valueOf(id));
         friendshipService.save(friendship);
         String referer = request.getHeader("Referer");
-        // 删除redis中的缓存
+        // delete cache in redis
         redisService.del("User:friendship:user_id:".concat(String.valueOf(user.getId())));
         redisService.del("User:friendship:user_id:".concat(id));
         return "redirect:" + referer;
@@ -64,7 +63,7 @@ public class FriendshipController {
     @GetMapping("/friends/u/{currentPage}")
     public String friends(HttpSession session, HttpServletRequest request, Model model, @PathVariable Long currentPage){
         if (session.getAttribute("loginUser") == null) {
-            session.setAttribute("error", "请先登录");
+            session.setAttribute("error", "please log in first");
             return "redirect:/login";
         }
         User user = (User) session.getAttribute("loginUser");

@@ -39,7 +39,7 @@
                 <div class="info">
                     <div class="name"><a th:href="@{'/user/'+${chatUser.id}}" th:text="${chatUser.name}"></a></div>
                     <div class="sign">
-                        <p th:if="${emotion}==null">这个人很懒，什么都没有留下</p>
+                        <p th:if="${emotion}==null">The man is lazy and has nothing to say!</p>
                         <p th:unless="${emotion}==null" th:text="${emotion.content}"></p>
                     </div>
                 </div>
