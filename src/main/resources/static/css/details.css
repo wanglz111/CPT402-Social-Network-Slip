@@ -148,10 +148,6 @@ body {
     border-radius: 5px;
 }
 
-.left .topic-content p {
-    text-indent: 2em;
-}
-
 .left .topic-content span {
     float: right;
     font-size: 14px;

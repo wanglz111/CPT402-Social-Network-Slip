@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>[[${status}]]</title>
+    <link rel="stylesheet" th:href="@{/css/404.css}">
+</head>
+<body>
+    <div class="box">
+        <div class="tips">
+            <p>error</p>
+            <p th:text="${status}"></p>
+        </div>
+        <div class="pin"></div>
+    </div>
+    <div class="tips2" th:text="${error}">
+    </div>
+    <div class="tips3">
+        <a th:href="@{/}">Home</a>
+    </div>
+</body>
+</html>

@@ -57,7 +57,7 @@
                 <div class="comment-header">
                     <div class="comment-count">
                         <span>[[${commentCount}]] comments</span>
-                        <span>· [[${localTime}]] +08:00</span>
+                        <span>·&nbsp;Now:&nbsp;[[${localTime}]]</span>
                     </div>
                 </div>
                 <div th:each="comment,status:${comments}">
@@ -80,7 +80,7 @@
             <div class="create-reply" th:if="${session['loginUser']}">
                 <form th:action="@{/addComment}" method="post">
                     <div class="sep10"></div>
-                    <label for="reply-content">请文明发言</label><textarea name="replyContent" id="reply-content"></textarea>
+                    <label for="reply-content">Please comment civilly</label><textarea name="replyContent" id="reply-content"></textarea>
                     <input type="hidden" name="topicId" th:value="${topic.id}">
                     <input type="hidden" name="userId" th:value="${session.loginUser.id}">
                     <input class="button" value='Submit' type='submit' th:if="${session['loginUser']}">
