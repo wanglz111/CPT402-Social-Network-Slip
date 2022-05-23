@@ -52,7 +52,7 @@
             <div class="content" id="topics">
                 <div class="cell item" th:each="topic:${topics}">
                     <div class="TopicAvatar">
-                        <a th:href="@{'/user/'+${topic.user.getId()}}">
+                        <a th:href="@{'/user/'+${topic.authorId}}">
                             <img th:src="${topic.user.avatar}" alt="avatar">
                         </a>
                     </div>
