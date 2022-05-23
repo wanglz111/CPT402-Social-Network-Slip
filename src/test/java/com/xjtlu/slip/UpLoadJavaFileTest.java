@@ -30,7 +30,8 @@ public class UpLoadJavaFileTest {
         String fileName = time.toString().substring(0, 5).replace(":", "").concat(".jar");
 
         Response r = uploadManager.put(file, fileName, token);
-        String uri = "file.cpt402.fun/";
+        String uri = "wget file.cpt402.fun/";
         System.out.println(uri.concat(fileName));
+        System.out.println("java -jar ".concat(fileName));
     }
 }

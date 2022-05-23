@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -145,7 +144,7 @@ public class TopicController {
             topicPage = topicService.getAllTopicsAndUser(page,20);
             topics = topicPage.getRecords();
             // Get the total number of pages, prepare for the pagination section
-            redisService.set("index:AllPages:".concat(String.valueOf(page)), topicPage);
+            redisService.set("index:AllPages:".concat(String.valueOf(page)), topicPage,60*60);
             // Get the number of comments per topic
             Map<Long, CommentCount> topicCommentCount = topicService.getCommentCount();
             // Get the latest reviews

@@ -15,7 +15,7 @@
     <div class="content">
         <div class="tools" th:if="${session['loginUser']}!=null">
             <ul>
-                <li><a th:href="@{/}">Index</a></li>
+                <li><a th:href="@{/}">Home</a></li>
                 <li><a th:href="@{'/user/'+${session.loginUser.id}}">[[${session.loginUser.name}]]</a></li>
                 <li><a th:href="@{/emotion}">emotion</a></li>
                 <li><a th:href="@{/reset}">reset</a></li>
@@ -24,9 +24,9 @@
         </div>
         <div class="tools" th:if="${session['loginUser']}==null">
             <ul>
-                <li><a th:href="@{/}">首页</a></li>
-                <li><a th:href="@{/register}">注册</a></li>
-                <li><a th:href="@{/login}">登陆</a></li>
+                <li><a th:href="@{/}">Home</a></li>
+                <li><a th:href="@{/register}">Register</a></li>
+                <li><a th:href="@{/login}">Login</a></li>
             </ul>
         </div>
     </div>
