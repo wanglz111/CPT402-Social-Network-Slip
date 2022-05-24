@@ -186,7 +186,7 @@ public class TestSql {
             String password = user.getPassword();
             user.setPassword(MD5.create().digestHex(password));
         });
-        userService.updateBatchById(users);
+        // userService.updateBatchById(users);
     }
 
     @Test
