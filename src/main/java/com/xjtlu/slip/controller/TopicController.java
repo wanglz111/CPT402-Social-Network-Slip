@@ -132,7 +132,7 @@ public class TopicController {
     public String topic(Model model, @PathVariable @DefaultValue("1") Integer page, HttpSession session) {
         List<Topic> topics = null;
         Page<Topic> topicPage = null;
-        if (redisService.get("index:topicInfo:page:".concat(String.valueOf(page))) != null) {
+        if (redisService.get("index:topicInfo:page:".concat(String.valueOf(page))) != null && redisService.get("index:AllPages:".concat(String.valueOf(page))) != null) {
             try {
                 topics = (List<Topic>) redisService.get("index:topicInfo:page:".concat(String.valueOf(page)));
                 topicPage = (Page<Topic>) redisService.get("index:AllPages:".concat(String.valueOf(page)));
@@ -181,7 +181,7 @@ public class TopicController {
                     topic.setLatestReplyUser(user);
                 }
             });
-            redisService.set("index:topicInfo:page:".concat(String.valueOf(page)), topics);
+            redisService.set("index:topicInfo:page:".concat(String.valueOf(page)), topics, 60*60);
         }
 
         // If there is user information in the session, get the user's emotion information
