@@ -206,7 +206,8 @@ public class TopicController {
             emotions.forEach(emotion -> emotion.setTime(TimeFormat.format(emotion.getCreateTime())));
             // Get emotion related information
             model.addAttribute("emotions", emotions);
-            model.addAttribute("emotionCount", emotions.size());
+            Integer emotionCount = emotionService.getByUserId(user.getId()).size();
+            model.addAttribute("emotionCount", emotionCount);
             if (redisService.get("User:topicCount:user_id:".concat(String.valueOf(user.getId()))) != null) {
                 try {
                     topicCount = (Integer) redisService.get("User:topicCount:user_id:".concat(String.valueOf(user.getId())));
@@ -298,7 +299,8 @@ public class TopicController {
             emotions.forEach(emotion -> emotion.setTime(TimeFormat.format(emotion.getCreateTime())));
             //获取emotion相关信息
             model.addAttribute("emotions", emotions);
-            model.addAttribute("emotionCount", emotions.size());
+            Integer emotionCount = emotionService.getByUserId(user.getId()).size();
+            model.addAttribute("emotionCount", emotionCount);
             if (redisService.get("User:topicCount:user_id:".concat(String.valueOf(user.getId()))) != null) {
                 try {
                     topicCount = (Integer) redisService.get("User:topicCount:user_id:".concat(String.valueOf(user.getId())));

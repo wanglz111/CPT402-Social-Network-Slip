@@ -192,7 +192,7 @@ public class TestSql {
     @Test
     public void updateTopicCommentCount() {
         QueryWrapper<Topic> queryWrapper = new QueryWrapper<>();
-        Page<Topic> page = new Page<>(1, 166);
+        Page<Topic> page = new Page<>(1, 176);
         queryWrapper.orderByDesc("latest_comment_unix_time");
         IPage<Topic> result = topicMapper.getAllTopicsAndAllComments(page, queryWrapper);
         List<Topic> records = result.getRecords();
@@ -201,6 +201,12 @@ public class TestSql {
             topic.setComment(commentCount);
             topicMapper.updateById(topic);
         });
+    }
+
+    @Test
+    public void updateTopicCommentCount1() {
+        Topic topic = topicMapper.selectById(123L);
+        System.out.println(topic);
     }
 
     @Test
