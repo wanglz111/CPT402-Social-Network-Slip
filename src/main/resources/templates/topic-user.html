@@ -51,26 +51,26 @@
         </div>
         <div class="page-no">
             <ul>
-                <!-- 首页 -->
+                <!-- Home -->
                 <li>
-                    <a th:href="@{/topic/u/1}">首页</a>
+                    <a th:href="@{/topic/u/1}">Home</a>
                 </li>
-                <!-- 上一页 -->
+                <!-- Previous -->
                 <li th:if="${page.hasPrevious()}">
-                    <a th:href="@{'/topic/u/' + ${page.getCurrent()-1}}" th:text="上一页"></a>
+                    <a th:href="@{'/topic/u/' + ${page.getCurrent()-1}}" th:text="Previous"></a>
                 </li>
                 <!-- 中间页 -->
                 <li th:each="pageNum:${#numbers.sequence( page.getCurrent() , T(java.lang.Math).min(page.getCurrent()+4, page.getPages()))}">
                     <a th:href="@{'/topic/u/' + ${pageNum}}" th:text="${pageNum}" th:if="${pageNum ne page.getCurrent()}"></a>
                     <a th:href="@{'/topic/u/' + ${pageNum}}" th:text="${pageNum}" th:if="${pageNum eq page.getCurrent()}" class="active"></a>
                 </li>
-                <!-- 下一页 -->
+                <!-- Next -->
                 <li th:if="${page.hasNext()}">
-                    <a th:href="@{'/topic/u/' + ${page.getCurrent()+1}}" th:text="下一页"></a>
+                    <a th:href="@{'/topic/u/' + ${page.getCurrent()+1}}" th:text="Next"></a>
                 </li>
-                <!-- 尾页 -->
+                <!-- Last -->
                 <li>
-                    <a th:href="@{'/topic/u/' + ${page.getPages()}}">尾页</a>
+                    <a th:href="@{'/topic/u/' + ${page.getPages()}}">Last</a>
                 </li>
             </ul>
         </div>
