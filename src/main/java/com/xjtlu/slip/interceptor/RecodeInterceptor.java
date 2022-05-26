@@ -2,6 +2,7 @@ package com.xjtlu.slip.interceptor;
 
 
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Configuration;
@@ -23,8 +24,12 @@ public class RecodeInterceptor implements HandlerInterceptor {
     StringRedisTemplate redisTemplate;
 
     @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+    public void afterCompletion(HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler, Exception ex) throws Exception {
         // for every request, we set a record in redis.
-        redisTemplate.opsForValue().increment(request.getRequestURI());
+        String URI = request.getRequestURI();
+        if (URI.contains("jsessionid")) {
+            URI = URI.split(";")[0];
+        }
+        redisTemplate.opsForValue().increment(URI);
     }
 }
