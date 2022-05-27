@@ -4,7 +4,7 @@
 
 ### Description : This project is to build a social network website.
 
-### Author : [wlz](https://www.github.com/wanglz111), ysm, yzh, xrx
+### Author : [wlz](https://www.github.com/wanglz111)
 | Name | Email |
 | ---- | ----- |
 | [wlz](https://www.github.com/wanglz111) | [lucas.wang21@foxmail.com](mailto:lucas.wang21@foxmail.com) |
@@ -32,34 +32,49 @@
 > - [x] Validate Arguments
 > - [x] Upload Avatar
 - [x] Index Web
-> - [ ] ChangePassword
+> - [x] ChangePassword
 - [x] Topic Web
-> - [ ] Create Topic
-> - [ ] Delete Topic
-> - [ ] Update Topic
-> - [ ] Comment Topic
+> - [x] Create Topic
+> - [ ] ~~Delete Topic~~
+> - [x] Update Topic
+> - [x] Comment Topic
 - [x] Emotion Web
 > - [x] Add Emotion
 > - [x] Delete Emotion
-- [ ] Search Web
-> - [ ] Search User
-> - [ ] Search Topic
-> - [ ] Search Emotion
-> - [ ] Search Comment
-> - [ ] Search Message
-- [ ] Friend Web
-> - [ ] Add Friend
-> - [ ] Delete Friend
-> - [ ] Search Friend
-> - [ ] Search Friend Request
-- [ ] Message Web
-> - [ ] Send Message
-> - [ ] Delete Message
-- [ ] CSS/JS
-- [ ] Database
+- [x] Friend Web
+> - [x] Add Friend
+> - [x] Delete Friend
+> - [x] Search Friend
+- [x] Message Web
+> - [x] Send Message
+- [x] CSS/JS
+- [x] Database
 > - [x] Create User Database
-> - [ ] Create Friend Database
+> - [x] Create Friend Database
 > - [x] Create Message Database
 > - [x] Create Topic Database
 > - [x] Create Comment Database
 > - [x] Create Emotion Database
+
+---
+
+## Next Arrangements:
+
+### modify the front-end:
+
+1. learn ajax;
+2. learn jquery;
+3. learn vue or react;
+> try to use vue or react to build the front-end
+
+### implement more features:
+
+1. learn springboot security;
+2. learn springboot cloud and distributed services;
+3. learn message queue;
+
+> try to use go or nodejs or python to build the back-end
+
+---
+
+## next update time will on 6.10 when I finish other exam
