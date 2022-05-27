@@ -3,10 +3,8 @@ package com.xjtlu.slip.interceptor;
 import com.xjtlu.slip.pojo.User;
 import com.xjtlu.slip.service.RedisService;
 import com.xjtlu.slip.utils.CookieUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.annotation.Resource;
@@ -23,7 +21,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     private RedisService redisService;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
+    public boolean preHandle(HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler){
         //1. If there is user information in the session, let it go
         //2. If there is no user information in the session, judge whether there is user information in the cookie, and if so, let it go
         //3. If there is no user information in the cookie, the release will be handed over to the front-end for processing.
