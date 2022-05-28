@@ -77,4 +77,4 @@
 
 ---
 
-## next update time will on 6.10 when I finish other exam
+## next update time will on 6.10 when I finish other exams.
